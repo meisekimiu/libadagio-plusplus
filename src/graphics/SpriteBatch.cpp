@@ -41,6 +41,7 @@ namespace Adagio {
     }
 
     void SpriteBatch::addToRenderingQueue(RenderState *r) {
+        // TODO: use std::priority_queue instead
         auto it = std::upper_bound(renderingQueue.begin(), renderingQueue.end(), r,
                                    [](RenderState *left, RenderState *right) {
                                        return (*left) < (*right);
