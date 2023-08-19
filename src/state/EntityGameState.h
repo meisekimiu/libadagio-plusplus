@@ -22,6 +22,8 @@ namespace Adagio {
 
     protected:
         entt::registry registry;
+        
+    private:
         std::vector<SystemFn> systems;
         std::vector<RendererFn> renderers;
     };
