@@ -31,6 +31,8 @@ namespace Adagio {
         void popFinalState();
 
         SpriteBatch *spriteBatch;
+
+        void checkGameStats(const GameStats *stats);
     };
 }
 

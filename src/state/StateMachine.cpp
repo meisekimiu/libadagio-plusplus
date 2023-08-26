@@ -1,17 +1,23 @@
 #include "StateMachine.h"
+#include <stdexcept>
 
 namespace Adagio {
     StateMachine::StateMachine(SpriteBatch *sb) {
+        if (!sb) {
+            throw std::invalid_argument("SpriteBatch must not be null.");
+        }
         spriteBatch = sb;
     }
 
     void StateMachine::update(GameStats *stats) {
+        checkGameStats(stats);
         if (!states.empty()) {
             states.back()->update(*stats, this);
         }
     }
 
     void StateMachine::draw(const GameStats *stats) {
+        checkGameStats(stats);
         for (auto it = states.rbegin(); it != states.rend(); ++it) {
             GameState *state = *it;
             state->draw(*spriteBatch, *stats);
@@ -41,6 +47,9 @@ namespace Adagio {
     }
 
     void StateMachine::addStateToVector(GameState *state) {
+        if (!state) {
+            throw std::invalid_argument("GameState must not be null");
+        }
         state->init();
         state->loadContent(*spriteBatch);
         states.push_back(state);
@@ -55,7 +64,13 @@ namespace Adagio {
         }
     }
 
+    void StateMachine::checkGameStats(const GameStats *stats) {
+        if (!stats) {
+            throw std::invalid_argument("GameStats must not be null");
+        }
+    }
+
     void GameState::update(GameStats &stats, StateMachine *gameStates) {
-        
+
     }
 }
