@@ -3,28 +3,11 @@
 #include "../graphics/MockGraphicsDevice.h"
 #include "../../src/state/StateMachine.h"
 #include "mocks/EmptyGameState.h"
+#include "mocks/MockStats.h"
 
-MockGraphicsDevice graphicsDevice;
-Adagio::SpriteBatch spriteBatch(&graphicsDevice);
+static MockGraphicsDevice graphicsDevice;
+static Adagio::SpriteBatch spriteBatch(&graphicsDevice);
 
-class MockStats : public Adagio::GameStats {
-public:
-    [[nodiscard]] double getGameTime() const override {
-        return 0.0;
-    }
-
-    [[nodiscard]] float getFrameDelta() const override {
-        return 1.0;
-    }
-
-    [[nodiscard]] bool isRunning() const override {
-        return true;
-    }
-
-    void closeGame() override {
-        // do nothing
-    }
-};
 
 TEST_CASE("StateMachine exists", "[StateMachine]") {
     Adagio::StateMachine stateMachine(&spriteBatch);

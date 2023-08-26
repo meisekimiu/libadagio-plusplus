@@ -22,7 +22,11 @@ namespace Adagio {
 
     protected:
         entt::registry registry;
-        
+
+        [[nodiscard]] const std::vector<SystemFn> *getSystems() const;
+
+        [[nodiscard]] const std::vector<RendererFn> *getRenderers() const;
+
     private:
         std::vector<SystemFn> systems;
         std::vector<RendererFn> renderers;
