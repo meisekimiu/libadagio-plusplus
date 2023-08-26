@@ -23,6 +23,8 @@ namespace Adagio {
 
         Color clearColor{0, 0, 0, 255};
 
+        static int queueReservation;
+
     protected:
         std::vector<RenderState *> renderingQueue;
         RenderPool<SpriteState> spritePool;

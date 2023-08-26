@@ -3,8 +3,10 @@
 #include <algorithm>
 
 namespace Adagio {
+    int SpriteBatch::queueReservation = 64;
+
     SpriteBatch::SpriteBatch() {
-        renderingQueue.reserve(64);
+        renderingQueue.reserve(SpriteBatch::queueReservation);
     }
 
     void SpriteBatch::begin() {
