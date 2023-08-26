@@ -19,7 +19,9 @@ namespace Adagio {
 
         SpriteState(Texture2D &tex, const Vector2 &position, signed short int zIndex);
 
-        void draw() const override;
+        void draw(GraphicsDevice *graphicsDevice) const override;
+
+        ~SpriteState() override;
     };
 
 } // Adagio

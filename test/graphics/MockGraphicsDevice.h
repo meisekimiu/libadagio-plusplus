@@ -3,18 +3,27 @@
 
 #include <vector>
 #include "../../src/graphics/GraphicsDevice.h"
+#include "../../src/graphics/SpriteState.h"
+#include "../../src/graphics/TextState.h"
 
 class MockGraphicsDevice : public Adagio::GraphicsDevice {
 public:
     MockGraphicsDevice();
 
+    ~MockGraphicsDevice();
+
     void begin() override;
 
     void end() override;
 
-    void drawTexture(Adagio::SpriteState *sprite) override;
+    void setClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) override;
 
-    void drawText(Adagio::TextState *text) override;
+    void
+    drawTexture(Texture &texture, const Rectangle &source, const Rectangle &dest, const Vector2 &origin, float rotation,
+                const Color &tint) override;
+
+    void drawText(Font &font, const char *text, const Vector2 &position, float fontSize, float spacing,
+                  const Color &tint) override;
 
     std::vector<Adagio::RenderState *> *getDrawnObjects();
 
@@ -22,9 +31,13 @@ public:
 
     [[nodiscard]] bool hasEnded() const;
 
+    [[nodiscard]] Color getClearColor() const;
+
     [[nodiscard]] Adagio::SpriteState *getDrawnSprite() const;
 
     [[nodiscard]] Adagio::TextState *getDrawnText() const;
+
+    void reset();
 
 
 protected:
@@ -33,6 +46,7 @@ protected:
     Adagio::SpriteState *drawnSprite;
     Adagio::TextState *drawnText;
     std::vector<Adagio::RenderState *> drawnObjects;
+    Color clearColor;
 };
 
 

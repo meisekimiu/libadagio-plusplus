@@ -2,6 +2,7 @@
 #define GL_ADAGIO_SPRITEBATCH_H
 
 #include <raylib.h>
+#include "GraphicsDevice.h"
 #include "RenderPool.h"
 #include "SpriteState.h"
 #include "TextState.h"
@@ -10,7 +11,9 @@ namespace Adagio {
 
     class SpriteBatch {
     public:
-        SpriteBatch();
+        explicit SpriteBatch(GraphicsDevice *graphics);
+
+        void setClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
         SpriteState *draw(Texture2D &texture, const Vector2 &pos, short int zIndex = 0);
 
@@ -20,9 +23,7 @@ namespace Adagio {
         void begin();
 
         void end();
-
-        Color clearColor{0, 0, 0, 255};
-
+        
         static int queueReservation;
 
     protected:
@@ -30,6 +31,7 @@ namespace Adagio {
         RenderPool<SpriteState> spritePool;
         RenderPool<TextState> textPool;
 //        RenderPool<RectState> rectPool;
+        GraphicsDevice *graphicsDevice;
 
         void addToRenderingQueue(RenderState *r);
     };

@@ -13,7 +13,9 @@ namespace Adagio {
         Vector2 position{0, 0};
         Color tint{255, 255, 255, 255};
 
-        void draw() const override;
+        void draw(GraphicsDevice *graphicsDevice) const override;
+
+        ~TextState() override;
     };
 }
 #endif //GL_ADAGIO_TEXTSTATE_H

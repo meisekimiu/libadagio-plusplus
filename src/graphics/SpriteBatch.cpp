@@ -5,24 +5,31 @@
 namespace Adagio {
     int SpriteBatch::queueReservation = 64;
 
-    SpriteBatch::SpriteBatch() {
+    SpriteBatch::SpriteBatch(GraphicsDevice *gd) {
+        graphicsDevice = gd;
         renderingQueue.reserve(SpriteBatch::queueReservation);
     }
 
     void SpriteBatch::begin() {
-        BeginDrawing();
+        graphicsDevice->begin();
+//        BeginDrawing();
         renderingQueue.clear();
-        ClearBackground(clearColor);
+//        ClearBackground(clearColor);
         spritePool.begin();
         textPool.begin();
     }
 
     void SpriteBatch::end() {
         for (auto r: renderingQueue) {
-            r->draw();
+            r->draw(graphicsDevice);
             r->active = false;
         }
-        EndDrawing();
+//        EndDrawing();
+        graphicsDevice->end();
+    }
+
+    void SpriteBatch::setClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
+        graphicsDevice->setClearColor(r, g, b, a);
     }
 
     SpriteState *SpriteBatch::draw(Texture2D &texture, const Vector2 &pos, short int zIndex) {

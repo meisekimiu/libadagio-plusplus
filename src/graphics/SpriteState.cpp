@@ -16,10 +16,14 @@ namespace Adagio {
         opacity = 255;
     }
 
-    void SpriteState::draw() const {
+    void SpriteState::draw(GraphicsDevice *graphicsDevice) const {
         const auto alpha = opacity == 255 ? tint.a : opacity;
         if (active && texture) {
-            DrawTexturePro(*texture, source, destination, origin, rotation, {tint.r, tint.g, tint.b, alpha});
+            graphicsDevice->drawTexture(*texture, source, destination, origin, rotation,
+                                        {tint.r, tint.g, tint.b, alpha});
+//            DrawTexturePro(*texture, source, destination, origin, rotation, {tint.r, tint.g, tint.b, alpha});
         }
     }
+
+    SpriteState::~SpriteState() = default;
 } // Adagio
