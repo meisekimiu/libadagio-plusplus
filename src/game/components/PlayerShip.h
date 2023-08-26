@@ -10,6 +10,7 @@ struct PlayerShip {
      *  Powerup State
      */
     Vector2 velocity;
+    Texture2D *wallopTexture; // TODO: no
 };
 
 #endif //GL_ADAGIO_PLAYERSHIP_H

@@ -1,6 +1,10 @@
 #include "ship.h"
+#include "../components/Dead.h"
 #include "../components/Position.h"
 #include "../components/PlayerShip.h"
+#include "../components/UserProjectile.h"
+#include "../components/WallopRenderer.h"
+#include <iostream>
 
 float lowerVelocity(float v);
 
@@ -25,6 +29,12 @@ void ShipSystem(entt::registry &registry, Adagio::GameStats &stats, Adagio::Stat
         }
         if (IsKeyDown(KEY_DOWN)) {
             ship.velocity.y = speed;
+        }
+        if (IsKeyPressed(KEY_SPACE)) {
+            const auto wallop = registry.create();
+            registry.emplace<UserProjectile>(wallop, 6);
+            registry.emplace<WallopRenderer>(wallop, ship.wallopTexture, 0, 0);
+            registry.emplace<Position>(wallop, Vector2{pos.position.x + 27 - 16, pos.position.y});
         }
         ship.velocity = normalizeVelocity(ship.velocity, speed);
         pos.position.x += ship.velocity.x;

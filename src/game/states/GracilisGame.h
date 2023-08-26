@@ -13,6 +13,7 @@ public:
 
 private:
     Texture2D shipTex;
+    Texture2D wallopTex;
 };
 
 
