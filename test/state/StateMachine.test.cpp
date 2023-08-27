@@ -107,6 +107,22 @@ TEST_CASE("A StateMachine with two states", "[StateMachine]") {
         REQUIRE(state2.calledDraw());
         REQUIRE(state.calledDraw());
     }
+
+    SECTION("It unloads the state on destruction") {
+        auto *sm = new Adagio::StateMachine(&spriteBatch);
+        state.reset();
+        state2.reset();
+        sm->pushState(&state);
+        sm->pushState(&state2);
+        delete sm;
+        REQUIRE(state.calledUnloadContent());
+        REQUIRE(state2.calledUnloadContent());
+        REQUIRE(state.calledCleanup());
+        REQUIRE(state2.calledCleanup());
+        REQUIRE_FALSE(state.calledResume());
+        REQUIRE_FALSE(state2.calledResume());
+    }
+
 }
 
 TEST_CASE("Degenerate StateMachine cases", "[StateMachine]") {

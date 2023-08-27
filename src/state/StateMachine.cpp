@@ -70,6 +70,12 @@ namespace Adagio {
         }
     }
 
+    StateMachine::~StateMachine() {
+        while (!states.empty()) {
+            popFinalState();
+        }
+    }
+
     void GameState::update(GameStats &stats, StateMachine *gameStates) {
 
     }

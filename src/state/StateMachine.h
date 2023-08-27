@@ -12,6 +12,8 @@ namespace Adagio {
     public:
         explicit StateMachine(SpriteBatch *spriteBatch);
 
+        ~StateMachine();
+
         void update(GameStats *stats);
 
         void draw(const GameStats *stats);
