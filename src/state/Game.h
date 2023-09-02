@@ -11,6 +11,8 @@ namespace Adagio {
         SpriteBatch spriteBatch;
         StateMachine stateMachine = StateMachine(&spriteBatch);
 
+        explicit Game(SpriteBatch sb);
+
         void update();
 
         void draw();

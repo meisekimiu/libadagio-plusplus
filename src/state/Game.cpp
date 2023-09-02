@@ -1,6 +1,11 @@
 #include "Game.h"
 
+#include <utility>
+
 namespace Adagio {
+    Game::Game(SpriteBatch spriteBatch) : spriteBatch(std::move(spriteBatch)) {
+    }
+
     void Game::update() {
         frameDelta = GetFrameTime();
         gameTime = GetTime();
@@ -40,4 +45,6 @@ namespace Adagio {
     void Game::unloadContent() {
 
     }
+
+
 }
