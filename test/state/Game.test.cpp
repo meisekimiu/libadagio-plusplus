@@ -2,33 +2,7 @@
 #include "../../src/state/Game.h"
 #include "../graphics/MockGraphicsDevice.h"
 #include "mocks/EmptyGameState.h"
-
-class TestGame : public Adagio::Game {
-public:
-    explicit TestGame(Adagio::SpriteBatch sb) : Adagio::Game(sb) {}
-
-    void init() override {
-        calledInit = true;
-    }
-
-    void loadContent() override {
-        calledLoadContent = true;
-    }
-
-    void unloadContent() override {
-        calledUnloadContent = true;
-    }
-
-
-    void cleanup() override {
-        calledCleanup = true;
-    }
-
-    bool calledInit{false};
-    bool calledLoadContent{false};
-    bool calledCleanup{false};
-    bool calledUnloadContent{false};
-};
+#include "mocks/TestGame.h"
 
 static MockGraphicsDevice graphicsDevice;
 static Adagio::SpriteBatch spriteBatch(&graphicsDevice);

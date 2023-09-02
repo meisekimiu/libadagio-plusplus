@@ -13,6 +13,8 @@ namespace Adagio {
     protected:
         Game *game;
         GameState *initialState;
+
+        virtual bool shouldCloseGame();
     };
 }
 
