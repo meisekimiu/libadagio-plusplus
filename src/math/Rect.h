@@ -44,6 +44,11 @@ namespace Adagio {
 
         void correctNegativeValues(T &sizeVal, T &positionVal);
     };
+
+    typedef Rect<int> RectI;
+    typedef Rect<unsigned int> RectU;
+    typedef Rect<float> RectF;
+    typedef Rect<double> RectD;
 }
 
 #include "Rect-impl.hpp"
