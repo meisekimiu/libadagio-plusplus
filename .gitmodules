@@ -1,0 +1,9 @@
+[submodule "third_party/Catch2"]
+    path = third_party/Catch2
+    url = https://github.com/catchorg/Catch2.git
+    branch = v2.x
+
+[submodule "third_party/entt"]
+    path = third_party/entt
+    url = https://github.com/skypjack/entt
+    branch = v3.13.x

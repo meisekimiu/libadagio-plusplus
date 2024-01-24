@@ -10,13 +10,28 @@ file(GLOB_RECURSE TESTS "${CMAKE_SOURCE_DIR}/src/math/*.cpp" "${CMAKE_SOURCE_DIR
         "${CMAKE_SOURCE_DIR}/test/*.cpp")
 file(COPY "${CMAKE_SOURCE_DIR}/assets" DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
-add_executable(game ${SOURCES})
-target_link_libraries(game raylib)
-include_directories(/usr/include/entt)
+# Raylib include
+# This is temporary; eventually raylib will not be included in this engine
+# Ideally we would use git submodules like we're using with Catch, but... again, this is just a
+# stopover until we have fully removed raylib from the equation.
+# This is sourced from: https://github.com/SasLuca/raylib-cmake-template/blob/master/CMakeLists.txt
+include(FetchContent)
+set(FETCHCONTENT_QUIET FALSE)
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
+set(BUILD_GAMES OFF CACHE BOOL "" FORCE) # don't build the supplied example games
 
-add_executable(game_test ${TESTS})
-find_package(Catch2 REQUIRED)
-target_link_libraries(game_test Catch2::Catch2 raylib)
-include(CTest)
-include(Catch)
-catch_discover_tests(game_test)
+FetchContent_Declare(
+        raylib
+        GIT_REPOSITORY "https://github.com/raysan5/raylib.git"
+        GIT_TAG "master"
+        GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(raylib)
+
+add_executable(adagio ${SOURCES})
+target_link_libraries(adagio raylib)
+include_directories(third_party/entt)
+
+add_subdirectory(third_party/Catch2)
+add_executable(adagio_test ${TESTS})
+target_link_libraries(adagio_test PRIVATE Catch2::Catch2 raylib)
