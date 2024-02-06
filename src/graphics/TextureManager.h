@@ -2,19 +2,11 @@
 #define GL_ADAGIO_TEXTUREMANAGER_H
 
 #include <string>
-#include <vector>
-#include <unordered_map>
-#include "TextureLoader.h"
 #include "Texture2D.h"
+#include "TextureLoader.h"
+#include "../resource/ResourceLibrary.h"
 
 namespace Adagio {
-    template<typename T>
-    struct TextureWithSecret {
-        TextureHandle secret;
-        TextureDimensions dimensions;
-        T texture;
-    };
-
     template<typename T>
     class TextureManager {
     public:
@@ -27,12 +19,7 @@ namespace Adagio {
         T useTexture(Texture2D texture);
 
     private:
-        TextureLoader<T> *textureLoader;
-        std::vector<TextureWithSecret<T>> textureLibrary;
-        std::vector<TextureHandle> freeHandles;
-        std::unordered_map<std::string, TextureHandle> loadedFilenames;
-
-        TextureHandle nextSecret;
+        ResourceLibrary<T, TextureDimensions, TextureHandle> library;
     };
 }
 
