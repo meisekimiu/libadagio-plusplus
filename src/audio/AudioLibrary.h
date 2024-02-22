@@ -31,6 +31,14 @@ namespace Adagio {
             return streamLibrary.useResource(stream);
         }
 
+        void unload(Sample &sample) {
+            sampleLibrary.unload(sample);
+        }
+
+        void unload(Stream &stream) {
+            streamLibrary.unload(stream);
+        }
+
     private:
         ResourceLibrary<SampleType, AudioMetadata, AudioHandle> sampleLibrary;
         ResourceLibrary<StreamType, AudioMetadata, AudioHandle> streamLibrary;

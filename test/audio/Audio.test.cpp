@@ -28,19 +28,27 @@ public:
 };
 
 struct TestingSampleLoader : public Adagio::AssetLoader<TestingSample, Adagio::AudioMetadata> {
+    bool unloaded{false};
+
     std::pair<TestingSample, Adagio::AudioMetadata> load(const char *resource) override {
         return std::make_pair(TestingSample{resource}, Adagio::AudioMetadata{1.0});
     }
 
-    void unload(TestingSample asset) override {}
+    void unload(TestingSample asset) override {
+        unloaded = true;
+    }
 };
 
 struct TestingStreamLoader : public Adagio::AssetLoader<TestingStream, Adagio::AudioMetadata> {
+    bool unloaded{false};
+
     std::pair<TestingStream, Adagio::AudioMetadata> load(const char *resource) override {
         return std::make_pair(TestingStream{resource}, Adagio::AudioMetadata{1.0});
     }
 
-    void unload(TestingStream asset) override {}
+    void unload(TestingStream asset) override {
+        unloaded = true;
+    }
 };
 
 TEST_CASE("AudioService", "[audio]") {
@@ -59,6 +67,11 @@ TEST_CASE("AudioService", "[audio]") {
             REQUIRE(audioDevice.playedSamples.size() == 1);
             REQUIRE(audioDevice.playedSamples[0] == "oof.wav");
         }
+
+        SECTION("AudioLibrary can unload a sample") {
+            audioLibrary.unload(sample);
+            REQUIRE(sampleLoader.unloaded);
+        }
     }
 
     SECTION("AudioLibrary can load in a stream") {
@@ -69,6 +82,11 @@ TEST_CASE("AudioService", "[audio]") {
             service.play(stream);
             REQUIRE(audioDevice.playedStreams.size() == 1);
             REQUIRE(audioDevice.playedStreams[0] == "doopeetime.ogg");
+        }
+
+        SECTION("AudioLibrary can unload a stream") {
+            audioLibrary.unload(stream);
+            REQUIRE(streamLoader.unloaded);
         }
     }
 }
