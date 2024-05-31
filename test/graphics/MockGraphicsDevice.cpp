@@ -21,19 +21,9 @@ bool MockGraphicsDevice::hasEnded() const {
     return ended;
 }
 
-void MockGraphicsDevice::setClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-    clearColor = {r, g, b, a};
+void MockGraphicsDevice::setClearColor(const Adagio::Color &color) {
+    clearColor = color;
 }
-
-//void MockGraphicsDevice::drawTexture(Adagio::SpriteState *sprite) {
-//    drawnObjects.push_back(sprite);
-//    drawnSprite = sprite;
-//}
-//
-//void MockGraphicsDevice::drawText(Adagio::TextState *text) {
-//    drawnObjects.push_back(text);
-//    drawnText = text;
-//}
 
 Adagio::SpriteState *MockGraphicsDevice::getDrawnSprite() const {
     return drawnSprite;
@@ -47,7 +37,7 @@ std::vector<Adagio::RenderState *> *MockGraphicsDevice::getDrawnObjects() {
     return &drawnObjects;
 }
 
-Color MockGraphicsDevice::getClearColor() const {
+Adagio::Color MockGraphicsDevice::getClearColor() const {
     return clearColor;
 }
 
@@ -56,7 +46,7 @@ void MockGraphicsDevice::reset() {
     ended = false;
     drawnText = nullptr;
     drawnSprite = nullptr;
-    clearColor = BLACK;
+    clearColor = {0, 0, 0, 255};
 
     for (auto obj: drawnObjects) {
         delete obj;
@@ -65,9 +55,8 @@ void MockGraphicsDevice::reset() {
 }
 
 void
-MockGraphicsDevice::drawTexture(Texture &texture, const Rectangle &source, const Rectangle &dest, const Vector2 &origin,
-                                float rotation,
-                                const Color &tint) {
+MockGraphicsDevice::drawTexture(Adagio::Texture2D &texture, const Adagio::RectF &source, const Adagio::RectF &dest,
+                                const Adagio::Vector2d &origin, float rotation, const Adagio::Color &tint) {
     auto sprite = new Adagio::SpriteState;
     sprite->texture = &texture;
     sprite->source = source;
@@ -84,8 +73,9 @@ MockGraphicsDevice::~MockGraphicsDevice() {
 }
 
 void
-MockGraphicsDevice::drawText(Font &font, const char *text, const Vector2 &position, float fontSize, float spacing,
-                             const Color &tint) {
+MockGraphicsDevice::drawText(Font &font, const char *text, const Adagio::Vector2d &position, float fontSize,
+                             float spacing,
+                             const Adagio::Color &tint) {
     auto txt = new Adagio::TextState;
     txt->font = &font;
     txt->text = text;

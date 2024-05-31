@@ -2,7 +2,9 @@
 #define GL_ADAGIO_SPRITESTATE_H
 
 #include "RenderState.h"
-#include "raylib.h"
+#include "Texture2D.h"
+#include "../math/Vector2.h"
+#include "../math/Rect.h"
 
 namespace Adagio {
 
@@ -10,14 +12,14 @@ namespace Adagio {
         unsigned char opacity{255};
         float rotation{0.0};
         Texture2D *texture{};
-        Rectangle source{};
-        Rectangle destination{};
-        Vector2 origin{};
+        RectF source{};
+        RectF destination{};
+        Vector2d origin{};
         Color tint{255, 255, 255, 255};
 
         SpriteState();
 
-        SpriteState(Texture2D &tex, const Vector2 &position, signed short int zIndex);
+        SpriteState(Texture2D &tex, const Vector2d &position, signed short int zIndex);
 
         void draw(GraphicsDevice *graphicsDevice) const override;
 

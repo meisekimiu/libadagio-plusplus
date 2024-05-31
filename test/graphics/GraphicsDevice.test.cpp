@@ -9,7 +9,7 @@ TEST_CASE("GraphicsDevice exists", "[GraphicsDevice]") {
     REQUIRE_FALSE(gd.hasEnded());
     REQUIRE_FALSE(gd.getDrawnSprite());
     REQUIRE_FALSE(gd.getDrawnText());
-    Color clearColor = gd.getClearColor();
+    Adagio::Color clearColor = gd.getClearColor();
     REQUIRE(clearColor.r == 0);
     REQUIRE(clearColor.g == 0);
     REQUIRE(clearColor.b == 0);
@@ -34,7 +34,7 @@ TEST_CASE("GraphicsDevice can end", "[GraphicsDevice]") {
 TEST_CASE("GraphicsDevice can draw a sprite", "[GraphicsDevice]") {
     MockGraphicsDevice mockGraphicsDevice;
     Adagio::GraphicsDevice *gd = &mockGraphicsDevice;
-    Texture2D tex;
+    Adagio::Texture2D tex(1, 1, 0, 0);
     Adagio::SpriteState sprite;
     sprite.texture = &tex;
     sprite.active = true;
@@ -63,8 +63,8 @@ TEST_CASE("MockGraphicsDevice registers renders in call order", "[GraphicsDevice
     Adagio::SpriteState sprite1;
     Adagio::SpriteState sprite2;
     Adagio::TextState text;
-    Texture2D tex;
-    Texture2D tex2;
+    Adagio::Texture2D tex(1, 1, 0, 0);
+    Adagio::Texture2D tex2(2, 2, 0, 0);
     sprite1.texture = &tex;
     sprite2.texture = &tex2;
     sprite1.active = true;
@@ -101,8 +101,8 @@ TEST_CASE("MockGraphicsDevice clears the drawnObjects list after begin()", "[Gra
 TEST_CASE("GraphicsDevice can set clear color", "[GraphicsDevice]") {
     MockGraphicsDevice mockGraphicsDevice;
     Adagio::GraphicsDevice *gd = &mockGraphicsDevice;
-    gd->setClearColor(1, 2, 3, 4);
-    Color clearColor = mockGraphicsDevice.getClearColor();
+    gd->setClearColor({1, 2, 3, 4});
+    Adagio::Color clearColor = mockGraphicsDevice.getClearColor();
     REQUIRE(clearColor.r == 1);
     REQUIRE(clearColor.g == 2);
     REQUIRE(clearColor.b == 3);

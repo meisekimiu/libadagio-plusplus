@@ -28,18 +28,18 @@ namespace Adagio {
         graphicsDevice->end();
     }
 
-    void SpriteBatch::setClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
-        graphicsDevice->setClearColor(r, g, b, a);
+    void SpriteBatch::setClearColor(const Adagio::Color &color) {
+        graphicsDevice->setClearColor(color);
     }
 
-    SpriteState *SpriteBatch::draw(Texture2D &texture, const Vector2 &pos, short int zIndex) {
+    SpriteState *SpriteBatch::draw(Texture2D &texture, const Vector2d &pos, short int zIndex) {
         auto *sprite = new(spritePool.getNext()) SpriteState(texture, pos, zIndex);
         sprite->active = true;
         addToRenderingQueue(static_cast<RenderState *>(sprite));
         return sprite;
     }
 
-    TextState *SpriteBatch::drawText(const char *text, const Vector2 &pos, short int zIndex) {
+    TextState *SpriteBatch::drawText(const char *text, const Vector2d &pos, short int zIndex) {
         auto *txt = new(textPool.getNext()) TextState();
         txt->text = text;
         txt->position = pos;

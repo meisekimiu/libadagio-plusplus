@@ -5,13 +5,13 @@ namespace Adagio {
         tint = WHITE;
     }
 
-    SpriteState::SpriteState(Texture2D &tex, const Vector2 &position, signed short int zIndex) {
+    SpriteState::SpriteState(Texture2D &tex, const Vector2d &position, signed short int zIndex) {
         texture = &tex;
         this->zIndex = zIndex;
-        const auto width = static_cast<float>(tex.width);
-        const auto height = static_cast<float>(tex.height);
+        const auto width = static_cast<float>(tex.getWidth());
+        const auto height = static_cast<float>(tex.getHeight());
         source = {0, 0, width, height};
-        destination = {position.x, position.y, width, height};
+        destination = {static_cast<float>(position.x), static_cast<float>(position.y), width, height};
         tint = WHITE;
         opacity = 255;
     }

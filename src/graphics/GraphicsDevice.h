@@ -1,6 +1,10 @@
 #ifndef GL_ADAGIO_GRAPHICSDEVICE_H
 #define GL_ADAGIO_GRAPHICSDEVICE_H
 
+#include "Color.h"
+#include "Texture2D.h"
+#include "../math/Vector2.h"
+#include "../math/Rect.h"
 #include <raylib.h>
 
 namespace Adagio {
@@ -11,16 +15,14 @@ namespace Adagio {
 
         virtual void end() = 0;
 
-        virtual void setClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) = 0;
+        virtual void setClearColor(const Adagio::Color &color) = 0;
 
-        virtual void
-        drawTexture(Texture &texture, const Rectangle &source, const Rectangle &dest, const Vector2 &origin,
-                    float rotation,
-                    const Color &tint) = 0;
+        virtual void drawTexture(Texture2D &texture, const RectF &source, const RectF &dest, const Vector2d &origin,
+                                 float rotation,
+                                 const Color &tint) = 0;
 
-        virtual void
-        drawText(Font &font, const char *text, const Vector2 &position, float fontSize, float spacing,
-                 const Color &tint) = 0;
+        virtual void drawText(Font &font, const char *text, const Vector2d &position, float fontSize, float spacing,
+                              const Color &tint) = 0;
     };
 
 } // Adagio

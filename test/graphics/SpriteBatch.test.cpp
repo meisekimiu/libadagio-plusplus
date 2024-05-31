@@ -37,11 +37,10 @@ TEST_CASE("SpriteBatch reserves a specific size in rendering queue", "[SpriteBat
 
 TEST_CASE("TestingSpriteBatch resets the GraphicsDevice", "[SpriteBatch]") {
     Adagio::SpriteState sprite;
-    gd.setClearColor(127, 127, 127, 127);
+    gd.setClearColor({127, 127, 127, 127});
     sprite.draw(&gd);
-//    gd.drawTexture(&sprite);
     TestingSpriteBatch sb(&gd);
-    Color clearColor = gd.getClearColor();
+    Adagio::Color clearColor = gd.getClearColor();
     REQUIRE(clearColor.r == 0);
     REQUIRE(clearColor.g == 0);
     REQUIRE(clearColor.b == 0);
@@ -66,8 +65,8 @@ TEST_CASE("SpriteBatch can call end", "[SpriteBatch]") {
 TEST_CASE("SpriteBatch can set clear color", "[SpriteBatch]") {
     TestingSpriteBatch testSb(&gd);
     Adagio::SpriteBatch *sb = &testSb;
-    sb->setClearColor(1, 2, 3, 4);
-    Color c = gd.getClearColor();
+    sb->setClearColor({1, 2, 3, 4});
+    Adagio::Color c = gd.getClearColor();
     REQUIRE(c.r == 1);
     REQUIRE(c.g == 2);
     REQUIRE(c.b == 3);
@@ -77,10 +76,10 @@ TEST_CASE("SpriteBatch can set clear color", "[SpriteBatch]") {
 TEST_CASE("SpriteBatch can generate a SpriteState", "[SpriteBatch]") {
     TestingSpriteBatch testSb(&gd);
     Adagio::SpriteBatch *sb = &testSb;
-    Texture2D texture;
+    Adagio::Texture2D texture(0, 0, 1, 1);
     auto sprite = sb->draw(texture, {42, 151}, 3);
-    REQUIRE(sprite->destination.x == 42);
-    REQUIRE(sprite->destination.y == 151);
+    REQUIRE(sprite->destination.x() == 42);
+    REQUIRE(sprite->destination.y() == 151);
     REQUIRE(sprite->zIndex == 3);
 }
 
@@ -98,7 +97,7 @@ TEST_CASE("SpriteBatch can generate a TextState", "[SpriteBatch]") {
 TEST_CASE("SpriteBatch renders things in order after calling end()", "[SpriteBatch]") {
     TestingSpriteBatch testSb(&gd);
     Adagio::SpriteBatch *sb = &testSb;
-    Texture2D texture;
+    Adagio::Texture2D texture(1, 1, 0, 0);
     sb->begin();
     sb->draw(texture, {0, 0});
     sb->drawText("Potato", {0, 0});
@@ -117,7 +116,7 @@ TEST_CASE("SpriteBatch renders things in order after calling end()", "[SpriteBat
 TEST_CASE("SpriteBatch sorts by z-order", "[SpriteBatch]") {
     TestingSpriteBatch testSb(&gd);
     Adagio::SpriteBatch *sb = &testSb;
-    Texture2D texture;
+    Adagio::Texture2D texture(1, 1, 0, 0);
     sb->begin();
     sb->draw(texture, {0, 0}, 2);
     sb->drawText("Potato", {0, 0}, 1);
@@ -135,7 +134,7 @@ TEST_CASE("SpriteBatch sorts by z-order", "[SpriteBatch]") {
 TEST_CASE("SpriteBatch preserves call order when z-indexes are equal", "[SpriteBatch]") {
     TestingSpriteBatch testSb(&gd);
     Adagio::SpriteBatch *sb = &testSb;
-    Texture2D texture;
+    Adagio::Texture2D texture(1, 1, 0, 0);
     sb->begin();
     sb->draw(texture, {0, 0}, 2);
     sb->drawText("Potato", {0, 0}, 1);
@@ -158,7 +157,7 @@ TEST_CASE("SpriteBatch pools SpriteState objects", "[SpriteBatch]") {
     Adagio::SpriteBatch *sb = &testSb;
     Adagio::SpriteState *spritePtr1;
     Adagio::SpriteState *spritePtr2;
-    Texture2D tex;
+    Adagio::Texture2D tex(1, 1, 0, 0);
     sb->begin();
     spritePtr1 = sb->draw(tex, {0, 0});
     sb->end();

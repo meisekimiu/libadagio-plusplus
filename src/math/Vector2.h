@@ -4,6 +4,7 @@
 #include <string>
 #include <ostream>
 #include <sstream>
+#include <cmath>
 
 namespace Adagio {
     template<typename T>

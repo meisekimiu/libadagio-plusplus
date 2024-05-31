@@ -16,14 +16,13 @@ public:
 
     void end() override;
 
-    void setClearColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) override;
+    void setClearColor(const Adagio::Color &color) override;
 
-    void
-    drawTexture(Texture &texture, const Rectangle &source, const Rectangle &dest, const Vector2 &origin, float rotation,
-                const Color &tint) override;
+    void drawTexture(Adagio::Texture2D &texture, const Adagio::RectF &source, const Adagio::RectF &dest,
+                     const Adagio::Vector2d &origin, float rotation, const Adagio::Color &tint) override;
 
-    void drawText(Font &font, const char *text, const Vector2 &position, float fontSize, float spacing,
-                  const Color &tint) override;
+    void drawText(Font &font, const char *text, const Adagio::Vector2d &position, float fontSize, float spacing,
+                  const Adagio::Color &tint) override;
 
     std::vector<Adagio::RenderState *> *getDrawnObjects();
 
@@ -31,7 +30,7 @@ public:
 
     [[nodiscard]] bool hasEnded() const;
 
-    [[nodiscard]] Color getClearColor() const;
+    [[nodiscard]] Adagio::Color getClearColor() const;
 
     [[nodiscard]] Adagio::SpriteState *getDrawnSprite() const;
 
@@ -46,7 +45,7 @@ protected:
     Adagio::SpriteState *drawnSprite;
     Adagio::TextState *drawnText;
     std::vector<Adagio::RenderState *> drawnObjects;
-    Color clearColor;
+    Adagio::Color clearColor;
 };
 
 
