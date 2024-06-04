@@ -87,6 +87,6 @@ MockGraphicsDevice::drawText(Font &font, const char *text, const Adagio::Vector2
     drawnObjects.push_back(txt);
 }
 
-Adagio::AbstractTextureManager *MockGraphicsDevice::getTextureManager() {
+Adagio::AbstractTextureManager *MockGraphicsDevice::getTextureManager() const {
     return nullptr;
 }

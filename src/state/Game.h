@@ -38,6 +38,7 @@ namespace Adagio {
         double gameTime{0.0};
         float frameDelta{0.0};
 
+        RenderingServices renderingServices{&spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this};
     };
 }
 

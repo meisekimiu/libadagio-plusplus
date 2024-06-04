@@ -14,7 +14,7 @@ public:
 
     void update(Adagio::GameStats &stats, Adagio::StateMachine *gameStates) override;
 
-    void draw(Adagio::SpriteBatch &sb, const Adagio::GameStats &stats) override;
+    void draw(Adagio::SpriteBatch &sb, Adagio::RenderingServices &services) override;
 
     void pause() override;
 

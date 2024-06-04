@@ -88,6 +88,7 @@ TEST_CASE("TestEntityState scaffolding", "[EntityGameState]") {
 TEST_CASE("EntityGameState runs systems", "[EntityGameState]") {
     TestEntityState state;
     MockStats stats;
+    Adagio::RenderingServices renderingServices{&spriteBatch, nullptr, &stats};
     REQUIRE(state.getTestComponents().empty());
     state.configureRegistry([](entt::registry &registry) {
         auto entity = registry.create();
@@ -101,7 +102,7 @@ TEST_CASE("EntityGameState runs systems", "[EntityGameState]") {
     }
 
     SECTION("It can run with no renderers") {
-        REQUIRE_NOTHROW(state.draw(spriteBatch, stats));
+        REQUIRE_NOTHROW(state.draw(spriteBatch, renderingServices));
         REQUIRE(state.getTestComponents()[0].drawCount == 0);
     }
 
@@ -115,7 +116,7 @@ TEST_CASE("EntityGameState runs systems", "[EntityGameState]") {
 
     SECTION("It runs one renderer") {
         state.registerRenderer(testRenderer);
-        state.draw(spriteBatch, stats);
+        state.draw(spriteBatch, renderingServices);
         auto testComponents = state.getTestComponents();
         REQUIRE_FALSE(testComponents.empty());
         REQUIRE(testComponents[0].drawCount == 1);

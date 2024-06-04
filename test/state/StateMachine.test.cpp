@@ -16,12 +16,13 @@ TEST_CASE("StateMachine exists", "[StateMachine]") {
 TEST_CASE("An empty StateMachine", "[StateMachine]") {
     Adagio::StateMachine stateMachine(&spriteBatch);
     MockStats stats;
+    Adagio::RenderingServices renderingServices{&spriteBatch, nullptr, &stats};
     SECTION("Can update") {
         stateMachine.update(&stats);
     }
 
     SECTION("Can draw") {
-        stateMachine.draw(&stats);
+        stateMachine.draw(renderingServices);
     }
 
     SECTION("Can pop state without error") {
@@ -33,6 +34,7 @@ TEST_CASE("A StateMachine with one state", "[StateMachine]") {
     Adagio::StateMachine stateMachine(&spriteBatch);
     MockStats stats;
     EmptyGameState state;
+    Adagio::RenderingServices renderingServices{&spriteBatch, nullptr, &stats};
     stateMachine.pushState(&state);
 
     SECTION("Calls Init() on state") {
@@ -51,7 +53,7 @@ TEST_CASE("A StateMachine with one state", "[StateMachine]") {
     }
 
     SECTION("Calls draw() on state") {
-        stateMachine.draw(&stats);
+        stateMachine.draw(renderingServices);
         REQUIRE(state.calledDraw());
     }
 
@@ -82,6 +84,7 @@ TEST_CASE("A StateMachine with one state", "[StateMachine]") {
 TEST_CASE("A StateMachine with two states", "[StateMachine]") {
     Adagio::StateMachine stateMachine(&spriteBatch);
     MockStats stats;
+    Adagio::RenderingServices renderingServices{&spriteBatch, nullptr, &stats};
     EmptyGameState state;
     EmptyGameState state2;
     stateMachine.pushState(&state);
@@ -94,7 +97,7 @@ TEST_CASE("A StateMachine with two states", "[StateMachine]") {
     }
 
     SECTION("Calls draw() only on top state (if opaque)") {
-        stateMachine.draw(&stats);
+        stateMachine.draw(renderingServices);
         REQUIRE(state2.calledDraw());
         REQUIRE_FALSE(state.calledDraw());
     }
@@ -103,7 +106,7 @@ TEST_CASE("A StateMachine with two states", "[StateMachine]") {
         state.reset();
         state2.reset();
         state2.transparent = true;
-        stateMachine.draw(&stats);
+        stateMachine.draw(renderingServices);
         REQUIRE(state2.calledDraw());
         REQUIRE(state.calledDraw());
     }
@@ -142,10 +145,6 @@ TEST_CASE("Degenerate StateMachine cases", "[StateMachine]") {
 
         SECTION("Update") {
             REQUIRE_THROWS(stateMachine.update(nullptr));
-        }
-
-        SECTION("Draw") {
-            REQUIRE_THROWS(stateMachine.draw(nullptr));
         }
     }
 }

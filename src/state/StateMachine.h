@@ -5,6 +5,7 @@
 #include "../graphics/SpriteBatch.h"
 #include "./GameState.h"
 #include "./GameStats.h"
+#include "RenderingServices.h"
 
 namespace Adagio {
 
@@ -16,7 +17,7 @@ namespace Adagio {
 
         void update(GameStats *stats);
 
-        void draw(const GameStats *stats);
+        void draw(RenderingServices &services);
 
         void pushState(GameState *state);
 

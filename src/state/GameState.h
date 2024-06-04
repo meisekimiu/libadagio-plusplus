@@ -5,6 +5,7 @@
 #include "../graphics/SpriteBatch.h"
 #include "./GameStats.h"
 #include "./GameState.h"
+#include "RenderingServices.h"
 
 namespace Adagio {
     class StateMachine;
@@ -23,7 +24,7 @@ namespace Adagio {
 
         virtual void update(GameStats &stats, StateMachine *gameStates);
 
-        virtual void draw(SpriteBatch &spriteBatch, const GameStats &stats);
+        virtual void draw(SpriteBatch &spriteBatch, RenderingServices &services);
 
         virtual void cleanup();
 

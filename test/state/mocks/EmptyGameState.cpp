@@ -14,7 +14,7 @@ void EmptyGameState::update(Adagio::GameStats &stats, Adagio::StateMachine *game
     updateCalled = true;
 }
 
-void EmptyGameState::draw(Adagio::SpriteBatch &sb, const Adagio::GameStats &stats) {
+void EmptyGameState::draw(Adagio::SpriteBatch &sb, Adagio::RenderingServices &services) {
     drawCalled = true;
 }
 

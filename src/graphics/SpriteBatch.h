@@ -25,6 +25,8 @@ namespace Adagio {
 
         void end();
 
+        const GraphicsDevice *getGraphicsDevice();
+
         static int queueReservation;
 
     protected:

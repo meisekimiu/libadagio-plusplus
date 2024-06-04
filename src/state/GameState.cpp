@@ -18,7 +18,7 @@ namespace Adagio {
 
     }
 
-    void GameState::draw(SpriteBatch &spriteBatch, const GameStats &stats) {
+    void GameState::draw(SpriteBatch &spriteBatch, RenderingServices &services) {
     }
 
     void GameState::cleanup() {

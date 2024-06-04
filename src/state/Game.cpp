@@ -14,7 +14,7 @@ namespace Adagio {
 
     void Game::draw() {
         spriteBatch.begin();
-        stateMachine.draw(this);
+        stateMachine.draw(renderingServices);
         spriteBatch.end();
     }
 

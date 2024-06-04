@@ -16,11 +16,10 @@ namespace Adagio {
         }
     }
 
-    void StateMachine::draw(const GameStats *stats) {
-        checkGameStats(stats);
+    void StateMachine::draw(RenderingServices &services) {
         for (auto it = states.rbegin(); it != states.rend(); ++it) {
             GameState *state = *it;
-            state->draw(*spriteBatch, *stats);
+            state->draw(*spriteBatch, services);
             if (!state->transparent) {
                 break;
             }

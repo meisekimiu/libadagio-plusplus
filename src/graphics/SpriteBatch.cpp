@@ -57,4 +57,8 @@ namespace Adagio {
                                    });
         renderingQueue.insert(it, r);
     }
+
+    const GraphicsDevice *SpriteBatch::getGraphicsDevice() {
+        return graphicsDevice;
+    }
 } // Adagio

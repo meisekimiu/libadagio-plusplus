@@ -18,7 +18,7 @@ namespace Adagio {
 
         void update(GameStats &stats, StateMachine *gameStates) override;
 
-        void draw(SpriteBatch &spriteBatch, const GameStats &stats) override;
+        void draw(SpriteBatch &spriteBatch, RenderingServices &services) override;
 
     protected:
         entt::registry registry;

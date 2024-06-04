@@ -18,7 +18,7 @@ namespace Adagio {
 
         virtual void setClearColor(const Adagio::Color &color) = 0;
 
-        virtual AbstractTextureManager *getTextureManager() = 0;
+        [[nodiscard]] virtual AbstractTextureManager *getTextureManager() const = 0;
 
         virtual void drawTexture(Texture2D &texture, const RectF &source, const RectF &dest, const Vector2d &origin,
                                  float rotation,
