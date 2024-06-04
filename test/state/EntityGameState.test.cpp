@@ -45,7 +45,7 @@ void testSystem(entt::registry &registry, Adagio::GameStats &stats, Adagio::Stat
     }
 }
 
-void testRenderer(entt::registry &registry, Adagio::SpriteBatch &sb, const Adagio::GameStats &stats) {
+void testRenderer(entt::registry &registry, Adagio::SpriteBatch &sb, Adagio::RenderingServices &services) {
     auto view = registry.view<TestComponent>();
     for (auto [entity, test]: view.each()) {
         test.drawCount++;

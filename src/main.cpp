@@ -12,7 +12,7 @@ int main() {
     SandboxGame game(spriteBatch);
     LeonaTestState leona{};
     GracilisGame state;
-    Adagio::Runner runner(&game, dynamic_cast<Adagio::GameState *>(&leona));
+    Adagio::Runner runner(&game, dynamic_cast<Adagio::GameState *>(&state));
     runner.run();
     return EXIT_SUCCESS;
 }

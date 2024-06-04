@@ -9,6 +9,8 @@ namespace Adagio {
 
     class Texture2D : public Asset<TextureHandle, TextureDimensions> {
     public:
+        Texture2D();
+
         explicit Texture2D(TextureHandle handle, TextureHandle secret, unsigned int width, unsigned int height);
 
         unsigned int getWidth();

@@ -14,3 +14,7 @@ unsigned int Adagio::Texture2D::getHeight() {
 unsigned int Adagio::Texture2D::getWidth() {
     return metadata.width;
 }
+
+Adagio::Texture2D::Texture2D() : Asset<TextureHandle, TextureDimensions>(
+        0, 0, {0, 0}) {
+}

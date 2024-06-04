@@ -9,8 +9,8 @@ struct PlayerShip {
      *  Direction. Maybe a transform?
      *  Powerup State
      */
-    Vector2 velocity;
-    Texture2D *wallopTexture; // TODO: no
+    Adagio::Vector2d velocity;
+    Adagio::Texture2D wallopTexture;
 };
 
 #endif //GL_ADAGIO_PLAYERSHIP_H

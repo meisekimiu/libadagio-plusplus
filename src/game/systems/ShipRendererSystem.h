@@ -5,6 +5,7 @@
 #include "../../graphics/SpriteBatch.h"
 #include "../../state/GameState.h"
 
-void ShipRendererSystem(entt::registry &registry, Adagio::SpriteBatch &spriteBatch, const Adagio::GameStats &stats);
+void
+ShipRendererSystem(entt::registry &registry, Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services);
 
 #endif //GL_ADAGIO_SHIPRENDERERSYSTEM_H

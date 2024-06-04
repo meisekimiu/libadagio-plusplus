@@ -12,8 +12,8 @@ public:
     void unloadContent(Adagio::RenderingServices &services) override;
 
 private:
-    Texture2D shipTex;
-    Texture2D wallopTex;
+    Adagio::Texture2D shipTex;
+    Adagio::Texture2D wallopTex;
 };
 
 

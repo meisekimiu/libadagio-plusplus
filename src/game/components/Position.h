@@ -4,7 +4,7 @@
 #include "raylib.h"
 
 struct Position {
-    Vector2 position;
+    Adagio::Vector2d position;
 };
 
 #endif //GL_ADAGIO_POSITION_H

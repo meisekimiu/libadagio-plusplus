@@ -21,17 +21,16 @@ void GracilisGame::init() {
 
 void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) {
     spriteBatch.setClearColor({0, 0, 0, 255});
-//    spriteBatch.clearColor = BLACK;
-    shipTex = LoadTexture("assets/ship.png");
-    wallopTex = LoadTexture("assets/wallop.png");
+    shipTex = services.textureManager->load("assets/ship.png");
+    wallopTex = services.textureManager->load("assets/wallop.png");
     const auto ship = registry.create();
-    registry.emplace<PlayerShip>(ship, Vector2{0, 0}, &wallopTex);
-    registry.emplace<Position>(ship, Vector2{320, 240});
-    registry.emplace<ShipRenderer>(ship, &shipTex, 0, 0);
+    registry.emplace<PlayerShip>(ship, Adagio::Vector2d{0, 0}, wallopTex);
+    registry.emplace<Position>(ship, Adagio::Vector2d{320, 240});
+    registry.emplace<ShipRenderer>(ship, shipTex, 0, 0);
 }
 
 void GracilisGame::unloadContent(Adagio::RenderingServices &services) {
     std::cout << "GracilisGame quit" << std::endl;
-    UnloadTexture(shipTex);
-    UnloadTexture(wallopTex);
+    services.textureManager->unload(shipTex);
+    services.textureManager->unload(wallopTex);
 }

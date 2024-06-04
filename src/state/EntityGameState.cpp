@@ -27,7 +27,7 @@ namespace Adagio {
 
     void EntityGameState::draw(SpriteBatch &spriteBatch, RenderingServices &services) {
         for (RendererFn renderer: renderers) {
-            renderer(registry, spriteBatch, *services.gameStats);
+            renderer(registry, spriteBatch, services);
         }
     }
 

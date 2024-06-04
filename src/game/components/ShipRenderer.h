@@ -4,7 +4,7 @@
 #include "raylib.h"
 
 struct ShipRenderer {
-    Texture2D *texture;
+    Adagio::Texture2D texture;
     unsigned char frame;
     float lastFrame;
 };

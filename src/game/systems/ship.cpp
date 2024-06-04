@@ -8,9 +8,9 @@
 
 float lowerVelocity(float v);
 
-Vector2 normalizeVelocity(Vector2 velocity, float magnitude);
+Adagio::Vector2d normalizeVelocity(Adagio::Vector2d velocity, float magnitude);
 
-void clampPositionToScreen(Vector2 &pos);
+void clampPositionToScreen(Adagio::Vector2d &pos);
 
 void ShipSystem(entt::registry &registry, Adagio::GameStats &stats, Adagio::StateMachine *state) {
     auto view = registry.view<PlayerShip, Position>();
@@ -34,7 +34,7 @@ void ShipSystem(entt::registry &registry, Adagio::GameStats &stats, Adagio::Stat
             const auto wallop = registry.create();
             registry.emplace<UserProjectile>(wallop, 6);
             registry.emplace<WallopRenderer>(wallop, ship.wallopTexture, 0, 0);
-            registry.emplace<Position>(wallop, Vector2{pos.position.x + 27 - 16, pos.position.y});
+            registry.emplace<Position>(wallop, Adagio::Vector2{pos.position.x + 27 - 16, pos.position.y});
         }
         ship.velocity = normalizeVelocity(ship.velocity, speed);
         pos.position.x += ship.velocity.x;
@@ -56,18 +56,18 @@ float lowerVelocity(float v) {
     return velocity;
 }
 
-Vector2 normalizeVelocity(Vector2 velocity, float magnitude) {
+Adagio::Vector2d normalizeVelocity(Adagio::Vector2d velocity, float magnitude) {
     float currentMagnitude = sqrtf(powf(velocity.x, 2) + powf(velocity.y, 2));
     if (currentMagnitude <= magnitude || currentMagnitude == 0) {
         return velocity;
     }
-    Vector2 vel;
+    Adagio::Vector2d vel;
     vel.x = velocity.x / currentMagnitude * magnitude;
     vel.y = velocity.y / currentMagnitude * magnitude;
     return vel;
 }
 
-void clampPositionToScreen(Vector2 &pos) {
+void clampPositionToScreen(Adagio::Vector2d &pos) {
     // TODO: use collision boxes instead, nasty hardcoded values
     if (pos.x < 0) {
         pos.x = 0;

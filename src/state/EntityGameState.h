@@ -8,7 +8,7 @@
 namespace Adagio {
     typedef void (*SystemFn)(entt::registry &, GameStats &, StateMachine *);
 
-    typedef void (*RendererFn)(entt::registry &, SpriteBatch &, const GameStats &);
+    typedef void (*RendererFn)(entt::registry &, SpriteBatch &, RenderingServices &);
 
     class EntityGameState : public GameState {
     public:
