@@ -9,7 +9,7 @@ namespace Adagio {
     class Game : public GameStats {
     public:
         SpriteBatch spriteBatch;
-        StateMachine stateMachine = StateMachine(&spriteBatch);
+        StateMachine stateMachine = StateMachine(&spriteBatch, &renderingServices);
 
         explicit Game(SpriteBatch &sb);
 

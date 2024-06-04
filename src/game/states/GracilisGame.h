@@ -7,7 +7,7 @@ class GracilisGame : public Adagio::EntityGameState {
 public:
     void init() override;
 
-    void loadContent(Adagio::SpriteBatch &spriteBatch) override;
+    void loadContent(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) override;
 
     void unloadContent() override;
 

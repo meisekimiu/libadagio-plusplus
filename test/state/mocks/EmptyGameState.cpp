@@ -4,7 +4,7 @@ void EmptyGameState::init() {
     initCalled = true;
 }
 
-void EmptyGameState::loadContent(Adagio::SpriteBatch &sb) {
+void EmptyGameState::loadContent(Adagio::SpriteBatch &sb, Adagio::RenderingServices &services) {
     loadContentCalled = true;
 }
 

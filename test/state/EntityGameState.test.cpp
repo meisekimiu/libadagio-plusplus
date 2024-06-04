@@ -54,7 +54,8 @@ void testRenderer(entt::registry &registry, Adagio::SpriteBatch &sb, const Adagi
 
 static MockGraphicsDevice gd;
 static Adagio::SpriteBatch spriteBatch(&gd);
-static Adagio::StateMachine stateMachine(&spriteBatch);
+static Adagio::RenderingServices nullServices{nullptr, nullptr, nullptr};
+static Adagio::StateMachine stateMachine(&spriteBatch, &nullServices);
 
 TEST_CASE("EntityGameState exists", "[EntityGameState]") {
     Adagio::EntityGameState state;

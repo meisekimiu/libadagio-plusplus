@@ -2,11 +2,12 @@
 #include <stdexcept>
 
 namespace Adagio {
-    StateMachine::StateMachine(SpriteBatch *sb) {
+    StateMachine::StateMachine(SpriteBatch *sb, RenderingServices *rs) {
         if (!sb) {
             throw std::invalid_argument("SpriteBatch must not be null.");
         }
         spriteBatch = sb;
+        services = rs;
     }
 
     void StateMachine::update(GameStats *stats) {
@@ -16,10 +17,10 @@ namespace Adagio {
         }
     }
 
-    void StateMachine::draw(RenderingServices &services) {
+    void StateMachine::draw() {
         for (auto it = states.rbegin(); it != states.rend(); ++it) {
             GameState *state = *it;
-            state->draw(*spriteBatch, services);
+            state->draw(*spriteBatch, *services);
             if (!state->transparent) {
                 break;
             }
@@ -50,7 +51,7 @@ namespace Adagio {
             throw std::invalid_argument("GameState must not be null");
         }
         state->init();
-        state->loadContent(*spriteBatch);
+        state->loadContent(*spriteBatch, *services);
         states.push_back(state);
     }
 

@@ -10,7 +10,7 @@ class LeonaTestState : public Adagio::GameState { // NOLINT(cppcoreguidelines-pr
 public:
     void init() override;
 
-    void loadContent(Adagio::SpriteBatch &spriteBatch) override;
+    void loadContent(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) override;
 
     void update(Adagio::GameStats &stats, Adagio::StateMachine *gameStates) override;
 

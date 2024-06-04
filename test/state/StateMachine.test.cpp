@@ -7,22 +7,23 @@
 
 static MockGraphicsDevice graphicsDevice;
 static Adagio::SpriteBatch spriteBatch(&graphicsDevice);
+static Adagio::RenderingServices nullServices{nullptr, nullptr, nullptr};
 
 
 TEST_CASE("StateMachine exists", "[StateMachine]") {
-    Adagio::StateMachine stateMachine(&spriteBatch);
+    Adagio::StateMachine stateMachine(&spriteBatch, &nullServices);
 }
 
 TEST_CASE("An empty StateMachine", "[StateMachine]") {
-    Adagio::StateMachine stateMachine(&spriteBatch);
     MockStats stats;
     Adagio::RenderingServices renderingServices{&spriteBatch, nullptr, &stats};
+    Adagio::StateMachine stateMachine(&spriteBatch, &renderingServices);
     SECTION("Can update") {
         stateMachine.update(&stats);
     }
 
     SECTION("Can draw") {
-        stateMachine.draw(renderingServices);
+        stateMachine.draw();
     }
 
     SECTION("Can pop state without error") {
@@ -31,10 +32,10 @@ TEST_CASE("An empty StateMachine", "[StateMachine]") {
 }
 
 TEST_CASE("A StateMachine with one state", "[StateMachine]") {
-    Adagio::StateMachine stateMachine(&spriteBatch);
     MockStats stats;
     EmptyGameState state;
     Adagio::RenderingServices renderingServices{&spriteBatch, nullptr, &stats};
+    Adagio::StateMachine stateMachine(&spriteBatch, &renderingServices);
     stateMachine.pushState(&state);
 
     SECTION("Calls Init() on state") {
@@ -53,7 +54,7 @@ TEST_CASE("A StateMachine with one state", "[StateMachine]") {
     }
 
     SECTION("Calls draw() on state") {
-        stateMachine.draw(renderingServices);
+        stateMachine.draw();
         REQUIRE(state.calledDraw());
     }
 
@@ -82,9 +83,9 @@ TEST_CASE("A StateMachine with one state", "[StateMachine]") {
 }
 
 TEST_CASE("A StateMachine with two states", "[StateMachine]") {
-    Adagio::StateMachine stateMachine(&spriteBatch);
     MockStats stats;
     Adagio::RenderingServices renderingServices{&spriteBatch, nullptr, &stats};
+    Adagio::StateMachine stateMachine(&spriteBatch, &renderingServices);
     EmptyGameState state;
     EmptyGameState state2;
     stateMachine.pushState(&state);
@@ -97,7 +98,7 @@ TEST_CASE("A StateMachine with two states", "[StateMachine]") {
     }
 
     SECTION("Calls draw() only on top state (if opaque)") {
-        stateMachine.draw(renderingServices);
+        stateMachine.draw();
         REQUIRE(state2.calledDraw());
         REQUIRE_FALSE(state.calledDraw());
     }
@@ -106,13 +107,13 @@ TEST_CASE("A StateMachine with two states", "[StateMachine]") {
         state.reset();
         state2.reset();
         state2.transparent = true;
-        stateMachine.draw(renderingServices);
+        stateMachine.draw();
         REQUIRE(state2.calledDraw());
         REQUIRE(state.calledDraw());
     }
 
     SECTION("It unloads the state on destruction") {
-        auto *sm = new Adagio::StateMachine(&spriteBatch);
+        auto *sm = new Adagio::StateMachine(&spriteBatch, &renderingServices);
         state.reset();
         state2.reset();
         sm->pushState(&state);
@@ -129,17 +130,18 @@ TEST_CASE("A StateMachine with two states", "[StateMachine]") {
 }
 
 TEST_CASE("Degenerate StateMachine cases", "[StateMachine]") {
+    Adagio::RenderingServices nullServices{nullptr, nullptr, nullptr};
     SECTION("Null SpriteBatch") {
-        REQUIRE_THROWS(Adagio::StateMachine(nullptr));
+        REQUIRE_THROWS(Adagio::StateMachine(nullptr, &nullServices));
     }
 
     SECTION("Null GameState") {
-        Adagio::StateMachine stateMachine(&spriteBatch);
+        Adagio::StateMachine stateMachine(&spriteBatch, &nullServices);
         REQUIRE_THROWS(stateMachine.pushState(nullptr));
     }
 
     SECTION("Null GameStats") {
-        Adagio::StateMachine stateMachine(&spriteBatch);
+        Adagio::StateMachine stateMachine(&spriteBatch, &nullServices);
         EmptyGameState state;
         stateMachine.pushState(&state);
 

@@ -11,13 +11,13 @@ namespace Adagio {
 
     class StateMachine {
     public:
-        explicit StateMachine(SpriteBatch *spriteBatch);
+        explicit StateMachine(SpriteBatch *spriteBatch, RenderingServices *services);
 
         ~StateMachine();
 
         void update(GameStats *stats);
 
-        void draw(RenderingServices &services);
+        void draw();
 
         void pushState(GameState *state);
 
@@ -36,6 +36,8 @@ namespace Adagio {
         SpriteBatch *spriteBatch;
 
         void checkGameStats(const GameStats *stats);
+
+        RenderingServices *services;
     };
 }
 

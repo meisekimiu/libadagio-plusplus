@@ -19,7 +19,7 @@ void GracilisGame::init() {
     registerSystem(RemoveDead);
 }
 
-void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch) {
+void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) {
     spriteBatch.setClearColor({0, 0, 0, 255});
 //    spriteBatch.clearColor = BLACK;
     shipTex = LoadTexture("assets/ship.png");

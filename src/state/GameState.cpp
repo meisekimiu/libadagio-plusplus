@@ -6,7 +6,7 @@ namespace Adagio {
 
     }
 
-    void GameState::loadContent(SpriteBatch &spriteBatch) {
+    void GameState::loadContent(SpriteBatch &spriteBatch, RenderingServices &services) {
 
     }
 

@@ -10,7 +10,7 @@ class EmptyGameState : public Adagio::GameState {
 public:
     void init() override;
 
-    void loadContent(Adagio::SpriteBatch &sb) override;
+    void loadContent(Adagio::SpriteBatch &sb, Adagio::RenderingServices &services) override;
 
     void update(Adagio::GameStats &stats, Adagio::StateMachine *gameStates) override;
 

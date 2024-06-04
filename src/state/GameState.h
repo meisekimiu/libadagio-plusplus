@@ -16,7 +16,7 @@ namespace Adagio {
 
         virtual void init();
 
-        virtual void loadContent(SpriteBatch &spriteBatch);
+        virtual void loadContent(SpriteBatch &spriteBatch, RenderingServices &services);
 
         virtual void pause();
 

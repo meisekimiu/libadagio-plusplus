@@ -4,9 +4,9 @@ void LeonaTestState::init() {
     leonaPos = {0, 0};
 }
 
-void LeonaTestState::loadContent(Adagio::SpriteBatch &spriteBatch) {
+void LeonaTestState::loadContent(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) {
     spriteBatch.setClearColor({0, 0, 255, 255});
-    leonaTex = spriteBatch.getGraphicsDevice()->getTextureManager()->load("assets/leona_smile.png");
+    leonaTex = services.textureManager->load("assets/leona_smile.png");
 }
 
 void LeonaTestState::update(Adagio::GameStats &stats, Adagio::StateMachine *gameStates) {
