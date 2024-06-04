@@ -24,7 +24,7 @@ public:
     void drawText(Font &font, const char *text, const Adagio::Vector2d &position, float fontSize, float spacing,
                   const Adagio::Color &tint) override;
 
-    Adagio::AbstractTextureManager *getTextureManager() const override;
+    Adagio::AbstractTextureManager *getTextureManager() override;
 
     std::vector<Adagio::RenderState *> *getDrawnObjects();
 

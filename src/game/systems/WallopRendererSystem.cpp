@@ -10,12 +10,12 @@ void WallopRendererSystem(entt::registry &registry, Adagio::SpriteBatch &spriteB
     for (auto [entity, wallopSprite, pos]: view.each()) {
         Rectangle clippingRect{0, 0, FRAME_WIDTH, FRAME_HEIGHT};
         clippingRect.x = FRAME_WIDTH * wallopSprite.frame;
-        auto sprite = spriteBatch.draw(*(wallopSprite.texture), pos.position);
-        sprite->source = clippingRect;
-        sprite->destination.x = floorf(pos.position.x);
-        sprite->destination.y = floorf(pos.position.y);
-        sprite->destination.width = FRAME_WIDTH * 0.5;
-        sprite->destination.height = FRAME_HEIGHT * 0.5;
+//        auto sprite = spriteBatch.draw(*(wallopSprite.texture), pos.position);
+//        sprite->source = clippingRect;
+//        sprite->destination.x = floorf(pos.position.x);
+//        sprite->destination.y = floorf(pos.position.y);
+//        sprite->destination.width = FRAME_WIDTH * 0.5;
+//        sprite->destination.height = FRAME_HEIGHT * 0.5;
         const float frameDelta = stats.getGameTime() - wallopSprite.lastFrame;
         if (frameDelta > secondsUntilNextFrame) {
             wallopSprite.lastFrame = stats.getGameTime();

@@ -4,6 +4,7 @@
 #include <raylib.h>
 #include "../../state/StateMachine.h"
 #include "../../state/GameState.h"
+#include "../../math/Vector2.h"
 
 class LeonaTestState : public Adagio::GameState { // NOLINT(cppcoreguidelines-pro-type-member-init)
 public:
@@ -13,13 +14,13 @@ public:
 
     void update(Adagio::GameStats &stats, Adagio::StateMachine *gameStates) override;
 
-    void draw(Adagio::SpriteBatch &spriteBatch, const Adagio::GameStats &stats) override;
+    void draw(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) override;
 
     void unloadContent() override;
 
 protected:
-    Vector2 leonaPos;
-    Texture2D leonaTex;
+    Adagio::Vector2d leonaPos;
+    Adagio::Texture2D leonaTex{0, 0, 0, 0};
 };
 
 

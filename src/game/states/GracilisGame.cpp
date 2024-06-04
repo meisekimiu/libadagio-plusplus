@@ -20,7 +20,8 @@ void GracilisGame::init() {
 }
 
 void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch) {
-    spriteBatch.clearColor = BLACK;
+    spriteBatch.setClearColor({0, 0, 0, 255});
+//    spriteBatch.clearColor = BLACK;
     shipTex = LoadTexture("assets/ship.png");
     wallopTex = LoadTexture("assets/wallop.png");
     const auto ship = registry.create();

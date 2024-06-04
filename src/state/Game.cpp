@@ -3,7 +3,7 @@
 #include <utility>
 
 namespace Adagio {
-    Game::Game(SpriteBatch spriteBatch) : spriteBatch(std::move(spriteBatch)) {
+    Game::Game(SpriteBatch &spriteBatch) : spriteBatch(std::move(spriteBatch)) {
     }
 
     void Game::update() {

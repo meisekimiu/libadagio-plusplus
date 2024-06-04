@@ -28,14 +28,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
-add_executable(adagio ${SOURCES})
-target_link_libraries(adagio raylib)
-
-
 add_subdirectory(third_party/entt)
 add_subdirectory(third_party/Catch2)
 add_executable(adagio_test ${TESTS})
 target_link_libraries(adagio_test PRIVATE Catch2::Catch2 raylib EnTT::EnTT)
+
+add_executable(adagio ${SOURCES})
+target_link_libraries(adagio raylib EnTT::EnTT)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/third_party/Catch2/contrib)
 include(CTest)

@@ -4,11 +4,15 @@
 #include "game/states/GracilisGame.h"
 #include "state/Runner.h"
 
+#include "backends/raylib/RaylibGraphicsDevice.h"
+
 int main() {
-    SandboxGame game;
-//    LeonaTestState state;
+    RaylibGraphicsDevice graphicsDevice;
+    Adagio::SpriteBatch spriteBatch(&graphicsDevice);
+    SandboxGame game(spriteBatch);
+    LeonaTestState leona{};
     GracilisGame state;
-    Adagio::Runner runner(&game, &state);
+    Adagio::Runner runner(&game, dynamic_cast<Adagio::GameState *>(&leona));
     runner.run();
     return EXIT_SUCCESS;
 }

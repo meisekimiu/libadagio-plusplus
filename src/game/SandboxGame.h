@@ -6,6 +6,8 @@
 
 class SandboxGame : public Adagio::Game {
 public:
+    explicit SandboxGame(Adagio::SpriteBatch &sb);
+    
     void init() override;
 
     void loadContent() override;

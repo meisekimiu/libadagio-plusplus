@@ -12,12 +12,12 @@ void ShipRendererSystem(entt::registry &registry, Adagio::SpriteBatch &spriteBat
     for (auto [entity, shipSprite, ship, pos]: view.each()) {
         Rectangle clippingRect{0, 0, FRAME_WIDTH, FRAME_HEIGHT};
         clippingRect.x = FRAME_WIDTH * shipSprite.frame;
-        auto sprite = spriteBatch.draw(*(shipSprite.texture), pos.position);
-        sprite->source = clippingRect;
-        sprite->destination.x = floorf(pos.position.x);
-        sprite->destination.y = floorf(pos.position.y);
-        sprite->destination.width = FRAME_WIDTH;
-        sprite->destination.height = FRAME_HEIGHT;
+//        auto sprite = spriteBatch.draw(*(shipSprite.texture), pos.position);
+//        sprite->source = clippingRect;
+//        sprite->destination.x = floorf(pos.position.x);
+//        sprite->destination.y = floorf(pos.position.y);
+//        sprite->destination.width = FRAME_WIDTH;
+//        sprite->destination.height = FRAME_HEIGHT;
         const float frameDelta = stats.getGameTime() - shipSprite.lastFrame;
         if (frameDelta > secondsUntilNextFrame) {
             shipSprite.lastFrame = stats.getGameTime();
