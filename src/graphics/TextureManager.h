@@ -2,19 +2,20 @@
 #define GL_ADAGIO_TEXTUREMANAGER_H
 
 #include <string>
+#include "AbstractTextureManager.h"
 #include "Texture2D.h"
 #include "TextureLoader.h"
 #include "../resource/ResourceLibrary.h"
 
 namespace Adagio {
     template<typename T>
-    class TextureManager {
+    class TextureManager : public AbstractTextureManager {
     public:
         explicit TextureManager(TextureLoader<T> *loader);
 
-        Texture2D load(std::string resource);
+        Texture2D load(std::string resource) override;
 
-        void unload(Texture2D texture);
+        void unload(Texture2D texture) override;
 
         T useTexture(Texture2D texture);
 

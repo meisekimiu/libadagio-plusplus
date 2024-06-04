@@ -3,6 +3,7 @@
 
 #include "Color.h"
 #include "Texture2D.h"
+#include "TextureManager.h"
 #include "../math/Vector2.h"
 #include "../math/Rect.h"
 #include <raylib.h>
@@ -16,6 +17,8 @@ namespace Adagio {
         virtual void end() = 0;
 
         virtual void setClearColor(const Adagio::Color &color) = 0;
+
+        virtual AbstractTextureManager *getTextureManager() = 0;
 
         virtual void drawTexture(Texture2D &texture, const RectF &source, const RectF &dest, const Vector2d &origin,
                                  float rotation,
