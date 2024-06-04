@@ -25,7 +25,7 @@ namespace Adagio {
 
     }
 
-    void GameState::unloadContent() {
+    void GameState::unloadContent(RenderingServices &services) {
 
     }
 } // Adagio

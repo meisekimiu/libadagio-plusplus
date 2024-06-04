@@ -30,7 +30,7 @@ void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch, Adagio::Renderi
     registry.emplace<ShipRenderer>(ship, &shipTex, 0, 0);
 }
 
-void GracilisGame::unloadContent() {
+void GracilisGame::unloadContent(Adagio::RenderingServices &services) {
     std::cout << "GracilisGame quit" << std::endl;
     UnloadTexture(shipTex);
     UnloadTexture(wallopTex);

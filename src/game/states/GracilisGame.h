@@ -9,7 +9,7 @@ public:
 
     void loadContent(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) override;
 
-    void unloadContent() override;
+    void unloadContent(Adagio::RenderingServices &services) override;
 
 private:
     Texture2D shipTex;

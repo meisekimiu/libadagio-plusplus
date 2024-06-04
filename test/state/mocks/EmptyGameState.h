@@ -20,7 +20,7 @@ public:
 
     void resume() override;
 
-    void unloadContent() override;
+    void unloadContent(Adagio::RenderingServices &services) override;
 
     void cleanup() override;
 

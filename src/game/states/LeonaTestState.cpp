@@ -22,6 +22,6 @@ void LeonaTestState::draw(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingSer
     leonaSprite->origin.y = leonaTex.getHeight() / 2;
 }
 
-void LeonaTestState::unloadContent() {
-    // TODO: we need to pass texture manager to unloadContent so we can actually unload stuff
+void LeonaTestState::unloadContent(Adagio::RenderingServices &services) {
+    services.textureManager->unload(leonaTex);
 }

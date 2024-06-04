@@ -58,7 +58,7 @@ namespace Adagio {
     void StateMachine::popFinalState() {
         if (!states.empty()) {
             GameState *finalState = states.back();
-            finalState->unloadContent();
+            finalState->unloadContent(*services);
             finalState->cleanup();
             states.pop_back();
         }

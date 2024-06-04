@@ -16,7 +16,7 @@ public:
 
     void draw(Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) override;
 
-    void unloadContent() override;
+    void unloadContent(Adagio::RenderingServices &services) override;
 
 protected:
     Adagio::Vector2d leonaPos;

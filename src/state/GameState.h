@@ -28,7 +28,7 @@ namespace Adagio {
 
         virtual void cleanup();
 
-        virtual void unloadContent();
+        virtual void unloadContent(RenderingServices &services);
     };
 
 } // Adagio

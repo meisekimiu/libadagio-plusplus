@@ -26,7 +26,7 @@ void EmptyGameState::resume() {
     resumeCalled = true;
 }
 
-void EmptyGameState::unloadContent() {
+void EmptyGameState::unloadContent(Adagio::RenderingServices &_services) {
     unloadContentCalled = true;
 }
 
