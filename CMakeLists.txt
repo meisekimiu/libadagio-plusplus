@@ -4,7 +4,7 @@ project(gl-adagio)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp" "${CMAKE_SOURCE_DIR}/src/math/*.cpp" "${CMAKE_SOURCE_DIR}/src/audio/*.cpp" "${CMAKE_SOURCE_DIR}/src/graphics/*.cpp" "${CMAKE_SOURCE_DIR}/src/state/*.cpp" "${CMAKE_SOURCE_DIR}/src/game/systems/*.cpp" "${CMAKE_SOURCE_DIR}/src/game/states/*.cpp" "${CMAKE_SOURCE_DIR}/src/game/*.cpp")
-file(GLOB_RECURSE TESTS "${CMAKE_SOURCE_DIR}/src/math/*.cpp" "${CMAKE_SOURCE_DIR}/test/math/*.cpp" "${CMAKE_SOURCE_DIR}/src/audio/*.cpp" "${CMAKE_SOURCE_DIR}/test/audio/**/*.cpp"
+file(GLOB_RECURSE TESTS "${CMAKE_SOURCE_DIR}/src/math/*.cpp" "${CMAKE_SOURCE_DIR}/test/math/*.cpp" "${CMAKE_SOURCE_DIR}/src/audio/*.cpp" "${CMAKE_SOURCE_DIR}/test/audio/**/*.cpp" "${CMAKE_SOURCE_DIR}/src/game/factories/*.cpp" "${CMAKE_SOURCE_DIR}/src/game/systems/*.cpp" "${CMAKE_SOURCE_DIR}/test/game/**/*.cpp"
         "${CMAKE_SOURCE_DIR}/src/graphics/*.cpp" "${CMAKE_SOURCE_DIR}/test/graphics/*.cpp"
         "${CMAKE_SOURCE_DIR}/src/state/*.cpp" "${CMAKE_SOURCE_DIR}/test/state/**/*.cpp"
         "${CMAKE_SOURCE_DIR}/test/*.cpp")
