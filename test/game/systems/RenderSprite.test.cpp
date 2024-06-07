@@ -1,8 +1,10 @@
 #include <catch2/catch.hpp>
 #include "../../../src/game/components/Sprite.h"
+#include "../../../src/game/components/SpriteClip.h"
 #include "../../../src/game/components/Position.h"
 #include "../../../src/game/systems/RenderSprite.h"
 #include "../EcsTestingHarness.h"
+#include "../../../src/game/components/SpriteScale.h"
 
 static EcsTestingHarness harness;
 
@@ -32,7 +34,7 @@ TEST_CASE("It renders a basic sprite", "[renderer][RenderSprite]") {
     REQUIRE(renderedSprites[0].destination.size.y == 128);
 }
 
-TEST_CASE("A sprite's position property is offset off of the `Position` component if it exists") {
+TEST_CASE("A sprite's position property is offset off of the `Position` component if it exists", "[renderer][RenderSprite]") {
     harness.reset();
     auto sprite = harness.registry.create();
     auto &spriteComponent = harness.registry.emplace<Sprite>(sprite);
@@ -46,4 +48,61 @@ TEST_CASE("A sprite's position property is offset off of the `Position` componen
     auto renderedSprite = (*(harness.graphicsDevice.getSprites()))[0];
     REQUIRE(renderedSprite.destination.position.x == 301);
     REQUIRE(renderedSprite.destination.position.y == 302);
+}
+
+TEST_CASE("It will apply a clipping rectangle from a SpriteClip component", "[renderer][RenderSprite]") {
+    harness.reset();
+    auto sprite = harness.registry.create();
+    auto &spriteComponent = harness.registry.emplace<Sprite>(sprite);
+    auto &clipping = harness.registry.emplace<SpriteClip>(sprite);
+    spriteComponent.texture = Adagio::Texture2D{1, 1, 128, 128};
+    spriteComponent.position = {0,0};
+    clipping.source.position.x = 10;
+    clipping.source.position.y = 20;
+    clipping.source.size.x = 30;
+    clipping.source.size.y = 40;
+
+    harness.testRendererFrame(RenderSprite);
+
+    auto renderedSprite = (*(harness.graphicsDevice.getSprites()))[0];
+    REQUIRE(renderedSprite.source.position.x == 10);
+    REQUIRE(renderedSprite.source.position.y == 20);
+    REQUIRE(renderedSprite.source.size.x == 30);
+    REQUIRE(renderedSprite.source.size.y == 40);
+    REQUIRE(renderedSprite.destination.position.x == 0);
+    REQUIRE(renderedSprite.destination.position.y == 0);
+    REQUIRE(renderedSprite.destination.size.x == 30);
+    REQUIRE(renderedSprite.destination.size.y == 40);
+}
+
+TEST_CASE("It can scale a sprite if the SpriteScale component exists", "[renderer][RenderSprite]") {
+    harness.reset();
+    auto sprite = harness.registry.create();
+    auto &spriteComponent = harness.registry.emplace<Sprite>(sprite);
+    auto &scale = harness.registry.emplace<SpriteScale>(sprite);
+    spriteComponent.texture = Adagio::Texture2D{1, 1, 128, 128};
+    scale.scale = Adagio::Vector2f{2,3};
+
+    harness.testRendererFrame(RenderSprite);
+
+    auto renderedSprite = (*(harness.graphicsDevice.getSprites()))[0];
+    REQUIRE(renderedSprite.destination.size.x == 256);
+    REQUIRE(renderedSprite.destination.size.y == 384);
+}
+
+TEST_CASE("It scales properly with a clipping rect also applied", "[renderer][RenderSprite]") {
+    harness.reset();
+    auto sprite = harness.registry.create();
+    auto &spriteComponent = harness.registry.emplace<Sprite>(sprite);
+    auto &scale = harness.registry.emplace<SpriteScale>(sprite);
+    auto &clipping = harness.registry.emplace<SpriteClip>(sprite);
+    spriteComponent.texture = Adagio::Texture2D{1, 1, 128, 128};
+    scale.scale = Adagio::Vector2f{2,3};
+    clipping.source = Adagio::RectF{0,0, 10, 10};
+
+    harness.testRendererFrame(RenderSprite);
+
+    auto renderedSprite = (*(harness.graphicsDevice.getSprites()))[0];
+    REQUIRE(renderedSprite.destination.size.x == 20);
+    REQUIRE(renderedSprite.destination.size.y == 30);
 }
