@@ -3,10 +3,12 @@
 #include "../components/SpriteClip.h"
 #include "../components/Position.h"
 #include "../components/SpriteScale.h"
+#include "../components/SpriteRotation.h"
 
 static void offsetRenderPosition(entt::registry &registry, entt::entity entity, Adagio::Vector2d &position);
 static void applyClipping(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState);
 static void applyScaling(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState);
+static void applyRotation(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState);
 
 void
 RenderSprite(entt::registry &registry, Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) {
@@ -19,10 +21,20 @@ RenderSprite(entt::registry &registry, Adagio::SpriteBatch &spriteBatch, Adagio:
 
         applyClipping(registry, entity, spriteState);
         applyScaling(registry, entity, spriteState);
+        applyRotation(registry, entity, spriteState);
     }
 }
 
-void applyScaling(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState) {
+static void applyRotation(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState) {
+    // SPEEeeEEeeeEN!
+    SpriteRotation *rotation = registry.try_get<SpriteRotation>(entity);
+    if (rotation) {
+        spriteState->rotation = rotation->rotation;
+        spriteState->origin = rotation->origin;
+    }
+}
+
+static void applyScaling(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState) {
     SpriteScale *scale = registry.try_get<SpriteScale>(entity);
     if (scale) {
         spriteState->destination.size.x *= scale->scale.x;
@@ -30,7 +42,7 @@ void applyScaling(entt::registry &registry, entt::entity entity, Adagio::SpriteS
     }
 }
 
-void applyClipping(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState) {
+static void applyClipping(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState) {
     SpriteClip *clipping = registry.try_get<SpriteClip>(entity);
     if (clipping) {
         spriteState->source = clipping->source;
@@ -38,7 +50,7 @@ void applyClipping(entt::registry &registry, entt::entity entity, Adagio::Sprite
     }
 }
 
-void offsetRenderPosition(entt::registry &registry, entt::entity entity, Adagio::Vector2d &position) {
+static void offsetRenderPosition(entt::registry &registry, entt::entity entity, Adagio::Vector2d &position) {
     Position *posComponent = registry.try_get<Position>(entity);
     if (posComponent) {
         position += posComponent->position;
