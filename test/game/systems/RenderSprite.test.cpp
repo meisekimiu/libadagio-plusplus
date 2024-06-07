@@ -6,6 +6,7 @@
 #include "../../../src/game/systems/RenderSprite.h"
 #include "../../../src/game/components/SpriteScale.h"
 #include "../../../src/game/components/SpriteRotation.h"
+#include "../../../src/game/components/SpriteTint.h"
 
 static EcsTestingHarness harness;
 static const Adagio::SpriteState &getFirstRenderedSprite();
@@ -126,6 +127,23 @@ TEST_CASE("It rotates the sprite properly", "[renderer][RenderSprite]")
     REQUIRE(renderedSprite.origin.x == 64);
     REQUIRE(renderedSprite.origin.y == 64);
     REQUIRE(renderedSprite.rotation == 3);
+}
+
+TEST_CASE("It tints the sprite properly", "[renderer][RenderSprite]") {
+    harness.reset();
+    auto sprite = harness.registry.create();
+    harness.registry.emplace<Sprite>(sprite);
+    auto &tint = harness.registry.emplace<SpriteTint>(sprite);
+    tint.tint = {0xab, 0xcd, 0xef, 0xff};
+    tint.opacity = 128;
+
+    harness.testRendererFrame(RenderSprite);
+
+    auto renderedSprite = getFirstRenderedSprite();
+    REQUIRE(renderedSprite.tint.r == 0xab);
+    REQUIRE(renderedSprite.tint.g == 0xcd);
+    REQUIRE(renderedSprite.tint.b == 0xef);
+    REQUIRE(renderedSprite.tint.a == 128);
 }
 
 static const Adagio::SpriteState &getFirstRenderedSprite() { return (*(harness.graphicsDevice.getSprites()))[0]; }

@@ -4,11 +4,13 @@
 #include "../components/Position.h"
 #include "../components/SpriteScale.h"
 #include "../components/SpriteRotation.h"
+#include "../components/SpriteTint.h"
 
 static void offsetRenderPosition(entt::registry &registry, entt::entity entity, Adagio::Vector2d &position);
 static void applyClipping(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState);
 static void applyScaling(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState);
 static void applyRotation(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState);
+static void applyTint(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState);
 
 void
 RenderSprite(entt::registry &registry, Adagio::SpriteBatch &spriteBatch, Adagio::RenderingServices &services) {
@@ -22,6 +24,15 @@ RenderSprite(entt::registry &registry, Adagio::SpriteBatch &spriteBatch, Adagio:
         applyClipping(registry, entity, spriteState);
         applyScaling(registry, entity, spriteState);
         applyRotation(registry, entity, spriteState);
+        applyTint(registry, entity, spriteState);
+    }
+}
+
+static void applyTint(entt::registry &registry, entt::entity entity, Adagio::SpriteState *spriteState) {
+    SpriteTint *tint = registry.try_get<SpriteTint>(entity);
+    if (tint) {
+        spriteState->tint = tint->tint;
+        spriteState->opacity = tint->opacity;
     }
 }
 
