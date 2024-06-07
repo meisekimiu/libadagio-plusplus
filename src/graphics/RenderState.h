@@ -10,7 +10,7 @@ namespace Adagio {
 
         virtual void draw(GraphicsDevice *graphicsDevice) const = 0;
 
-        bool operator<(const RenderState &other);
+        bool operator<(const RenderState &other) const;
 
         virtual ~RenderState() = default;
     };

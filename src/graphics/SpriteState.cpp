@@ -21,7 +21,6 @@ namespace Adagio {
         if (active && texture) {
             graphicsDevice->drawTexture(*texture, source, destination, origin, rotation,
                                         {tint.r, tint.g, tint.b, alpha});
-//            DrawTexturePro(*texture, source, destination, origin, rotation, {tint.r, tint.g, tint.b, alpha});
         }
     }
 

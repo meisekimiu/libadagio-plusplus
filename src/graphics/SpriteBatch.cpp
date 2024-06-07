@@ -12,9 +12,7 @@ namespace Adagio {
 
     void SpriteBatch::begin() {
         graphicsDevice->begin();
-//        BeginDrawing();
         renderingQueue.clear();
-//        ClearBackground(clearColor);
         spritePool.begin();
         textPool.begin();
     }
@@ -24,7 +22,6 @@ namespace Adagio {
             r->draw(graphicsDevice);
             r->active = false;
         }
-//        EndDrawing();
         graphicsDevice->end();
     }
 
