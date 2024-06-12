@@ -4,7 +4,7 @@
 #include "../../math/Rect.h"
 
 struct SpriteClip {
-    Adagio::RectF source;
+  Adagio::RectF source;
 };
 
-#endif //GL_ADAGIO_SPRITECLIP_H
+#endif // GL_ADAGIO_SPRITECLIP_H

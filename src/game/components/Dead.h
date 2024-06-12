@@ -1,7 +1,6 @@
 #ifndef GL_ADAGIO_DEAD_H
 #define GL_ADAGIO_DEAD_H
 
-struct Dead {
-};
+struct Dead {};
 
-#endif //GL_ADAGIO_DEAD_H
+#endif // GL_ADAGIO_DEAD_H

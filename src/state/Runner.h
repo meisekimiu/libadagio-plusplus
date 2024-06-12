@@ -4,18 +4,18 @@
 #include "Game.h"
 
 namespace Adagio {
-    class Runner {
-    public:
-        explicit Runner(Game *g, GameState *initialState);
+class Runner {
+public:
+  explicit Runner(Game *g, GameState *initialState);
 
-        void run();
+  void run();
 
-    protected:
-        Game *game;
-        GameState *initialState;
+protected:
+  Game *game;
+  GameState *initialState;
 
-        virtual bool shouldCloseGame();
-    };
-}
+  virtual bool shouldCloseGame();
+};
+} // namespace Adagio
 
-#endif //GL_ADAGIO_RUNNER_H
+#endif // GL_ADAGIO_RUNNER_H

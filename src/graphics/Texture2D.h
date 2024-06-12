@@ -5,17 +5,18 @@
 #include "TextureDimensions.h"
 
 namespace Adagio {
-    typedef unsigned int TextureHandle;
+typedef unsigned int TextureHandle;
 
-    class Texture2D : public Asset<TextureHandle, TextureDimensions> {
-    public:
-        Texture2D();
+class Texture2D : public Asset<TextureHandle, TextureDimensions> {
+public:
+  Texture2D();
 
-        explicit Texture2D(TextureHandle handle, TextureHandle secret, unsigned int width, unsigned int height);
+  explicit Texture2D(TextureHandle handle, TextureHandle secret,
+                     unsigned int width, unsigned int height);
 
-        unsigned int getWidth();
+  unsigned int getWidth();
 
-        unsigned int getHeight();
-    };
-}
-#endif //GL_ADAGIO_TEXTURE2D_H
+  unsigned int getHeight();
+};
+} // namespace Adagio
+#endif // GL_ADAGIO_TEXTURE2D_H

@@ -5,20 +5,20 @@
 
 class TestGame : public Adagio::Game {
 public:
-    explicit TestGame(Adagio::SpriteBatch sb);
+  explicit TestGame(Adagio::SpriteBatch sb);
 
-    void init() override;
+  void init() override;
 
-    void loadContent() override;
+  void loadContent() override;
 
-    void unloadContent() override;
+  void unloadContent() override;
 
-    void cleanup() override;
+  void cleanup() override;
 
-    bool calledInit{false};
-    bool calledLoadContent{false};
-    bool calledCleanup{false};
-    bool calledUnloadContent{false};
+  bool calledInit{false};
+  bool calledLoadContent{false};
+  bool calledCleanup{false};
+  bool calledUnloadContent{false};
 };
 
-#endif //GL_ADAGIO_TESTGAME_H
+#endif // GL_ADAGIO_TESTGAME_H

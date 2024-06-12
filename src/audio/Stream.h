@@ -5,11 +5,11 @@
 #include "AudioMetadata.h"
 
 namespace Adagio {
-    struct Stream : public Asset<AudioHandle, AudioMetadata> {
-        Stream(Asset<AudioHandle, AudioMetadata> &&asset) : Asset<AudioHandle, AudioMetadata>(asset.handle,
-                                                                                              asset.getSecretId(),
-                                                                                              asset.getMetadata()) {}
-    };
-}
+struct Stream : public Asset<AudioHandle, AudioMetadata> {
+  explicit Stream(Asset<AudioHandle, AudioMetadata> &&asset)
+      : Asset<AudioHandle, AudioMetadata>(asset.handle, asset.getSecretId(),
+                                          asset.getMetadata()) {}
+};
+} // namespace Adagio
 
-#endif //GL_ADAGIO_STREAM_H
+#endif // GL_ADAGIO_STREAM_H

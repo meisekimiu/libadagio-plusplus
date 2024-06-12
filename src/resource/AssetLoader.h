@@ -4,12 +4,13 @@
 #include <utility>
 
 namespace Adagio {
-    template<typename InternalAssetType, typename MetadataType>
-    struct AssetLoader {
-        virtual std::pair<InternalAssetType, MetadataType> load(const char *resource) = 0;
+template <typename InternalAssetType, typename MetadataType>
+struct AssetLoader {
+  virtual std::pair<InternalAssetType, MetadataType>
+  load(const char *resource) = 0;
 
-        virtual void unload(InternalAssetType asset) = 0;
-    };
-}
+  virtual void unload(InternalAssetType asset) = 0;
+};
+} // namespace Adagio
 
-#endif //GL_ADAGIO_ASSETLOADER_H
+#endif // GL_ADAGIO_ASSETLOADER_H

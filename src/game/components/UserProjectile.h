@@ -2,7 +2,7 @@
 #define GL_ADAGIO_USERPROJECTILE_H
 
 struct UserProjectile {
-    float speed;
+  float speed;
 };
 
-#endif //GL_ADAGIO_USERPROJECTILE_H
+#endif // GL_ADAGIO_USERPROJECTILE_H

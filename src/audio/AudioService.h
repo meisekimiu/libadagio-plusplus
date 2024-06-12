@@ -6,29 +6,24 @@
 #include "AudioMetadata.h"
 
 namespace Adagio {
-    typedef unsigned int AudioHandle;
+typedef unsigned int AudioHandle;
 
-    template<class SampleType, class StreamType>
-    class AudioService {
-    public:
-        explicit AudioService(AudioDevice<SampleType, StreamType> *audioPlayer,
-                              AudioLibrary<SampleType, StreamType> *audioLibrary) {
-            audioDevice = audioPlayer;
-            this->audioLibrary = audioLibrary;
-        }
+template <class SampleType, class StreamType> class AudioService {
+public:
+  explicit AudioService(AudioDevice<SampleType, StreamType> *audioPlayer,
+                        AudioLibrary<SampleType, StreamType> *audioLibrary) {
+    audioDevice = audioPlayer;
+    this->audioLibrary = audioLibrary;
+  }
 
-        void play(Sample sample) {
-            audioDevice->playSample(sample, *audioLibrary);
-        }
+  void play(Sample sample) { audioDevice->playSample(sample, *audioLibrary); }
 
-        void play(Stream stream) {
-            audioDevice->playStream(stream, *audioLibrary);
-        }
+  void play(Stream stream) { audioDevice->playStream(stream, *audioLibrary); }
 
-    private:
-        AudioDevice<SampleType, StreamType> *audioDevice;
-        AudioLibrary<SampleType, StreamType> *audioLibrary;
-    };
-}
+private:
+  AudioDevice<SampleType, StreamType> *audioDevice;
+  AudioLibrary<SampleType, StreamType> *audioLibrary;
+};
+} // namespace Adagio
 
-#endif //GL_ADAGIO_AUDIOSERVICE_H
+#endif // GL_ADAGIO_AUDIOSERVICE_H

@@ -2,5 +2,4 @@
 
 #include <catch2/catch.hpp>
 
-TEST_CASE( "Testing framework works!", "[test]") {
-}
+TEST_CASE("Testing framework works!", "[test]") {}

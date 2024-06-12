@@ -5,23 +5,22 @@
 
 class MockGameStats : public Adagio::GameStats {
 public:
-    [[nodiscard]] bool isRunning() const override;
+  [[nodiscard]] bool isRunning() const override;
 
-    void closeGame() override;
+  void closeGame() override;
 
-    [[nodiscard]] float getFrameDelta() const override;
+  [[nodiscard]] float getFrameDelta() const override;
 
-    [[nodiscard]] double getGameTime() const override;
+  [[nodiscard]] double getGameTime() const override;
 
-    void advanceTime(double delta);
+  void advanceTime(double delta);
 
-    void reset();
+  void reset();
 
 protected:
-    bool running{true};
-    double gameTime{0.0};
-    double lastTickTime{0.0};
+  bool running{true};
+  double gameTime{0.0};
+  double lastTickTime{0.0};
 };
 
-
-#endif //GL_ADAGIO_MOCKGAMESTATS_H
+#endif // GL_ADAGIO_MOCKGAMESTATS_H

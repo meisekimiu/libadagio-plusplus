@@ -1,45 +1,43 @@
 #ifndef GL_ADAGIO_STATEMACHINE_H
 #define GL_ADAGIO_STATEMACHINE_H
 
-#include <vector>
 #include "../graphics/SpriteBatch.h"
 #include "./GameState.h"
 #include "./GameStats.h"
 #include "RenderingServices.h"
+#include <vector>
 
 namespace Adagio {
 
-    class StateMachine {
-    public:
-        explicit StateMachine(SpriteBatch *spriteBatch, RenderingServices *services);
+class StateMachine {
+public:
+  explicit StateMachine(SpriteBatch *spriteBatch, RenderingServices *services);
 
-        ~StateMachine();
+  ~StateMachine();
 
-        void update(GameStats *stats);
+  void update(GameStats *stats);
 
-        void draw();
+  void draw();
 
-        void pushState(GameState *state);
+  void pushState(GameState *state);
 
-        void popState();
+  void popState();
 
-        void changeState(GameState *state);
+  void changeState(GameState *state);
 
+private:
+  std::vector<GameState *> states;
 
-    private:
-        std::vector<GameState *> states;
+  void addStateToVector(GameState *state);
 
-        void addStateToVector(GameState *state);
+  void popFinalState();
 
-        void popFinalState();
+  SpriteBatch *spriteBatch;
 
-        SpriteBatch *spriteBatch;
+  void checkGameStats(const GameStats *stats);
 
-        void checkGameStats(const GameStats *stats);
+  RenderingServices *services;
+};
+} // namespace Adagio
 
-        RenderingServices *services;
-    };
-}
-
-
-#endif //GL_ADAGIO_STATEMACHINE_H
+#endif // GL_ADAGIO_STATEMACHINE_H

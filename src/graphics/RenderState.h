@@ -4,17 +4,16 @@
 #include "GraphicsDevice.h"
 
 namespace Adagio {
-    struct RenderState {
-        signed short int zIndex{0};
-        bool active{false};
+struct RenderState {
+  signed short int zIndex{0};
+  bool active{false};
 
-        virtual void draw(GraphicsDevice *graphicsDevice) const = 0;
+  virtual void draw(GraphicsDevice *graphicsDevice) const = 0;
 
-        bool operator<(const RenderState &other) const;
+  bool operator<(const RenderState &other) const;
 
-        virtual ~RenderState() = default;
-    };
-}
+  virtual ~RenderState() = default;
+};
+} // namespace Adagio
 
-
-#endif //GL_ADAGIO_RENDERSTATE_H
+#endif // GL_ADAGIO_RENDERSTATE_H

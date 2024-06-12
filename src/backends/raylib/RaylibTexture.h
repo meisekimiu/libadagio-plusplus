@@ -5,4 +5,4 @@
 
 typedef Texture2D RaylibTexture;
 
-#endif //GL_ADAGIO_RAYLIBTEXTURE_H
+#endif // GL_ADAGIO_RAYLIBTEXTURE_H

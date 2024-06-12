@@ -5,12 +5,10 @@
 #include "AudioMetadata.h"
 
 namespace Adagio {
-    struct Sample : public Asset<AudioHandle, AudioMetadata> {
-        Sample(const Asset<AudioHandle, AudioMetadata> &&asset) : Asset(asset.handle, asset.getSecretId(),
-                                                                        asset.getMetadata()) {
+struct Sample : public Asset<AudioHandle, AudioMetadata> {
+  explicit Sample(const Asset<AudioHandle, AudioMetadata> &&asset)
+      : Asset(asset.handle, asset.getSecretId(), asset.getMetadata()) {}
+};
+} // namespace Adagio
 
-        }
-    };
-}
-
-#endif //GL_ADAGIO_SAMPLE_H
+#endif // GL_ADAGIO_SAMPLE_H

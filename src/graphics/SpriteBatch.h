@@ -1,45 +1,47 @@
 #ifndef GL_ADAGIO_SPRITEBATCH_H
 #define GL_ADAGIO_SPRITEBATCH_H
 
+#include "../math/Vector2.h"
 #include "GraphicsDevice.h"
 #include "RenderPool.h"
 #include "SpriteState.h"
 #include "TextState.h"
 #include "Texture2D.h"
-#include "../math/Vector2.h"
 
 namespace Adagio {
 
-    class SpriteBatch {
-    public:
-        explicit SpriteBatch(GraphicsDevice *graphics);
+class SpriteBatch {
+public:
+  explicit SpriteBatch(GraphicsDevice *graphics);
 
-        void setClearColor(const Adagio::Color &color);
+  void setClearColor(const Adagio::Color &color);
 
-        SpriteState *draw(Texture2D &texture, const Vector2d &pos, short int zIndex = 0);
+  SpriteState *draw(Texture2D &texture, const Vector2d &pos,
+                    short int zIndex = 0);
 
-        TextState *drawText(const char *text, const Vector2d &pos, short int zIndex = 0);
+  TextState *drawText(const char *text, const Vector2d &pos,
+                      short int zIndex = 0);
 
-//        RectState* drawRect(const SDL_Rect& rect, const SDL_Colour& color, RectType type = RECT_FILLED, int zIndex = 0);
-        void begin();
+  //        RectState* drawRect(const SDL_Rect& rect, const SDL_Colour& color,
+  //        RectType type = RECT_FILLED, int zIndex = 0);
+  void begin();
 
-        void end();
+  void end();
 
-        GraphicsDevice *getGraphicsDevice();
+  GraphicsDevice *getGraphicsDevice();
 
-        static int queueReservation;
+  static int queueReservation;
 
-    protected:
-        std::vector<RenderState *> renderingQueue;
-        RenderPool<SpriteState> spritePool;
-        RenderPool<TextState> textPool;
-//        RenderPool<RectState> rectPool;
-        GraphicsDevice *graphicsDevice;
+protected:
+  std::vector<RenderState *> renderingQueue;
+  RenderPool<SpriteState> spritePool;
+  RenderPool<TextState> textPool;
+  //        RenderPool<RectState> rectPool;
+  GraphicsDevice *graphicsDevice;
 
-        void addToRenderingQueue(RenderState *r);
-    };
+  void addToRenderingQueue(RenderState *r);
+};
 
+} // namespace Adagio
 
-} // Adagio
-
-#endif //GL_ADAGIO_SPRITEBATCH_H
+#endif // GL_ADAGIO_SPRITEBATCH_H

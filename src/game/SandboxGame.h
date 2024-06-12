@@ -6,13 +6,13 @@
 
 class SandboxGame : public Adagio::Game {
 public:
-    explicit SandboxGame(Adagio::SpriteBatch &sb);
-    
-    void init() override;
+  explicit SandboxGame(Adagio::SpriteBatch &sb);
 
-    void loadContent() override;
+  void init() override;
 
-    void cleanup() override;
+  void loadContent() override;
+
+  void cleanup() override;
 };
 
-#endif //GL_ADAGIO_SANDBOXGAME_H
+#endif // GL_ADAGIO_SANDBOXGAME_H

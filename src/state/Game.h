@@ -6,40 +6,41 @@
 #include "./StateMachine.h"
 
 namespace Adagio {
-    class Game : public GameStats {
-    public:
-        SpriteBatch spriteBatch;
-        StateMachine stateMachine = StateMachine(&spriteBatch, &renderingServices);
+class Game : public GameStats {
+public:
+  SpriteBatch spriteBatch;
+  StateMachine stateMachine = StateMachine(&spriteBatch, &renderingServices);
 
-        explicit Game(SpriteBatch &sb);
+  explicit Game(SpriteBatch &sb);
 
-        void update();
+  void update();
 
-        void draw();
+  void draw();
 
-        [[nodiscard]] double getGameTime() const override;
+  [[nodiscard]] double getGameTime() const override;
 
-        [[nodiscard]] float getFrameDelta() const override;
+  [[nodiscard]] float getFrameDelta() const override;
 
-        [[nodiscard]] bool isRunning() const override;
+  [[nodiscard]] bool isRunning() const override;
 
-        void closeGame() override;
+  void closeGame() override;
 
-        virtual void init() = 0;
+  virtual void init() = 0;
 
-        virtual void loadContent();
+  virtual void loadContent();
 
-        virtual void cleanup();
+  virtual void cleanup();
 
-        virtual void unloadContent();
+  virtual void unloadContent();
 
-    protected:
-        bool running{true};
-        double gameTime{0.0};
-        float frameDelta{0.0};
+protected:
+  bool running{true};
+  double gameTime{0.0};
+  float frameDelta{0.0};
 
-        RenderingServices renderingServices{&spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this};
-    };
-}
+  RenderingServices renderingServices{
+      &spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this};
+};
+} // namespace Adagio
 
-#endif //GL_ADAGIO_GAME_H
+#endif // GL_ADAGIO_GAME_H

@@ -4,8 +4,8 @@
 #include "../../graphics/Color.h"
 
 struct SpriteTint {
-    Adagio::Color tint;
-    unsigned char opacity{0xff};
+  Adagio::Color tint;
+  unsigned char opacity{0xff};
 };
 
-#endif //GL_ADAGIO_SPRITETINT_H
+#endif // GL_ADAGIO_SPRITETINT_H

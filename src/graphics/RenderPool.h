@@ -1,27 +1,26 @@
 #ifndef GL_ADAGIO_RENDERPOOL_H
 #define GL_ADAGIO_RENDERPOOL_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
-template<typename T>
-class RenderPool {
+template <typename T> class RenderPool {
 public:
-    RenderPool();
+  RenderPool();
 
-    void createNew(int number);
+  void createNew(int number);
 
-    T *getNext();
+  T *getNext();
 
-    void begin();
+  void begin();
 
-    void debugInfo(std::string poolName);
+  void debugInfo(std::string poolName);
 
 private:
-    int current;
-    std::vector<T> pool;
+  int current;
+  std::vector<T> pool;
 };
 
 #include "RenderPool-impl.h"
 
-#endif //GL_ADAGIO_RENDERPOOL_H
+#endif // GL_ADAGIO_RENDERPOOL_H

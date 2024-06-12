@@ -4,7 +4,7 @@
 #include "../../math/Vector2.h"
 
 struct SpriteScale {
-    Adagio::Vector2f scale;
+  Adagio::Vector2f scale;
 };
 
-#endif //GL_ADAGIO_SPRITESCALE_H
+#endif // GL_ADAGIO_SPRITESCALE_H

@@ -1,16 +1,16 @@
 #ifndef GL_ADAGIO_RENDERINGSERVICES_H
 #define GL_ADAGIO_RENDERINGSERVICES_H
 
-#include "../graphics/SpriteBatch.h"
 #include "../graphics/AbstractTextureManager.h"
+#include "../graphics/SpriteBatch.h"
 #include "GameStats.h"
 
 namespace Adagio {
-    struct RenderingServices {
-        SpriteBatch *spriteBatch;
-        AbstractTextureManager *textureManager;
-        const GameStats *gameStats;
-    };
-}
+struct RenderingServices {
+  SpriteBatch *spriteBatch;
+  AbstractTextureManager *textureManager;
+  const GameStats *gameStats;
+};
+} // namespace Adagio
 
-#endif //GL_ADAGIO_RENDERINGSERVICES_H
+#endif // GL_ADAGIO_RENDERINGSERVICES_H
