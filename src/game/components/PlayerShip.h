@@ -1,7 +1,7 @@
 #ifndef GL_ADAGIO_PLAYERSHIP_H
 #define GL_ADAGIO_PLAYERSHIP_H
 
-#include "raylib.h"
+#include "SpriteAnimation.h"
 
 struct PlayerShip {
     /*
@@ -11,6 +11,7 @@ struct PlayerShip {
      */
     Adagio::Vector2d velocity;
     Adagio::Texture2D wallopTexture;
+    AnimationFrame* wallopFrames{nullptr};
 };
 
 #endif //GL_ADAGIO_PLAYERSHIP_H

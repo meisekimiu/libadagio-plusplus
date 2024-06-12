@@ -7,6 +7,7 @@
 #include "harness/MockGameStats.h"
 #include "entt/entt.hpp"
 #include "../../src/state/EntityGameState.h"
+#include "../../src/state/StateMachine.h"
 
 class EcsTestingHarness {
 public:
@@ -15,12 +16,14 @@ public:
     MockGameStats stats;
     entt::registry registry;
     Adagio::RenderingServices renderingServices{};
+    Adagio::StateMachine *stateMachine;
 
     EcsTestingHarness();
 
     void reset();
 
     void testRendererFrame(Adagio::RendererFn renderer);
+    void testSystemFrame(Adagio::SystemFn system);
 };
 
 
