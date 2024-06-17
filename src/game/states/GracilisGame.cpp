@@ -5,6 +5,7 @@
 #include "../components/SpriteAnimation.h"
 #include "../components/SpriteClip.h"
 #include "../systems/AnimateSprite.h"
+#include "../systems/ApplyVelocity.h"
 #include "../systems/RemoveDead.h"
 #include "../systems/RenderSprite.h"
 #include "../systems/Wallop.h"
@@ -15,6 +16,7 @@ void GracilisGame::init() {
   std::cout << "GracilisGame init" << std::endl;
   registerSystem(AnimateSprite);
   registerRenderer(RenderSprite);
+  registerSystem(ApplyVelocity);
   registerSystem(ShipSystem);
   registerSystem(WallopSystem);
   registerSystem(RemoveDead);

@@ -7,6 +7,7 @@
 #include "../components/SpriteClip.h"
 #include "../components/SpriteScale.h"
 #include "../components/UserProjectile.h"
+#include "../components/Velocity.h"
 #include <iostream>
 
 float lowerVelocity(float v);
@@ -36,7 +37,8 @@ void ShipSystem(entt::registry &registry, Adagio::GameStats &stats,
     }
     if (IsKeyPressed(KEY_SPACE)) {
       const auto wallop = registry.create();
-      registry.emplace<UserProjectile>(wallop, 6);
+      registry.emplace<UserProjectile>(wallop);
+      registry.emplace<Velocity>(wallop, -M_PI_2, 6);
       registry.emplace<Position>(
           wallop, Adagio::Vector2{pos.position.x + 27 - 16, pos.position.y});
       registry.emplace<Sprite>(wallop, ship.wallopTexture,
