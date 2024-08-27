@@ -2,35 +2,42 @@
 #define GL_ADAGIO_ENTITYGAMESTATE_H
 
 #include "./GameState.h"
+#include "../event/MessageDispatchService.h"
 #include "entt/entt.hpp"
 
 namespace Adagio {
-typedef void (*SystemFn)(entt::registry &, GameStats &, StateMachine *);
+    typedef void (*SystemFn)(entt::registry &, GameStats &, StateMachine *);
 
-typedef void (*RendererFn)(entt::registry &, SpriteBatch &,
-                           RenderingServices &);
+    typedef void (*RendererFn)(entt::registry &, SpriteBatch &,
+                               RenderingServices &);
 
-class EntityGameState : public GameState {
-public:
-  void registerSystem(SystemFn);
+    class EntityGameState : public GameState {
+    public:
+        EntityGameState();
 
-  void registerRenderer(RendererFn);
+        void registerSystem(SystemFn);
 
-  void update(GameStats &stats, StateMachine *gameStates) override;
+        void registerRenderer(RendererFn);
 
-  void draw(SpriteBatch &spriteBatch, RenderingServices &services) override;
+        void update(GameStats &stats, StateMachine *gameStates) override;
 
-protected:
-  entt::registry registry;
+        void draw(SpriteBatch &spriteBatch, RenderingServices &services) override;
 
-  [[nodiscard]] const std::vector<SystemFn> *getSystems() const;
+    protected:
+        entt::registry registry;
 
-  [[nodiscard]] const std::vector<RendererFn> *getRenderers() const;
+        MessageDispatchService messageService;
 
-private:
-  std::vector<SystemFn> systems;
-  std::vector<RendererFn> renderers;
-};
+        void initializeRegistryContext();
+
+        [[nodiscard]] const std::vector<SystemFn> *getSystems() const;
+
+        [[nodiscard]] const std::vector<RendererFn> *getRenderers() const;
+
+    private:
+        std::vector<SystemFn> systems;
+        std::vector<RendererFn> renderers;
+    };
 } // namespace Adagio
 
 #endif // GL_ADAGIO_ENTITYGAMESTATE_H

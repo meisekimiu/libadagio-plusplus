@@ -5,8 +5,8 @@
 #include <catch2/catch.hpp>
 
 TEST_CASE("MessageInbox ECS Hooks", "[event]") {
-    Adagio::MessageDispatchService messageService;
     EcsTestingHarness harness;
+    auto &messageService = harness.messageService;
     auto &registry = harness.registry;
     registry.ctx().emplace<Adagio::MessageDispatchService *>(&messageService);
     registry.on_construct<MessageInbox>().connect<&RegisterInboxWithMessageService>();

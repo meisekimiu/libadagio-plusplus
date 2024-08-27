@@ -3,6 +3,7 @@
 EcsTestingHarness::EcsTestingHarness() {
     renderingServices = {&spriteBatch, graphicsDevice.getTextureManager(), &stats};
     stateMachine = new Adagio::StateMachine(&spriteBatch, &renderingServices);
+    registry.ctx().emplace<Adagio::MessageDispatchService *>(&messageService);
 }
 
 void EcsTestingHarness::reset() {
