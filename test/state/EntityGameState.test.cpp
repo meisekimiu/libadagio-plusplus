@@ -36,8 +36,8 @@ public:
     }
 };
 
-void testSystem(entt::registry &registry, Adagio::GameStats &stats,
-                Adagio::StateMachine *stateMachine) {
+void testSystem(entt::registry &registry, Adagio::GameServices &_services,
+                Adagio::StateMachine *_stateMachine) {
     auto view = registry.view<TestComponent>();
     for (auto [entity, test]: view.each()) {
         test.updateCount++;
@@ -55,6 +55,7 @@ void testRenderer(entt::registry &registry, Adagio::SpriteBatch &sb,
 static MockGraphicsDevice gd;
 static Adagio::SpriteBatch spriteBatch(&gd);
 static Adagio::RenderingServices nullServices{nullptr, nullptr, nullptr};
+static Adagio::GameServices nullGameServices;
 static Adagio::StateMachine stateMachine(&spriteBatch, &nullServices);
 
 TEST_CASE("EntityGameState exists", "[EntityGameState]") {
@@ -98,7 +99,7 @@ TEST_CASE("EntityGameState runs systems", "[EntityGameState]") {
     REQUIRE(state.getTestComponents().size() == 1);
 
     SECTION("It can run with no systems") {
-        REQUIRE_NOTHROW(state.update(stats, &stateMachine));
+        REQUIRE_NOTHROW(state.update(nullGameServices, &stateMachine));
         REQUIRE(state.getTestComponents()[0].updateCount == 0);
     }
 
@@ -109,7 +110,7 @@ TEST_CASE("EntityGameState runs systems", "[EntityGameState]") {
 
     SECTION("It runs one system") {
         state.registerSystem(testSystem);
-        state.update(stats, &stateMachine);
+        state.update(nullGameServices, &stateMachine);
         auto testComponents = state.getTestComponents();
         REQUIRE_FALSE(testComponents.empty());
         REQUIRE(testComponents[0].updateCount == 1);
@@ -126,10 +127,9 @@ TEST_CASE("EntityGameState runs systems", "[EntityGameState]") {
 
 TEST_CASE("EntityGameState edge cases", "[EntityGameState]") {
     TestEntityState state;
-    MockStats stats;
 
     SECTION("Null state machine") {
-        REQUIRE_THROWS(state.update(stats, nullptr));
+        REQUIRE_THROWS(state.update(nullGameServices, nullptr));
     }
 
     SECTION("Adding a null system") {

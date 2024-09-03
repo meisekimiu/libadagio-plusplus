@@ -8,7 +8,7 @@
 #include "entt/entt.hpp"
 
 template<class Target, class Filter>
-void DetectCollision(entt::registry &registry, Adagio::GameStats &stats,
+void DetectCollision(entt::registry &registry, Adagio::GameServices &services,
                      Adagio::StateMachine *state) {
     auto getCollisionCenter = [&registry](const CollisionRadius &collision, entt::entity entity) {
         Adagio::Vector2d collisionCenter = collision.offset;
@@ -29,7 +29,7 @@ void DetectCollision(entt::registry &registry, Adagio::GameStats &stats,
             const Adagio::Vector2d otherCollisionCenter = getCollisionCenter(otherCollision, id) - collisionCenter;
             const double minDistance = collision.radius + otherCollision.radius;
             if (otherCollisionCenter.magnitudeSquared() <= minDistance * minDistance) {
-                registry.ctx().get<Adagio::MessageDispatchService *>()->dispatch(entity, id, "COLLISION"_hs);
+                services.messageDispatchService->dispatch(entity, id, "COLLISION"_hs);
             }
         }
     }

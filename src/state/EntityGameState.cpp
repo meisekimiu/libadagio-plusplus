@@ -16,12 +16,12 @@ namespace Adagio {
         renderers.push_back(renderer);
     }
 
-    void EntityGameState::update(GameStats &stats, StateMachine *gameStates) {
+    void EntityGameState::update(GameServices &services, StateMachine *gameStates) {
         if (!gameStates) {
             throw std::invalid_argument("StateMachine cannot be null.");
         }
         for (SystemFn system: systems) {
-            system(registry, stats, gameStates);
+            system(registry, services, gameStates);
         }
     }
 

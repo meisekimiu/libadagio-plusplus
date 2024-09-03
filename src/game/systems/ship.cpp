@@ -16,7 +16,7 @@ Adagio::Vector2d normalizeVelocity(Adagio::Vector2d velocity, float magnitude);
 
 void clampPositionToScreen(Adagio::Vector2d &pos);
 
-void ShipSystem(entt::registry &registry, Adagio::GameStats &stats,
+void ShipSystem(entt::registry &registry, Adagio::GameServices &services,
                 Adagio::StateMachine *state) {
     auto view = registry.view<PlayerShip, Position>();
     const int speed = 2; // TODO: make this a powerup
@@ -41,7 +41,7 @@ void ShipSystem(entt::registry &registry, Adagio::GameStats &stats,
             registry.emplace<Velocity>(wallop, -M_PI_2, 6);
             registry.emplace<Position>(
                     wallop, Adagio::Vector2{pos.position.x + 27 - 16, pos.position.y});
-            registry.emplace<Sprite>(wallop, ship.wallopTexture,
+            registry.emplace<Sprite>(wallop, services.resources.textureManager->getTexture("assets/wallop.png"_hs),
                                      Adagio::Vector2d{0, 0}, 0);
             registry.emplace<SpriteClip>(wallop);
             registry.emplace<SpriteScale>(wallop, Adagio::Vector2f{0.5, 0.5});

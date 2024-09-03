@@ -5,7 +5,7 @@
 #include "../../state/StateMachine.h"
 #include "entt/entt.hpp"
 
-void ShipSystem(entt::registry &registry, Adagio::GameStats &stats,
+void ShipSystem(entt::registry &registry, Adagio::GameServices &services,
                 Adagio::StateMachine *state);
 
 #endif // GL_ADAGIO_SHIP_H

@@ -4,19 +4,19 @@ void EmptyGameState::init() { initCalled = true; }
 
 void EmptyGameState::loadContent(Adagio::SpriteBatch &sb,
                                  Adagio::RenderingServices &services) {
-  loadContentCalled = true;
+    loadContentCalled = true;
 }
 
-void EmptyGameState::update(Adagio::GameStats &stats,
+void EmptyGameState::update(Adagio::GameServices &services,
                             Adagio::StateMachine *gameStates) {
-  frameDelta = stats.getFrameDelta();
-  gameTime = stats.getGameTime();
-  updateCalled = true;
+    frameDelta = services.stats->getFrameDelta();
+    gameTime = services.stats->getGameTime();
+    updateCalled = true;
 }
 
 void EmptyGameState::draw(Adagio::SpriteBatch &sb,
                           Adagio::RenderingServices &services) {
-  drawCalled = true;
+    drawCalled = true;
 }
 
 void EmptyGameState::pause() { pauseCalled = true; }
@@ -24,7 +24,7 @@ void EmptyGameState::pause() { pauseCalled = true; }
 void EmptyGameState::resume() { resumeCalled = true; }
 
 void EmptyGameState::unloadContent(Adagio::RenderingServices &_services) {
-  unloadContentCalled = true;
+    unloadContentCalled = true;
 }
 
 void EmptyGameState::cleanup() { cleanupCalled = true; }
@@ -50,14 +50,14 @@ float EmptyGameState::lastFrameTime() const { return frameDelta; }
 double EmptyGameState::lastGameTime() const { return gameTime; }
 
 void EmptyGameState::reset() {
-  frameDelta = -1;
-  gameTime = -1;
-  initCalled = false;
-  loadContentCalled = false;
-  updateCalled = false;
-  drawCalled = false;
-  pauseCalled = false;
-  resumeCalled = false;
-  unloadContentCalled = false;
-  cleanupCalled = false;
+    frameDelta = -1;
+    gameTime = -1;
+    initCalled = false;
+    loadContentCalled = false;
+    updateCalled = false;
+    drawCalled = false;
+    pauseCalled = false;
+    resumeCalled = false;
+    unloadContentCalled = false;
+    cleanupCalled = false;
 }

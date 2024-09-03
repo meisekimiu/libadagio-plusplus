@@ -16,6 +16,7 @@ public:
     Adagio::SpriteBatch spriteBatch{&graphicsDevice};
     MockGameStats stats;
     entt::registry registry;
+    Adagio::GameServices gameServices;
     Adagio::RenderingServices renderingServices{};
     Adagio::StateMachine *stateMachine;
     Adagio::MessageDispatchService messageService;

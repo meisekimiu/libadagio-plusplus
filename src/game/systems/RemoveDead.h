@@ -5,7 +5,7 @@
 #include "../../state/StateMachine.h"
 #include "entt/entt.hpp"
 
-void RemoveDead(entt::registry &registry, Adagio::GameStats &stats,
+void RemoveDead(entt::registry &registry, Adagio::GameServices &services,
                 Adagio::StateMachine *state);
 
 #endif // GL_ADAGIO_REMOVEDEAD_H

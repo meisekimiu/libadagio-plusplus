@@ -6,31 +6,32 @@
 #include "./GameStats.h"
 #include "RenderingServices.h"
 #include "entt/entt.hpp"
+#include "GameServices.h"
 
 namespace Adagio {
-class StateMachine;
+    class StateMachine;
 
-class GameState {
-public:
-  bool transparent{false};
+    class GameState {
+    public:
+        bool transparent{false};
 
-  virtual void init();
+        virtual void init();
 
-  virtual void loadContent(SpriteBatch &spriteBatch,
-                           RenderingServices &services);
+        virtual void loadContent(SpriteBatch &spriteBatch,
+                                 RenderingServices &services);
 
-  virtual void pause();
+        virtual void pause();
 
-  virtual void resume();
+        virtual void resume();
 
-  virtual void update(GameStats &stats, StateMachine *gameStates);
+        virtual void update(GameServices &stats, StateMachine *gameStates);
 
-  virtual void draw(SpriteBatch &spriteBatch, RenderingServices &services);
+        virtual void draw(SpriteBatch &spriteBatch, RenderingServices &services);
 
-  virtual void cleanup();
+        virtual void cleanup();
 
-  virtual void unloadContent(RenderingServices &services);
-};
+        virtual void unloadContent(RenderingServices &services);
+    };
 
 } // namespace Adagio
 

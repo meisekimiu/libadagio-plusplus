@@ -35,8 +35,7 @@ void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch,
     };
 
     const auto ship = registry.create();
-    registry.emplace<PlayerShip>(ship, Adagio::Vector2d{0, 0},
-                                 services.textureManager->getTexture("assets/wallop.png"_hs), wallopFrames);
+    registry.emplace<PlayerShip>(ship, Adagio::Vector2d{0, 0}, wallopFrames);
     registry.emplace<Position>(ship, Adagio::Vector2d{320, 240});
     registry.emplace<Sprite>(ship, shipTex, Adagio::Vector2d{0, 0}, 0);
     registry.emplace<SpriteClip>(ship);

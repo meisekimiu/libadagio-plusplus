@@ -5,7 +5,7 @@
 #include "../../state/GameState.h"
 #include "entt/entt.hpp"
 
-void WallopSystem(entt::registry &registry, Adagio::GameStats &stats,
+void WallopSystem(entt::registry &registry, Adagio::GameServices &services,
                   Adagio::StateMachine *state);
 
 #endif // GL_ADAGIO_WALLOP_H

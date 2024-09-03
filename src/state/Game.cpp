@@ -3,32 +3,32 @@
 #include <utility>
 
 namespace Adagio {
-Game::Game(SpriteBatch &spriteBatch) : spriteBatch(std::move(spriteBatch)) {}
+    Game::Game(SpriteBatch &spriteBatch) : spriteBatch(std::move(spriteBatch)) {}
 
-void Game::update() {
-  frameDelta = GetFrameTime();
-  gameTime = GetTime();
-  stateMachine.update(this);
-}
+    void Game::update() {
+        frameDelta = GetFrameTime();
+        gameTime = GetTime();
+        stateMachine.update(gameServices);
+    }
 
-void Game::draw() {
-  spriteBatch.begin();
-  stateMachine.draw();
-  spriteBatch.end();
-}
+    void Game::draw() {
+        spriteBatch.begin();
+        stateMachine.draw();
+        spriteBatch.end();
+    }
 
-bool Game::isRunning() const { return running; }
+    bool Game::isRunning() const { return running; }
 
-double Game::getGameTime() const { return gameTime; }
+    double Game::getGameTime() const { return gameTime; }
 
-float Game::getFrameDelta() const { return frameDelta; }
+    float Game::getFrameDelta() const { return frameDelta; }
 
-void Game::closeGame() { running = false; }
+    void Game::closeGame() { running = false; }
 
-void Game::loadContent() {}
+    void Game::loadContent() {}
 
-void Game::cleanup() {}
+    void Game::cleanup() {}
 
-void Game::unloadContent() {}
+    void Game::unloadContent() {}
 
 } // namespace Adagio

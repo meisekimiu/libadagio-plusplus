@@ -6,7 +6,7 @@
 #include "entt/entt.hpp"
 
 namespace Adagio {
-    typedef void (*SystemFn)(entt::registry &, GameStats &, StateMachine *);
+    typedef void (*SystemFn)(entt::registry &, GameServices &, StateMachine *);
 
     typedef void (*RendererFn)(entt::registry &, SpriteBatch &,
                                RenderingServices &);
@@ -19,7 +19,7 @@ namespace Adagio {
 
         void registerRenderer(RendererFn);
 
-        void update(GameStats &stats, StateMachine *gameStates) override;
+        void update(GameServices &services, StateMachine *gameStates) override;
 
         void draw(SpriteBatch &spriteBatch, RenderingServices &services) override;
 

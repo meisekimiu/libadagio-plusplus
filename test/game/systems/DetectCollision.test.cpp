@@ -18,9 +18,9 @@ struct TestStruct {
 
 TEST_CASE("DetectCollision: No components defined", "[system][Collision]") {
     harness.reset();
-    REQUIRE_NOTHROW(DetectCollision<TagA, TagB>(harness.registry, harness.stats,
+    REQUIRE_NOTHROW(DetectCollision<TagA, TagB>(harness.registry, harness.gameServices,
                                                 harness.stateMachine));
-    REQUIRE_NOTHROW(DetectCollision<TagA, TestStruct>(harness.registry, harness.stats,
+    REQUIRE_NOTHROW(DetectCollision<TagA, TestStruct>(harness.registry, harness.gameServices,
                                                       harness.stateMachine));
 }
 
