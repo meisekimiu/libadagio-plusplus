@@ -12,6 +12,11 @@ namespace Adagio {
 
     typedef std::uint32_t InboxId;
 
+    struct PooledMessageCollection {
+        MessageCollection inbox;
+        bool active{false};
+    };
+
     class MessageDispatchService {
     public:
         void registerInbox(InboxId id, MessageCollection *inboxDestination);
@@ -41,6 +46,7 @@ namespace Adagio {
         }
 
     private:
+//        PooledMessageCollection inboxPool[MSGPOOL_MAX];
         Message eventPool[MSGPOOL_MAX];
         Message invalidMessage;
         std::unordered_map<InboxId, MessageCollection *> inboxMap;

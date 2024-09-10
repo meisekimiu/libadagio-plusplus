@@ -54,6 +54,29 @@ TEST_CASE("MessageCollection", "[event]") {
         REQUIRE(collection.last == nullptr);
     }
 
+    SECTION("Can iterate over each element", "[event]") {
+        int processedMessages = 0;
+        Adagio::Message events[10];
+        for (auto &event: events) {
+            event.from = collection.size();
+            collection.append(&event);
+        }
+        for (auto &message: collection) {
+            REQUIRE(message.from == processedMessages);
+            processedMessages++;
+        }
+        REQUIRE(processedMessages == 10);
+    }
+
+    SECTION("Can clear the entire inbox", "[event]") {
+        Adagio::Message events[15];
+        for (auto &event: events) {
+            collection.append(&event);
+        }
+        collection.clear();
+        REQUIRE(collection.empty());
+    }
+
     SECTION("Can pop off the first element", "[event]") {
         Adagio::Message events[10];
         for (auto &event: events) {

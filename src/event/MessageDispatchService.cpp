@@ -25,6 +25,7 @@ namespace Adagio {
     }
 
     void MessageDispatchService::unregisterInbox(InboxId id) {
+        inboxMap[id]->clear();
         inboxMap.erase(id);
     }
 } // namespace Adagio

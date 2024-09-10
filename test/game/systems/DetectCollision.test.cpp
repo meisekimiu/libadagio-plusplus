@@ -59,4 +59,19 @@ TEST_CASE("Detect Collision: Fires if components fully intersect", "[system][Col
 
         REQUIRE(inbox.messages.empty());
     }
+
+    SECTION("Can fire multiple events for multiple collisions in one frame") {
+        inbox.messages.clear();
+        auto entityC = harness.registry.create();
+        harness.registry.emplace<Position>(entityC, Adagio::Vector2d{0, 0});
+        harness.registry.emplace<CollisionRadius>(entityC, Adagio::Vector2d{0, 0}, 1);
+        harness.registry.emplace<TagA>(entityC);
+        positionB.position.x = 1;
+        auto &inboxC = harness.registry.emplace<MessageInbox>(entityC);
+
+        harness.testSystemFrame(DetectCollision<TagA, TagB>);
+
+        REQUIRE(inbox.messages.size() == 1);
+        REQUIRE(inboxC.messages.size() == 1);
+    }
 }

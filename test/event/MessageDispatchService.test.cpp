@@ -59,6 +59,19 @@ TEST_CASE("MessageDispatchService can unregister an inbox", "[event]") {
     REQUIRE(inbox.messages.empty());
 }
 
+TEST_CASE("MessageDispatchService frees up messages when unregistering an inbox", "[event]") {
+    Adagio::MessageDispatchService events;
+    TestInbox inbox;
+    TestInbox inbox2;
+    events.registerInbox(1, inbox);
+    events.registerInbox(2, inbox2);
+    const Adagio::Message *const poolAddress = &events.dispatch(1, 0, "test"_hs);
+    events.unregisterInbox(1);
+    const Adagio::Message *const nextAddress = &events.dispatch(2, 0, "test"_hs);
+    REQUIRE(inbox.messages.empty());
+    REQUIRE(poolAddress == nextAddress);
+}
+
 TEST_CASE("MessageDispatchService will fail silently if message pool is full", "[event]") {
     Adagio::MessageDispatchService events;
     TestInbox inbox;

@@ -14,7 +14,7 @@ namespace Adagio {
     class GameState {
     public:
         bool transparent{false};
-
+        
         virtual void init();
 
         virtual void loadContent(SpriteBatch &spriteBatch,

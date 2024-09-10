@@ -1,4 +1,6 @@
 #include "EntityGameState.h"
+#include "../game/components/events/hooks/MessageInboxHooks.h"
+#include "../game/components/events/MessageInbox.h"
 #include <stdexcept>
 
 namespace Adagio {
@@ -20,9 +22,12 @@ namespace Adagio {
         if (!gameStates) {
             throw std::invalid_argument("StateMachine cannot be null.");
         }
+        MessageDispatchService *prevValue = services.messageDispatchService;
+        services.messageDispatchService = &messageService;
         for (SystemFn system: systems) {
             system(registry, services, gameStates);
         }
+        services.messageDispatchService = prevValue;
     }
 
     void EntityGameState::draw(SpriteBatch &spriteBatch,
@@ -42,6 +47,8 @@ namespace Adagio {
 
     void EntityGameState::initializeRegistryContext() {
         registry.ctx().emplace<Adagio::MessageDispatchService *>(&messageService);
+        registry.on_construct<MessageInbox>().connect<&RegisterInboxWithMessageService>();
+        registry.on_destroy<MessageInbox>().connect<&UnregisterInboxWithMessageService>();
     }
 
     EntityGameState::EntityGameState() {

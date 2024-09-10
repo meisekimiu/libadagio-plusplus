@@ -4,6 +4,7 @@
 #include "../../../event/MessageCollection.h"
 
 struct MessageInbox {
+    static constexpr auto in_place_delete = true; // Ensure pointer stability in EnTT
     Adagio::MessageCollection messages;
 };
 

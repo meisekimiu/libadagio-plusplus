@@ -14,7 +14,7 @@ namespace Adagio {
     class EntityGameState : public GameState {
     public:
         EntityGameState();
-
+        
         void registerSystem(SystemFn);
 
         void registerRenderer(RendererFn);

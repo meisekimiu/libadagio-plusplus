@@ -63,4 +63,18 @@ namespace Adagio {
     bool MessageCollection::empty() const {
         return size() == 0;
     }
+
+    MessageCollectionIterator MessageCollection::begin() const {
+        return MessageCollectionIterator(first);
+    }
+
+    MessageCollectionIterator MessageCollection::end() const {
+        return MessageCollectionIterator(nullptr);
+    }
+
+    void MessageCollection::clear() {
+        while (!empty()) {
+            remove(0);
+        }
+    }
 } // Adagio

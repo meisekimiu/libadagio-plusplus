@@ -5,12 +5,13 @@
 #include "../../state/GameStats.h"
 #include "../../state/StateMachine.h"
 #include "../components/CollisionRadius.h"
+#include "../components/Position.h"
 #include "entt/entt.hpp"
 
 template<class Target, class Filter>
 void DetectCollision(entt::registry &registry, Adagio::GameServices &services,
                      Adagio::StateMachine *state) {
-    auto getCollisionCenter = [&registry](const CollisionRadius &collision, entt::entity entity) {
+    const auto getCollisionCenter = [&registry](const CollisionRadius &collision, entt::entity entity) {
         Adagio::Vector2d collisionCenter = collision.offset;
         Position *pos = registry.try_get<Position>(entity);
         if (pos) {
