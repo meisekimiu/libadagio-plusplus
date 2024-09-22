@@ -7,7 +7,7 @@ void Adagio::KeyboardState::setHandler(Adagio::KeyboardHandler *handle) {
 bool Adagio::KeyboardState::isKeyDown(Adagio::keycode key) const {
     auto it = keys.find(key);
     if (it != keys.end()) {
-        return it->second.keyDown;
+        return it->second.isDown;
     }
     return false;
 }
@@ -19,7 +19,7 @@ bool Adagio::KeyboardState::isKeyUp(Adagio::keycode key) const {
 bool Adagio::KeyboardState::hasKeyPressStarted(Adagio::keycode key) const {
     auto it = keys.find(key);
     if (it != keys.end()) {
-        return it->second.keyPressed;
+        return it->second.isPressed;
     }
     return false;
 }
@@ -27,7 +27,7 @@ bool Adagio::KeyboardState::hasKeyPressStarted(Adagio::keycode key) const {
 bool Adagio::KeyboardState::hasKeyPressEnded(Adagio::keycode key) const {
     auto it = keys.find(key);
     if (it != keys.end()) {
-        return it->second.keyReleased;
+        return it->second.isReleased;
     }
     return false;
 }
@@ -58,18 +58,18 @@ void Adagio::KeyboardState::updateTextBuffer() {
 
 void Adagio::KeyboardState::checkKnownKeys() {
     for (auto &keyState: keys) {
-        keyState.second.keyPressed = false;
-        keyState.second.keyReleased = keyState.second.keyDown && handler->isKeyUp(keyState.first);
-        keyState.second.keyDown = handler->isKeyDown(keyState.first);
+        keyState.second.isPressed = false;
+        keyState.second.isReleased = keyState.second.isDown && handler->isKeyUp(keyState.first);
+        keyState.second.isDown = handler->isKeyDown(keyState.first);
     }
 }
 
 void Adagio::KeyboardState::scanForNewKeyPresses() {
     keycode newKey = handler->getNextKey();
     while (newKey != 0) {
-        keys[newKey].keyDown = true;
-        keys[newKey].keyPressed = true;
-        keys[newKey].keyReleased = false;
+        keys[newKey].isDown = true;
+        keys[newKey].isPressed = true;
+        keys[newKey].isReleased = false;
         newKey = handler->getNextKey();
     }
 }

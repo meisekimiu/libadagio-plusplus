@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <cstdint>
 #include "KeyboardHandler.h"
+#include "../common/ButtonBitState.h"
 
 namespace Adagio {
     class KeyboardState {
@@ -25,15 +26,9 @@ namespace Adagio {
         void update();
 
     private:
-        struct KeyBitState {
-            bool keyDown: 1;
-            bool keyPressed: 1;
-            bool keyReleased: 1;
-        };
-
         char textBuffer[8]{0, 0, 0, 0, 0, 0, 0, 0};
         KeyboardHandler *handler{nullptr};
-        std::unordered_map<keycode, KeyBitState> keys;
+        std::unordered_map<keycode, Input::ButtonBitState> keys;
 
         void scanForNewKeyPresses();
 
