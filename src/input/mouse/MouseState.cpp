@@ -27,7 +27,7 @@ void Adagio::MouseState::updateButtonStates() {
     for (Input::ButtonBitState &button: buttonStates) {
         const long buttonIndex = &button - buttonStates;
         const bool isDown = handler->isMouseButtonDown(buttonIndex);
-        button.isPressed = !button.isPressed && isDown;
+        button.isPressed = !button.isDown && isDown;
         button.isReleased = button.isDown && handler->isMouseButtonUp(buttonIndex);
         button.isDown = isDown;
     }
