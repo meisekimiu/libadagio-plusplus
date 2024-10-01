@@ -32,5 +32,12 @@ namespace Adagio {
             buttons[i].isReleased = buttons[i].isDown && handler->isButtonUp(index, i);
             buttons[i].isDown = isDown;
         }
+        for (char i = 0; i < MAX_AXES; i++) {
+            axes[i] = handler->getAxisValue(index, i);
+        }
+    }
+
+    float GamepadState::getAxisValue(GamepadButton axis) const {
+        return axes[axis];
     }
 } // Adagio

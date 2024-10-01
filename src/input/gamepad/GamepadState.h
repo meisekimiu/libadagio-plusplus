@@ -6,6 +6,7 @@
 #include "GamepadHandler.h"
 
 #define MAX_BUTTONS 16
+#define MAX_AXES 8
 
 namespace Adagio {
 
@@ -23,12 +24,16 @@ namespace Adagio {
 
         [[nodiscard]] bool hasButtonPressEnded(GamepadButton button) const;
 
+        [[nodiscard]] float getAxisValue(GamepadButton axis) const;
+
         void update();
 
     private:
         GamepadHandler *handler{nullptr};
         GamepadIndex index{0};
         Input::ButtonBitState buttons[MAX_BUTTONS]{};
+        float axes[MAX_AXES]{};
+        
     };
 
 } // Adagio

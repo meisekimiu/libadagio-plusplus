@@ -11,6 +11,8 @@ namespace Adagio {
         virtual bool isButtonDown(GamepadIndex gamepad, GamepadButton button) = 0;
 
         virtual bool isButtonUp(GamepadIndex gamepad, GamepadButton button) = 0;
+
+        virtual float getAxisValue(GamepadIndex gamepad, GamepadButton axis) = 0;
     };
 }
 
