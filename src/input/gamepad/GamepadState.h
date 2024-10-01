@@ -12,9 +12,11 @@ namespace Adagio {
 
     class GamepadState {
     public:
-        explicit GamepadState(GamepadIndex index);
+        explicit GamepadState(GamepadIndex index = 0);
 
         void setHandler(GamepadHandler *h);
+
+        void setIndex(GamepadIndex index);
 
         [[nodiscard]] bool isButtonDown(GamepadButton button) const;
 
@@ -33,7 +35,7 @@ namespace Adagio {
         GamepadIndex index{0};
         Input::ButtonBitState buttons[MAX_BUTTONS]{};
         float axes[MAX_AXES]{};
-        
+
     };
 
 } // Adagio

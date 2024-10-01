@@ -9,6 +9,10 @@ namespace Adagio {
         handler = h;
     }
 
+    void GamepadState::setIndex(GamepadIndex index) {
+        this->index = index;
+    }
+
     bool GamepadState::isButtonDown(GamepadButton button) const {
         return buttons[button].isDown;
     }

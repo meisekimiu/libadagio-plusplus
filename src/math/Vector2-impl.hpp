@@ -38,7 +38,7 @@ namespace Adagio {
 
     template<typename T>
     Vector2<T> Vector2<T>::normalized() const {
-        double length = magnitude();
+        T length = magnitude();
         return Vector2<T>{x / length, y / length};
     }
 
