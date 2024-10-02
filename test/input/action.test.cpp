@@ -20,11 +20,17 @@ TEST_CASE("Input Actions", "[input][actions]") {
     actions.linkInput(&mouse);
     actions.linkInput(&gamepad);
 
-    SECTION("It can query an undefined action") {
+    SECTION("It can query an undefined button action") {
         REQUIRE_FALSE(actions.isActionDown("undefined"_hs));
         REQUIRE(actions.isActionUp("undefined"_hs));
         REQUIRE_FALSE(actions.hasActionStarted("undefined"_hs));
         REQUIRE_FALSE(actions.hasActionEnded("undefined"_hs));
+    }
+
+    SECTION("It can query an undefined direction action") {
+        Adagio::Vector2f vec = actions.getActionDirection("undefined"_hs);
+        REQUIRE(vec.x == 0);
+        REQUIRE(vec.y == 0);
     }
 
     SECTION("It can register an action to a keyboard button") {
@@ -101,5 +107,82 @@ TEST_CASE("Input Actions", "[input][actions]") {
         actions.update();
         REQUIRE_FALSE(actions.isActionDown("jump"_hs));
         REQUIRE(actions.hasActionEnded("jump"_hs));
+    }
+
+    SECTION("It can register a 2D directional input on keyboard") {
+        Adagio::Vector2f vec;
+        actions.registerActionDirectionKeys("move"_hs, 1, 2, 3, 4);
+        mocks.keyboard.pressKey(1);
+        keyboard.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == -1);
+        REQUIRE(vec.y == 0);
+        mocks.keyboard.releaseKey(1);
+        mocks.keyboard.pressKey(2);
+        keyboard.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == 0);
+        REQUIRE(vec.y == 1);
+        mocks.keyboard.releaseKey(2);
+        mocks.keyboard.pressKey(3);
+        keyboard.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == 0);
+        REQUIRE(vec.y == -1);
+        mocks.keyboard.releaseKey(3);
+        mocks.keyboard.pressKey(4);
+        keyboard.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == 1);
+        REQUIRE(vec.y == 0);
+    }
+
+    SECTION("It normalizes diagonal keyboard input") {
+        Adagio::Vector2f vec;
+        actions.registerActionDirectionKeys("move"_hs, 1, 2, 3, 4);
+        mocks.keyboard.pressKey(1);
+        mocks.keyboard.pressKey(3);
+        keyboard.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == vec.y);
+        REQUIRE(std::abs(vec.magnitude() - 1) < 0.00001);
+    }
+
+    SECTION("It can register a 2D directional input on gamepad") {
+        Adagio::Vector2f vec;
+        gamepad.createAxisPair("move"_hs, 1, 2);
+        actions.registerActionDirectionAxes("move"_hs, "move"_hs);
+        mocks.gamepad.setAxis(1, 1, 0.5);
+        mocks.gamepad.setAxis(1, 2, -0.5);
+        gamepad.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == 0.5);
+        REQUIRE(vec.y == -0.5);
+    }
+
+    SECTION("It can handle both keyboard and gamepad directional input") {
+        Adagio::Vector2f vec;
+        gamepad.createAxisPair("move"_hs, 1, 2);
+        actions.registerActionDirectionAxes("move"_hs, "move"_hs);
+        actions.registerActionDirectionKeys("move"_hs, 1, 2, 3, 4);
+        mocks.keyboard.pressKey(1);
+        keyboard.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == -1);
+        REQUIRE(vec.y == 0);
+        mocks.gamepad.setAxis(1, 2, -1);
+        keyboard.update();
+        gamepad.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == vec.y);
+        REQUIRE(std::abs(vec.magnitude() - 1) < 0.00001);
     }
 }
