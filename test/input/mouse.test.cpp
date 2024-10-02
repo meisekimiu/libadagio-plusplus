@@ -1,45 +1,7 @@
 #include <catch2/catch.hpp>
-#include "../../src/input/mouse/MouseState.h"
 #include <unordered_map>
-
-struct MockMouse : public Adagio::MouseHandler {
-    Adagio::Vector2i coords{0, 0};
-    std::unordered_map<Adagio::MouseButton, bool> buttons;
-    int cursor{0};
-
-    bool isMouseButtonDown(Adagio::MouseButton btn) override {
-        return buttons[btn];
-    }
-
-    bool isMouseButtonUp(Adagio::MouseButton btn) override {
-        return !buttons[btn];
-    }
-
-    Adagio::Vector2i getMouseCoords() override {
-        return coords;
-    }
-
-    void setMouseCoords(Adagio::Vector2i c) override {
-        coords = c;
-    }
-
-    void setMouseCursor(Adagio::MouseCursor i) override {
-        cursor = i;
-    }
-
-    void setMockCoords(int x, int y) {
-        coords.x = x;
-        coords.y = y;
-    }
-
-    void pressButton(Adagio::MouseButton i) {
-        buttons[i] = true;
-    }
-
-    void releaseButton(Adagio::MouseButton i) {
-        buttons[i] = false;
-    }
-};
+#include "../../src/input/mouse/MouseState.h"
+#include "mocks/MockMouse.h"
 
 TEST_CASE("MouseState", "[input][mouse]") {
     Adagio::MouseState mouseState;
