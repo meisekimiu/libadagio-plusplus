@@ -1,11 +1,13 @@
 #ifndef GL_ADAGIO_ECSTESTINGHARNESS_H
 #define GL_ADAGIO_ECSTESTINGHARNESS_H
 
+#include "../../src/input/InputService.h"
 #include "../../src/graphics/SpriteBatch.h"
 #include "../../src/state/EntityGameState.h"
 #include "../../src/state/RenderingServices.h"
 #include "../../src/state/StateMachine.h"
 #include "../../src/event/MessageDispatchService.h"
+#include "../input/mocks/MockInputs.h"
 #include "entt/entt.hpp"
 #include "harness/EcsMockGraphicsDevice.h"
 #include "harness/MockGameStats.h"
@@ -20,6 +22,8 @@ public:
     Adagio::RenderingServices renderingServices{};
     Adagio::StateMachine *stateMachine;
     Adagio::MessageDispatchService messageService;
+    Adagio::InputService input;
+    MockInputs mockInputs;
 
     EcsTestingHarness();
 

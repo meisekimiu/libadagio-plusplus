@@ -1,6 +1,7 @@
 #ifndef GL_ADAGIO_GAME_H
 #define GL_ADAGIO_GAME_H
 
+#include "../input/InputService.h"
 #include "../graphics/SpriteBatch.h"
 #include "../event/MessageDispatchService.h"
 #include "GameServices.h"
@@ -11,6 +12,7 @@ namespace Adagio {
     class Game : public GameStats {
     public:
         SpriteBatch spriteBatch;
+        InputService input;
         StateMachine stateMachine = StateMachine(&spriteBatch, &renderingServices);
 
         explicit Game(SpriteBatch &sb);
@@ -46,7 +48,7 @@ namespace Adagio {
                 &spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this};
 
         GameServices gameServices{
-                &messageDispatchService, this, {spriteBatch.getGraphicsDevice()->getTextureManager()}
+                &messageDispatchService, this, {spriteBatch.getGraphicsDevice()->getTextureManager()}, &input
         };
     };
 } // namespace Adagio

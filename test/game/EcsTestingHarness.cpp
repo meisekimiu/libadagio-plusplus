@@ -1,9 +1,13 @@
 #include "EcsTestingHarness.h"
 
 EcsTestingHarness::EcsTestingHarness() {
+    input.addHandler(&mockInputs.gamepad);
+    input.addHandler(&mockInputs.keyboard);
+    input.addHandler(&mockInputs.mouse);
     gameServices.messageDispatchService = &messageService;
     gameServices.stats = &stats;
     gameServices.resources.textureManager = spriteBatch.getGraphicsDevice()->getTextureManager();
+    gameServices.input = &input;
     renderingServices = {&spriteBatch, graphicsDevice.getTextureManager(), &stats};
     stateMachine = new Adagio::StateMachine(&spriteBatch, &renderingServices);
     registry.ctx().emplace<Adagio::MessageDispatchService *>(&messageService);
