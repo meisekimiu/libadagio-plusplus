@@ -8,6 +8,7 @@ namespace Adagio {
     void Game::update() {
         frameDelta = GetFrameTime();
         gameTime = GetTime();
+        input.update();
         stateMachine.update(gameServices);
     }
 

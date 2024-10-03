@@ -33,6 +33,9 @@ bool Adagio::KeyboardState::hasKeyPressEnded(Adagio::keycode key) const {
 }
 
 void Adagio::KeyboardState::update() {
+    if (handler == nullptr) {
+        return;
+    }
     updateTextBuffer();
     checkKnownKeys();
     scanForNewKeyPresses();

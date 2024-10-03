@@ -13,6 +13,9 @@ void Adagio::MouseState::setHandler(Adagio::MouseHandler *h) {
 }
 
 void Adagio::MouseState::update() {
+    if (handler == nullptr) {
+        return;
+    }
     updateCoords();
     updateButtonStates();
 }

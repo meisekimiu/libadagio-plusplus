@@ -69,7 +69,7 @@ namespace Adagio {
                 }
             }
             for (const auto axis: directionAxes[direction.first]) {
-                dir += gamepad->readAxisPair(axis, 1);
+                dir += gamepad->readAxisPair(axis, 0);
             }
             if (dir.magnitudeSquared() > 1) {
                 dir = dir.normalized();
@@ -93,7 +93,7 @@ namespace Adagio {
                         break;
                     case Input::Gamepad:
                         // TODO: support player index later lol
-                        isDown = gamepad->byIndex(1).isButtonDown(config.buttonId);
+                        isDown = gamepad->byIndex(0).isButtonDown(config.buttonId);
                         break;
                 }
                 if (isDown) {

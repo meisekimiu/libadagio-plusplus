@@ -30,6 +30,9 @@ namespace Adagio {
     }
 
     void GamepadState::update() {
+        if (handler == nullptr) {
+            return;
+        }
         for (char i = 0; i < MAX_BUTTONS; i++) {
             const bool isDown = handler->isButtonDown(index, i);
             buttons[i].isPressed = !buttons[i].isDown && isDown;

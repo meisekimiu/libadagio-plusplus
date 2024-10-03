@@ -4,7 +4,7 @@ namespace Adagio {
 
     GamepadCollection::GamepadCollection() {
         for (char i = 0; i < ADAGIO_MAX_GAMEPADS; i++) {
-            gamepads[i].setIndex(i + 1);
+            gamepads[i].setIndex(i);
         }
     }
 
@@ -15,7 +15,7 @@ namespace Adagio {
     }
 
     const GamepadState &GamepadCollection::byIndex(GamepadIndex index) const {
-        return gamepads[index - 1];
+        return gamepads[index];
     }
 
     void GamepadCollection::update() {

@@ -24,19 +24,12 @@ void ShipSystem(entt::registry &registry, Adagio::GameServices &services,
     for (auto [entity, ship, pos]: view.each()) {
         ship.velocity.x = lowerVelocity(ship.velocity.x);
         ship.velocity.y = lowerVelocity(ship.velocity.y);
-        if (IsKeyDown(KEY_LEFT)) {
-            ship.velocity.x = -speed;
+        const Adagio::Vector2f inputMagnitude = services.input->actions.getActionDirection("move"_hs);
+        if (inputMagnitude.magnitudeSquared() > 0) {
+            ship.velocity.x = inputMagnitude.x * speed;
+            ship.velocity.y = inputMagnitude.y * speed;
         }
-        if (IsKeyDown(KEY_RIGHT)) {
-            ship.velocity.x = speed;
-        }
-        if (IsKeyDown(KEY_UP)) {
-            ship.velocity.y = -speed;
-        }
-        if (IsKeyDown(KEY_DOWN)) {
-            ship.velocity.y = speed;
-        }
-        if (IsKeyPressed(KEY_SPACE)) {
+        if (services.input->actions.hasActionStarted("fire"_hs)) {
             const auto wallop = MakeWallop(
                     Adagio::Vector2{pos.position.x + 27 - 16, pos.position.y},
                     -M_PI_2,

@@ -72,7 +72,7 @@ TEST_CASE("Input Actions", "[input][actions]") {
 
     SECTION("It can register an action to a gamepad button") {
         actions.registerActionButton("gamepadButtonA"_hs, Adagio::Input::Gamepad, 1);
-        mocks.gamepad.pressButton(1, 1);
+        mocks.gamepad.pressButton(0, 1);
         gamepad.update();
         actions.update();
         REQUIRE(actions.isActionDown("gamepadButtonA"_hs));
@@ -96,13 +96,13 @@ TEST_CASE("Input Actions", "[input][actions]") {
         REQUIRE(actions.isActionDown("jump"_hs));
         REQUIRE_FALSE(actions.hasActionStarted("jump"_hs));
         mocks.mouse.releaseButton(1);
-        mocks.gamepad.pressButton(1, 1);
+        mocks.gamepad.pressButton(0, 1);
         mouse.update();
         gamepad.update();
         actions.update();
         REQUIRE(actions.isActionDown("jump"_hs));
         REQUIRE_FALSE(actions.hasActionStarted("jump"_hs));
-        mocks.gamepad.releaseButton(1, 1);
+        mocks.gamepad.releaseButton(0, 1);
         gamepad.update();
         actions.update();
         REQUIRE_FALSE(actions.isActionDown("jump"_hs));
@@ -157,8 +157,8 @@ TEST_CASE("Input Actions", "[input][actions]") {
         Adagio::Vector2f vec;
         gamepad.createAxisPair("move"_hs, 1, 2);
         actions.registerActionDirectionAxes("move"_hs, "move"_hs);
-        mocks.gamepad.setAxis(1, 1, 0.5);
-        mocks.gamepad.setAxis(1, 2, -0.5);
+        mocks.gamepad.setAxis(0, 1, 0.5);
+        mocks.gamepad.setAxis(0, 2, -0.5);
         gamepad.update();
         actions.update();
         vec = actions.getActionDirection("move"_hs);
@@ -177,7 +177,7 @@ TEST_CASE("Input Actions", "[input][actions]") {
         vec = actions.getActionDirection("move"_hs);
         REQUIRE(vec.x == -1);
         REQUIRE(vec.y == 0);
-        mocks.gamepad.setAxis(1, 2, -1);
+        mocks.gamepad.setAxis(0, 2, -1);
         keyboard.update();
         gamepad.update();
         actions.update();
