@@ -68,6 +68,20 @@ namespace Adagio {
                     dir.x += 1;
                 }
             }
+            for (const auto &btns: directionButtons[direction.first]) {
+                if (gamepad->byIndex(0).isButtonDown(btns.keys[0])) {
+                    dir.x -= 1;
+                }
+                if (gamepad->byIndex(0).isButtonDown(btns.keys[1])) {
+                    dir.y += 1;
+                }
+                if (gamepad->byIndex(0).isButtonDown(btns.keys[2])) {
+                    dir.y -= 1;
+                }
+                if (gamepad->byIndex(0).isButtonDown(btns.keys[3])) {
+                    dir.x += 1;
+                }
+            }
             for (const auto axis: directionAxes[direction.first]) {
                 dir += gamepad->readAxisPair(axis, 0);
             }
@@ -122,6 +136,13 @@ namespace Adagio {
 
     void ActionState::registerActionDirectionAxes(std::uint32_t name, std::uint32_t axisName) {
         directionAxes[name].push_back(axisName);
+        directions[name];
+    }
+
+    void ActionState::registerActionDirectionGamepadButtons(std::uint32_t name, Adagio::GamepadButton left,
+                                                            Adagio::GamepadButton down, Adagio::GamepadButton up,
+                                                            Adagio::GamepadButton right) {
+        directionButtons[name].push_back({left, down, up, right});
         directions[name];
     }
 } // Adagio

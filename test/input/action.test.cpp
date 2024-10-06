@@ -185,4 +185,36 @@ TEST_CASE("Input Actions", "[input][actions]") {
         REQUIRE(vec.x == vec.y);
         REQUIRE(std::abs(vec.magnitude() - 1) < 0.00001);
     }
+
+    SECTION("It can map gamepad buttons to directional input") {
+        Adagio::Vector2f vec;
+        actions.registerActionDirectionGamepadButtons("move"_hs, 1, 2, 3, 4);
+        mocks.gamepad.pressButton(0, 1);
+        gamepad.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == -1);
+        REQUIRE(vec.y == 0);
+        mocks.gamepad.releaseButton(0, 1);
+        mocks.gamepad.pressButton(0, 2);
+        gamepad.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == 0);
+        REQUIRE(vec.y == 1);
+        mocks.gamepad.releaseButton(0, 2);
+        mocks.gamepad.pressButton(0, 3);
+        gamepad.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == 0);
+        REQUIRE(vec.y == -1);
+        mocks.gamepad.releaseButton(0, 3);
+        mocks.gamepad.pressButton(0, 4);
+        gamepad.update();
+        actions.update();
+        vec = actions.getActionDirection("move"_hs);
+        REQUIRE(vec.x == 1);
+        REQUIRE(vec.y == 0);
+    }
 }

@@ -33,6 +33,10 @@ namespace Adagio {
         registerActionDirectionKeys(std::uint32_t name, Adagio::keycode left, Adagio::keycode down, Adagio::keycode up,
                                     Adagio::keycode right);
 
+        void registerActionDirectionGamepadButtons(std::uint32_t name, Adagio::GamepadButton left,
+                                                   Adagio::GamepadButton down, Adagio::GamepadButton up,
+                                                   Adagio::GamepadButton right);
+
         void registerActionDirectionAxes(std::uint32_t name, std::uint32_t axisName);
 
         void update();
@@ -49,6 +53,7 @@ namespace Adagio {
         std::unordered_map<std::uint32_t, Input::ButtonBitState> buttons;
 
         std::unordered_map<std::uint32_t, std::vector<ActionDirectionKeys>> directionKeys;
+        std::unordered_map<std::uint32_t, std::vector<ActionDirectionKeys>> directionButtons;
         std::unordered_map<std::uint32_t, std::vector<std::uint32_t>> directionAxes;
         std::unordered_map<std::uint32_t, Vector2f> directions;
 

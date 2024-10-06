@@ -11,6 +11,9 @@ void SandboxGame::init() {
     input.actions.registerActionButton("fire"_hs, Adagio::Input::Keyboard, KEY_SPACE);
     input.actions.registerActionButton("fire"_hs, Adagio::Input::Gamepad, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT);
     input.actions.registerActionDirectionKeys("move"_hs, KEY_LEFT, KEY_DOWN, KEY_UP, KEY_RIGHT);
+    input.actions.registerActionDirectionGamepadButtons("move"_hs, GAMEPAD_BUTTON_LEFT_FACE_LEFT,
+                                                        GAMEPAD_BUTTON_LEFT_FACE_DOWN, GAMEPAD_BUTTON_LEFT_FACE_UP,
+                                                        GAMEPAD_BUTTON_LEFT_FACE_RIGHT);
     input.actions.registerActionDirectionAxes("move"_hs, "move"_hs);
 }
 
