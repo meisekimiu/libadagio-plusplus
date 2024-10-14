@@ -7,8 +7,9 @@ EcsTestingHarness::EcsTestingHarness() {
     gameServices.messageDispatchService = &messageService;
     gameServices.stats = &stats;
     gameServices.resources.textureManager = spriteBatch.getGraphicsDevice()->getTextureManager();
+    gameServices.resources.animationLibrary = &animationLibrary;
     gameServices.input = &input;
-    renderingServices = {&spriteBatch, graphicsDevice.getTextureManager(), &stats};
+    renderingServices = {&spriteBatch, graphicsDevice.getTextureManager(), &stats, &animationLibrary};
     stateMachine = new Adagio::StateMachine(&spriteBatch, &renderingServices);
     registry.ctx().emplace<Adagio::MessageDispatchService *>(&messageService);
 }

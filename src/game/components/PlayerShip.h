@@ -10,7 +10,6 @@ struct PlayerShip {
      *  Powerup State
      */
     Adagio::Vector2d velocity;
-    AnimationFrame *wallopFrames{nullptr};
 };
 
 #endif // GL_ADAGIO_PLAYERSHIP_H

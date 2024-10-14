@@ -23,6 +23,7 @@ public:
     Adagio::StateMachine *stateMachine;
     Adagio::MessageDispatchService messageService;
     Adagio::InputService input;
+    Adagio::SpriteAnimationLibrary animationLibrary;
     MockInputs mockInputs;
 
     EcsTestingHarness();

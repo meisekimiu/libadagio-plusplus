@@ -44,11 +44,14 @@ namespace Adagio {
 
         MessageDispatchService messageDispatchService;
 
+        SpriteAnimationLibrary animationLibrary;
+
         RenderingServices renderingServices{
-                &spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this};
+                &spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this, &animationLibrary};
 
         GameServices gameServices{
-                &messageDispatchService, this, {spriteBatch.getGraphicsDevice()->getTextureManager()}, &input
+                &messageDispatchService, this,
+                {spriteBatch.getGraphicsDevice()->getTextureManager(), &animationLibrary}, &input
         };
     };
 } // namespace Adagio

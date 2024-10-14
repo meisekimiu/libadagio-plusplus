@@ -4,6 +4,7 @@
 #include "../components/Velocity.h"
 #include "../components/Position.h"
 #include "../components/Sprite.h"
+#include "../components/SpriteAnimation.h"
 #include "../components/SpriteClip.h"
 #include "../components/SpriteScale.h"
 #include "../components/events/MessageInbox.h"
@@ -21,5 +22,7 @@ entt::entity MakeWallop(const Adagio::Vector2d &position, double direction, entt
     registry.emplace<SpriteScale>(wallop, Adagio::Vector2f{0.5, 0.5});
     registry.emplace<MessageInbox>(wallop);
     registry.emplace<CollisionRadius>(wallop, Adagio::Vector2d{16, 16}, 5);
+    auto &animation = registry.emplace<SpriteAnimation>(wallop, "WALLOP"_hs);
+    animation.loop = true;
     return wallop;
 }

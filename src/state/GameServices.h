@@ -1,6 +1,7 @@
 #ifndef GL_ADAGIO_GAMESERVICES_H
 #define GL_ADAGIO_GAMESERVICES_H
 
+#include "../animation/SpriteAnimationLibrary.h"
 #include "../input/InputService.h"
 #include "../event/MessageDispatchService.h"
 #include "../graphics/AbstractTextureManager.h"
@@ -10,6 +11,7 @@ namespace Adagio {
     struct GameServices {
         struct ResourceLibraryCollection {
             const AbstractTextureManager *textureManager{nullptr};
+            SpriteAnimationLibrary *animationLibrary{nullptr};
         };
 
         MessageDispatchService *messageDispatchService{nullptr};

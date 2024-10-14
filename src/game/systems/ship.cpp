@@ -30,16 +30,12 @@ void ShipSystem(entt::registry &registry, Adagio::GameServices &services,
             ship.velocity.y = inputMagnitude.y * speed;
         }
         if (services.input->actions.hasActionStarted("fire"_hs)) {
-            const auto wallop = MakeWallop(
+            MakeWallop(
                     Adagio::Vector2{pos.position.x + 27 - 16, pos.position.y},
                     -M_PI_2,
                     registry,
                     services.resources.textureManager
             );
-            SpriteAnimation &anim = registry.emplace<SpriteAnimation>(wallop);
-            anim.frameLength = 4;
-            anim.loop = true;
-            anim.frames = ship.wallopFrames;
         }
         ship.velocity = normalizeVelocity(ship.velocity, speed);
         pos.position.x += ship.velocity.x;

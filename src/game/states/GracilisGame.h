@@ -16,9 +16,6 @@ public:
 private:
     Adagio::Texture2D shipTex;
     Adagio::Texture2D wallopTex;
-    AnimationFrame *shipFrames{nullptr};
-    AnimationFrame *wallopFrames{nullptr};
-    AnimationFrame *spinnyFrames{nullptr};
 };
 
 #endif // GL_ADAGIO_GRACILISGAME_H

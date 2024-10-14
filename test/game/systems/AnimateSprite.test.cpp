@@ -48,11 +48,11 @@ TEST_CASE("AnimateSprite applies clipping rect when one frame defined",
     harness.registry.emplace<Sprite>(sprite);
     SpriteClip &clip =
             harness.registry.emplace<SpriteClip>(sprite, Adagio::RectF{1, 2, 3, 4});
-    AnimationFrame frames[] = {{1, Adagio::RectI{5, 6, 7, 8}}};
+    Adagio::SpriteAnimationFrame frames[] = {{1, Adagio::RectI{5, 6, 7, 8}}};
+    harness.gameServices.resources.animationLibrary->createAnimation(1, 1, frames);
     SpriteAnimation &animation =
             harness.registry.emplace<SpriteAnimation>(sprite);
-    animation.frameLength = 1;
-    animation.frames = frames;
+    animation.resourceName = 1;
 
     harness.testSystemFrame(AnimateSprite);
 
@@ -70,14 +70,14 @@ TEST_CASE("AnimateSprite picks the correct frame between two frames",
     harness.registry.emplace<Sprite>(sprite);
     SpriteClip &clip =
             harness.registry.emplace<SpriteClip>(sprite, Adagio::RectF{1, 2, 3, 4});
-    AnimationFrame frames[] = {
+    Adagio::SpriteAnimationFrame frames[] = {
             {1, Adagio::RectI{5, 6, 7, 8}},
             {1, Adagio::RectI{9, 10, 11, 12}},
     };
+    harness.gameServices.resources.animationLibrary->createAnimation(1, 2, frames);
     SpriteAnimation &animation =
             harness.registry.emplace<SpriteAnimation>(sprite);
-    animation.frameLength = 2;
-    animation.frames = frames;
+    animation.resourceName = 1;
 
     harness.testSystemFrame(AnimateSprite);
     assertRectEquals(clip, 5, 6, 7, 8);
@@ -94,16 +94,16 @@ TEST_CASE("AnimateSprite will not go past frame boundaries",
     harness.registry.emplace<Sprite>(sprite);
     SpriteClip &clip =
             harness.registry.emplace<SpriteClip>(sprite, Adagio::RectF{1, 2, 3, 4});
-    AnimationFrame frames[] = {
+    Adagio::SpriteAnimationFrame frames[] = {
             {1,   Adagio::RectI{5, 6, 7, 8}},
             {100, Adagio::RectI{0xff, 0xff, 0xff, 0xff}},
             // The last frame here is just a "padding frame" that should never be
             // reached
     };
+    harness.gameServices.resources.animationLibrary->createAnimation(1, 1, frames);
     SpriteAnimation &animation =
             harness.registry.emplace<SpriteAnimation>(sprite);
-    animation.frameLength = 1;
-    animation.frames = frames;
+    animation.resourceName = 1;
 
     harness.testSystemFrame(AnimateSprite);
     harness.stats.advanceTime(50);
@@ -120,15 +120,14 @@ TEST_CASE("AnimateSprite will skip frames if enough time passes between calls",
     harness.registry.emplace<Sprite>(sprite);
     SpriteClip &clip =
             harness.registry.emplace<SpriteClip>(sprite, Adagio::RectF{1, 2, 3, 4});
-    AnimationFrame frames[] = {
+    Adagio::SpriteAnimationFrame frames[] = {
             {1,   Adagio::RectI{5, 6, 7, 8}},
             {1,   Adagio::RectI{9, 10, 11, 12}},
             {100, Adagio::RectI{0xff, 0xff, 0xff, 0xff}},
     };
+    harness.gameServices.resources.animationLibrary->createAnimation(1, 3, frames);
     SpriteAnimation &animation =
-            harness.registry.emplace<SpriteAnimation>(sprite);
-    animation.frameLength = 3;
-    animation.frames = frames;
+            harness.registry.emplace<SpriteAnimation>(sprite, 1);
 
     harness.stats.advanceTime(50);
     harness.testSystemFrame(AnimateSprite);
@@ -142,14 +141,13 @@ TEST_CASE("AnimateSprite can loop animations", "[system][AnimateSprite]") {
     auto sprite = harness.registry.create();
     harness.registry.emplace<Sprite>(sprite);
     SpriteClip &clip = harness.registry.emplace<SpriteClip>(sprite);
-    AnimationFrame frames[] = {
+    Adagio::SpriteAnimationFrame frames[] = {
             {1, Adagio::RectI{5, 6, 7, 8}},
             {1, Adagio::RectI{9, 10, 11, 12}},
     };
+    harness.gameServices.resources.animationLibrary->createAnimation(1, 2, frames);
     SpriteAnimation &animation =
-            harness.registry.emplace<SpriteAnimation>(sprite);
-    animation.frameLength = 2;
-    animation.frames = frames;
+            harness.registry.emplace<SpriteAnimation>(sprite, 1);
     animation.loop = true;
 
     harness.stats.advanceTime(1.1);
@@ -167,14 +165,13 @@ TEST_CASE("AnimateSprite will stop animating non-looping animations",
     auto sprite = harness.registry.create();
     harness.registry.emplace<Sprite>(sprite);
     SpriteClip &clip = harness.registry.emplace<SpriteClip>(sprite);
-    AnimationFrame frames[] = {
+    Adagio::SpriteAnimationFrame frames[] = {
             {1, Adagio::RectI{5, 6, 7, 8}},
             {1, Adagio::RectI{9, 10, 11, 12}},
     };
+    harness.gameServices.resources.animationLibrary->createAnimation(1, 2, frames);
     SpriteAnimation &animation =
-            harness.registry.emplace<SpriteAnimation>(sprite);
-    animation.frameLength = 2;
-    animation.frames = frames;
+            harness.registry.emplace<SpriteAnimation>(sprite, 1);
 
     harness.stats.advanceTime(1.5);
     harness.testSystemFrame(AnimateSprite);
@@ -193,14 +190,13 @@ TEST_CASE("AnimateSprite will not process an animation that is marked as done",
     harness.registry.emplace<Sprite>(sprite);
     SpriteClip &clip =
             harness.registry.emplace<SpriteClip>(sprite, Adagio::RectF{1, 2, 3, 4});
-    AnimationFrame frames[] = {
+    Adagio::SpriteAnimationFrame frames[] = {
             {1, Adagio::RectI{5, 6, 7, 8}},
             {1, Adagio::RectI{9, 10, 11, 12}},
     };
+    harness.gameServices.resources.animationLibrary->createAnimation(1, 2, frames);
     SpriteAnimation &animation =
-            harness.registry.emplace<SpriteAnimation>(sprite);
-    animation.frameLength = 2;
-    animation.frames = frames;
+            harness.registry.emplace<SpriteAnimation>(sprite, 1);
     animation.done = true;
 
     harness.stats.advanceTime(1.5);
