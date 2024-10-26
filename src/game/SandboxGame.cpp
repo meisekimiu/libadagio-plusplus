@@ -1,4 +1,5 @@
 #include "SandboxGame.h"
+#include <raylib.h>
 
 SandboxGame::SandboxGame(Adagio::SpriteBatch &sb) : Adagio::Game(sb) {}
 

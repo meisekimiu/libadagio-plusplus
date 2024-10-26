@@ -3,8 +3,8 @@
 MockGraphicsDevice::MockGraphicsDevice() { reset(); }
 
 void MockGraphicsDevice::begin() {
-  drawnObjects.clear();
-  begun = true;
+    drawnObjects.clear();
+    begun = true;
 }
 
 void MockGraphicsDevice::end() { ended = true; }
@@ -14,34 +14,34 @@ bool MockGraphicsDevice::hasBegun() const { return begun; }
 bool MockGraphicsDevice::hasEnded() const { return ended; }
 
 void MockGraphicsDevice::setClearColor(const Adagio::Color &color) {
-  clearColor = color;
+    clearColor = color;
 }
 
 Adagio::SpriteState *MockGraphicsDevice::getDrawnSprite() const {
-  return drawnSprite;
+    return drawnSprite;
 }
 
 Adagio::TextState *MockGraphicsDevice::getDrawnText() const {
-  return drawnText;
+    return drawnText;
 }
 
 std::vector<Adagio::RenderState *> *MockGraphicsDevice::getDrawnObjects() {
-  return &drawnObjects;
+    return &drawnObjects;
 }
 
 Adagio::Color MockGraphicsDevice::getClearColor() const { return clearColor; }
 
 void MockGraphicsDevice::reset() {
-  begun = false;
-  ended = false;
-  drawnText = nullptr;
-  drawnSprite = nullptr;
-  clearColor = {0, 0, 0, 255};
+    begun = false;
+    ended = false;
+    drawnText = nullptr;
+    drawnSprite = nullptr;
+    clearColor = {0, 0, 0, 255};
 
-  for (auto obj : drawnObjects) {
-    delete obj;
-  }
-  drawnObjects.clear();
+    for (auto obj: drawnObjects) {
+        delete obj;
+    }
+    drawnObjects.clear();
 }
 
 void MockGraphicsDevice::drawTexture(Adagio::Texture2D &texture,
@@ -50,34 +50,38 @@ void MockGraphicsDevice::drawTexture(Adagio::Texture2D &texture,
                                      const Adagio::Vector2d &origin,
                                      float rotation,
                                      const Adagio::Color &tint) {
-  auto sprite = new Adagio::SpriteState;
-  sprite->texture = &texture;
-  sprite->source = source;
-  sprite->destination = dest;
-  sprite->origin = origin;
-  sprite->rotation = rotation;
-  sprite->tint = tint;
-  drawnSprite = sprite;
-  drawnObjects.push_back(drawnSprite);
+    auto sprite = new Adagio::SpriteState;
+    sprite->texture = &texture;
+    sprite->source = source;
+    sprite->destination = dest;
+    sprite->origin = origin;
+    sprite->rotation = rotation;
+    sprite->tint = tint;
+    drawnSprite = sprite;
+    drawnObjects.push_back(drawnSprite);
 }
 
 MockGraphicsDevice::~MockGraphicsDevice() { reset(); }
 
-void MockGraphicsDevice::drawText(Font &font, const char *text,
+void MockGraphicsDevice::drawText(const Adagio::Font &font, const char *text,
                                   const Adagio::Vector2d &position,
                                   float fontSize, float spacing,
                                   const Adagio::Color &tint) {
-  auto txt = new Adagio::TextState;
-  txt->font = &font;
-  txt->text = text;
-  txt->position = position;
-  txt->fontSize = fontSize;
-  txt->spacing = spacing;
-  txt->tint = tint;
-  drawnText = txt;
-  drawnObjects.push_back(txt);
+    auto txt = new Adagio::TextState;
+    txt->font = font;
+    txt->text = text;
+    txt->position = position;
+    txt->fontSize = fontSize;
+    txt->spacing = spacing;
+    txt->tint = tint;
+    drawnText = txt;
+    drawnObjects.push_back(txt);
 }
 
 Adagio::AbstractTextureManager *MockGraphicsDevice::getTextureManager() {
-  return nullptr;
+    return nullptr;
+}
+
+Adagio::AbstractFontManager *MockGraphicsDevice::getFontManager() {
+    return nullptr;
 }

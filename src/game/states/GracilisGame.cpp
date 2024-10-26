@@ -15,11 +15,13 @@
 #include "../systems/DetectCollision.h"
 #include "../systems/EnemyEvents.h"
 #include "../components/events/MessageInbox.h"
+#include "../systems/TestTextRenderer.h"
 #include <iostream>
 
 void GracilisGame::init() {
     std::cout << "GracilisGame init" << std::endl;
     registerSystem(AnimateSprite);
+    registerRenderer(TestTextRenderer);
     registerRenderer(RenderSprite);
     registerSystem(ApplyVelocity);
     registerSystem(ShipSystem);
@@ -33,6 +35,7 @@ void GracilisGame::init() {
 void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch,
                                Adagio::RenderingServices &services) {
     spriteBatch.setClearColor({0, 0, 0, 255});
+    services.fontManager->load("assets/liberation-mono-16.fnt");
     shipTex = services.textureManager->load("assets/ship.png");
     wallopTex = services.textureManager->load("assets/wallop.png");
     auto spinnyTex = services.textureManager->load("assets/spinny.png");

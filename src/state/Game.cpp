@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include <raylib.h>
 #include <utility>
 
 namespace Adagio {

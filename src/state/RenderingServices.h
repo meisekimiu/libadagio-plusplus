@@ -12,6 +12,7 @@ namespace Adagio {
         AbstractTextureManager *textureManager;
         const GameStats *gameStats;
         SpriteAnimationLibrary *animationLibrary{nullptr};
+        AbstractFontManager *fontManager;
     };
 } // namespace Adagio
 

@@ -47,7 +47,8 @@ namespace Adagio {
         SpriteAnimationLibrary animationLibrary;
 
         RenderingServices renderingServices{
-                &spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this, &animationLibrary};
+                &spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this, &animationLibrary,
+                spriteBatch.getGraphicsDevice()->getFontManager()};
 
         GameServices gameServices{
                 &messageDispatchService, this,
