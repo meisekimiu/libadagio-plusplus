@@ -7,36 +7,45 @@
 #include "Stream.h"
 
 namespace Adagio {
-template <class SampleType, class StreamType> class AudioLibrary {
-public:
-  explicit AudioLibrary(AssetLoader<SampleType, AudioMetadata> *sampleLoader,
-                        AssetLoader<StreamType, AudioMetadata> *streamLoader)
-      : sampleLibrary(sampleLoader), streamLibrary(streamLoader) {}
+    template<class SampleType, class StreamType>
+    class AudioLibrary {
+    public:
+        explicit AudioLibrary(AssetLoader<SampleType, AudioMetadata> *sampleLoader,
+                              AssetLoader<StreamType, AudioMetadata> *streamLoader)
+                : sampleLibrary(sampleLoader), streamLibrary(streamLoader) {}
 
-  Sample loadSample(const std::string &resource) {
-    return Sample(sampleLibrary.load(resource));
-  }
+        Sample loadSample(const std::string &resource) {
+            return Sample(sampleLibrary.load(resource));
+        }
 
-  SampleType useSample(const Sample &sample) {
-    return sampleLibrary.useResource(sample);
-  }
+        SampleType useSample(const Sample &sample) {
+            return sampleLibrary.useResource(sample);
+        }
 
-  Stream loadStream(const std::string &resource) {
-    return Stream(streamLibrary.load(resource));
-  }
+        Sample getSample(std::uint32_t name) {
+            return Sample(sampleLibrary.getResource(name));
+        }
 
-  StreamType useStream(const Stream &stream) {
-    return streamLibrary.useResource(stream);
-  }
+        Stream loadStream(const std::string &resource) {
+            return Stream(streamLibrary.load(resource));
+        }
 
-  void unload(Sample &sample) { sampleLibrary.unload(sample); }
+        StreamType useStream(const Stream &stream) {
+            return streamLibrary.useResource(stream);
+        }
 
-  void unload(Stream &stream) { streamLibrary.unload(stream); }
+        Stream getStream(std::uint32_t name) {
+            return Stream(streamLibrary.getResource(name));
+        }
 
-private:
-  ResourceLibrary<SampleType, AudioMetadata, AudioHandle> sampleLibrary;
-  ResourceLibrary<StreamType, AudioMetadata, AudioHandle> streamLibrary;
-};
+        void unload(Sample &sample) { sampleLibrary.unload(sample); }
+
+        void unload(Stream &stream) { streamLibrary.unload(stream); }
+
+    private:
+        ResourceLibrary<SampleType, AudioMetadata, AudioHandle> sampleLibrary;
+        ResourceLibrary<StreamType, AudioMetadata, AudioHandle> streamLibrary;
+    };
 } // namespace Adagio
 
 #endif // GL_ADAGIO_AUDIOLIBRARY_H
