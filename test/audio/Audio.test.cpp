@@ -74,7 +74,7 @@ public:
         playingSoundData.emplace_back();
         return playingSoundData.size() - 1;
     }
-
+    
     void resetPlayingSounds() {
         playingSoundData.clear();
     }

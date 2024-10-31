@@ -1,12 +1,9 @@
 #include "SoloudAudioDevice.h"
+#include <iostream>
 
-SoloudAudioDevice::SoloudAudioDevice() : Adagio::AudioDevice<SoLoud::Wav, SoLoud::WavStream>(&sampleLoader,
-                                                                                             &streamLoader) {
+SoloudAudioDevice::SoloudAudioDevice(SoLoud::Soloud &soloud) : Adagio::AudioDevice<SoLoud::Wav, SoLoud::WavStream>(
+        &sampleLoader, &streamLoader), soloud(soloud) {
     soloud.init();
-}
-
-SoloudAudioDevice::~SoloudAudioDevice() {
-    soloud.deinit();
 }
 
 Adagio::PlayingSoundHandle SoloudAudioDevice::playSample(const Adagio::Sample &sample) {

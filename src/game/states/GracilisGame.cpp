@@ -88,4 +88,5 @@ void GracilisGame::unloadContent(Adagio::RenderingServices &services) {
     std::cout << "GracilisGame quit" << std::endl;
     services.textureManager->unload(shipTex);
     services.textureManager->unload(wallopTex);
+    services.fontManager->unload(services.fontManager->getFont("assets/liberation-mono-16.fnt"_hs));
 }
