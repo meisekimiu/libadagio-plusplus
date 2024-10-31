@@ -3,7 +3,7 @@
 
 #include "../../audio/AudioMetadata.h"
 #include "../../resource/PointerSafeAssetLoader.h"
-#include <soloud/soloud_wavstream.h>
+#include <soloud_wavstream.h>
 
 class SoloudStreamLoader : public Adagio::PointerSafeAssetLoader<SoLoud::WavStream, Adagio::AudioMetadata> {
     Adagio::AudioMetadata load(const char *resource, SoLoud::WavStream *stream) override;

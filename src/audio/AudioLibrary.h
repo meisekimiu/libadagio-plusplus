@@ -22,7 +22,7 @@ namespace Adagio {
             return Sample(sampleLibrary.load(resource));
         }
 
-        SampleType &useSample(const Sample &sample) {
+        virtual SampleType &useSample(const Sample &sample) {
             return sampleLibrary.useResource(sample);
         }
 
@@ -34,7 +34,7 @@ namespace Adagio {
             return Stream(streamLibrary.load(resource));
         }
 
-        StreamType &useStream(const Stream &stream) {
+        virtual StreamType &useStream(const Stream &stream) {
             return streamLibrary.useResource(stream);
         }
 

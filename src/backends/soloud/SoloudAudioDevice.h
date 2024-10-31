@@ -10,10 +10,8 @@
 
 class SoloudAudioDevice : public Adagio::AudioDevice<SoLoud::Wav, SoLoud::WavStream> {
 public:
-    SoloudAudioDevice();
-
-    ~SoloudAudioDevice();
-
+    explicit SoloudAudioDevice(SoLoud::Soloud &soloud);
+    
     Adagio::PlayingSoundHandle
     playSample(const Adagio::Sample &sample) override;
 
@@ -27,7 +25,7 @@ public:
     void setPlayingVolume(Adagio::PlayingSoundHandle handle, float volume) override;
 
 private:
-    SoLoud::Soloud soloud;
+    SoLoud::Soloud &soloud;
     SoloudSampleLoader sampleLoader;
     SoloudStreamLoader streamLoader;
 };

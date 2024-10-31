@@ -22,4 +22,6 @@ void SandboxGame::loadContent() {
     // load game statez
 }
 
-void SandboxGame::cleanup() { CloseWindow(); }
+void SandboxGame::cleanup() {
+    CloseWindow();
+}

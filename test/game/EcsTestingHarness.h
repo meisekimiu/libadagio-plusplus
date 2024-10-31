@@ -11,6 +11,7 @@
 #include "entt/entt.hpp"
 #include "harness/EcsMockGraphicsDevice.h"
 #include "harness/MockGameStats.h"
+#include "harness/EcsMockAudioDevice.h"
 
 class EcsTestingHarness {
 public:
@@ -24,6 +25,9 @@ public:
     Adagio::MessageDispatchService messageService;
     Adagio::InputService input;
     Adagio::SpriteAnimationLibrary animationLibrary;
+    MockFontLibrary fontLibrary;
+    EcsMockAudioDevice audioDevice;
+    Adagio::AudioService audioService{&audioDevice};
     MockInputs mockInputs;
 
     EcsTestingHarness();

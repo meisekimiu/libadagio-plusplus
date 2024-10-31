@@ -19,7 +19,7 @@ namespace Adagio {
         AbstractAudioLibrary &getAudioLibrary() const;
 
         void setAudioDevice(SoundPlayerDevice *device);
-
+        
     private:
         SoundPlayerDevice *audioDevice;
     };

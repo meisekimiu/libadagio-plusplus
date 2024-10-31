@@ -9,7 +9,9 @@ EcsTestingHarness::EcsTestingHarness() {
     gameServices.resources.textureManager = spriteBatch.getGraphicsDevice()->getTextureManager();
     gameServices.resources.animationLibrary = &animationLibrary;
     gameServices.input = &input;
-    renderingServices = {&spriteBatch, graphicsDevice.getTextureManager(), &stats, &animationLibrary};
+    gameServices.audio = &audioService;
+    renderingServices = {&spriteBatch, graphicsDevice.getTextureManager(), &stats, &animationLibrary, &fontLibrary,
+                         &audioService};
     stateMachine = new Adagio::StateMachine(&spriteBatch, &renderingServices);
     registry.ctx().emplace<Adagio::MessageDispatchService *>(&messageService);
 }
