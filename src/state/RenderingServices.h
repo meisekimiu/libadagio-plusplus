@@ -5,6 +5,7 @@
 #include "../graphics/AbstractTextureManager.h"
 #include "../graphics/SpriteBatch.h"
 #include "GameStats.h"
+#include "../audio/AudioService.h"
 
 namespace Adagio {
     struct RenderingServices {
@@ -13,6 +14,7 @@ namespace Adagio {
         const GameStats *gameStats;
         SpriteAnimationLibrary *animationLibrary{nullptr};
         AbstractFontManager *fontManager;
+        AudioService *audioService{nullptr};
     };
 } // namespace Adagio
 

@@ -1,36 +1,27 @@
 #ifndef GL_ADAGIO_AUDIOSERVICE_H
 #define GL_ADAGIO_AUDIOSERVICE_H
 
-#include "../resource/ResourceLibrary.h"
-#include "AudioDevice.h"
+#include "SoundPlayerDevice.h"
 #include "AudioMetadata.h"
 #include "PlayingSound.h"
+#include "AbstractAudioLibrary.h"
 
 namespace Adagio {
-    typedef unsigned int AudioHandle;
 
-    template<class SampleType, class StreamType>
     class AudioService {
     public:
-        explicit AudioService(AudioDevice<SampleType, StreamType> *audioPlayer,
-                              AudioLibrary<SampleType, StreamType> *audioLibrary) {
-            audioDevice = audioPlayer;
-            this->audioLibrary = audioLibrary;
-        }
+        explicit AudioService(SoundPlayerDevice *audioPlayer);
 
-        PlayingSound play(Sample sample) {
-            PlayingSoundHandle handle = audioDevice->playSample(sample, *audioLibrary);
-            return PlayingSound{handle, audioDevice};
-        }
+        PlayingSound play(Sample sample);
 
-        PlayingSound play(Stream stream) {
-            PlayingSoundHandle handle = audioDevice->playStream(stream, *audioLibrary);
-            return PlayingSound{handle, audioDevice};
-        }
+        PlayingSound play(Stream stream);
+
+        AbstractAudioLibrary &getAudioLibrary() const;
+
+        void setAudioDevice(SoundPlayerDevice *device);
 
     private:
-        AudioDevice<SampleType, StreamType> *audioDevice;
-        AudioLibrary<SampleType, StreamType> *audioLibrary;
+        SoundPlayerDevice *audioDevice;
     };
 } // namespace Adagio
 

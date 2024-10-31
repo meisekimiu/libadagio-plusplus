@@ -8,6 +8,7 @@
 #include "backends/raylib/RaylibGamepadHandler.h"
 #include "backends/raylib/RaylibKeyboardHandler.h"
 #include "backends/raylib/RaylibMouseHandler.h"
+#include "backends/soloud/SoloudAudioDevice.h"
 
 
 int main() {
@@ -16,7 +17,9 @@ int main() {
     RaylibKeyboardHandler keyboardHandler;
     RaylibMouseHandler mouseHandler;
     Adagio::SpriteBatch spriteBatch(&graphicsDevice);
+    SoloudAudioDevice audioDevice;
     SandboxGame game(spriteBatch);
+    game.audio.setAudioDevice(&audioDevice);
     game.input.addHandler(&gamepadHandler);
     game.input.addHandler(&keyboardHandler);
     game.input.addHandler(&mouseHandler);

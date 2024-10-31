@@ -2,6 +2,7 @@
 #define GL_ADAGIO_GAMESERVICES_H
 
 #include "../animation/SpriteAnimationLibrary.h"
+#include "../audio/AudioService.h"
 #include "../input/InputService.h"
 #include "../event/MessageDispatchService.h"
 #include "../graphics/AbstractTextureManager.h"
@@ -18,6 +19,7 @@ namespace Adagio {
         GameStats *stats{nullptr};
         ResourceLibraryCollection resources;
         const InputService *input{nullptr};
+        Adagio::AudioService *audio{nullptr};
     };
 }
 

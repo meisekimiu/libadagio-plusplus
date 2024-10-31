@@ -80,6 +80,8 @@ void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch,
             {0.083333, Adagio::RectI{56 * 3, 0, 56, 89}},
     };
     services.animationLibrary->createAnimation("SHIP"_hs, 4, shipFrames);
+
+    services.audioService->getAudioLibrary().loadSample("assets/relax.wav");
 }
 
 void GracilisGame::unloadContent(Adagio::RenderingServices &services) {

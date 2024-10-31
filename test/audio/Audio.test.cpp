@@ -16,6 +16,31 @@ struct PlayingSoundData {
     bool loop{false};
 };
 
+
+struct TestingSampleLoader
+        : public Adagio::PointerSafeAssetLoader<TestingSample, Adagio::AudioMetadata> {
+    bool unloaded{false};
+
+    Adagio::AudioMetadata load(const char *resource, TestingSample *sample) override {
+        sample->filename = resource;
+        return Adagio::AudioMetadata{1.0};
+    }
+
+    void unload(TestingSample *asset) override { unloaded = true; }
+};
+
+struct TestingStreamLoader
+        : public Adagio::PointerSafeAssetLoader<TestingStream, Adagio::AudioMetadata> {
+    bool unloaded{false};
+
+    Adagio::AudioMetadata load(const char *resource, TestingStream *stream) override {
+        stream->filename = resource;
+        return Adagio::AudioMetadata{1.0};
+    }
+
+    void unload(TestingStream *asset) override { unloaded = true; }
+};
+
 class TestingAudioDevice
         : public Adagio::AudioDevice<TestingSample, TestingStream> {
 public:
@@ -23,9 +48,10 @@ public:
     std::vector<std::string> playedStreams;
     std::vector<PlayingSoundData> playingSoundData;
 
-    Adagio::PlayingSoundHandle playSample(const Adagio::Sample &sample,
-                                          Adagio::AudioLibrary<TestingSample, TestingStream>
-                                          &audioLibrary) override {
+    explicit TestingAudioDevice(TestingSampleLoader *sampleLoader, TestingStreamLoader *streamLoader)
+            : Adagio::AudioDevice<TestingSample, TestingStream>(sampleLoader, streamLoader) {}
+
+    Adagio::PlayingSoundHandle playSample(const Adagio::Sample &sample) override {
         playedSamples.push_back(audioLibrary.useSample(sample).filename);
         playingSoundData.emplace_back();
         return playingSoundData.size() - 1;
@@ -43,9 +69,7 @@ public:
         playingSoundData[handle].loop = loop;
     }
 
-    Adagio::PlayingSoundHandle playStream(const Adagio::Stream &stream,
-                                          Adagio::AudioLibrary<TestingSample, TestingStream>
-                                          &audioLibrary) override {
+    Adagio::PlayingSoundHandle playStream(const Adagio::Stream &stream) override {
         playedStreams.push_back(audioLibrary.useStream(stream).filename);
         playingSoundData.emplace_back();
         return playingSoundData.size() - 1;
@@ -54,30 +78,6 @@ public:
     void resetPlayingSounds() {
         playingSoundData.clear();
     }
-};
-
-struct TestingSampleLoader
-        : public Adagio::AssetLoader<TestingSample, Adagio::AudioMetadata> {
-    bool unloaded{false};
-
-    std::pair<TestingSample, Adagio::AudioMetadata>
-    load(const char *resource) override {
-        return std::make_pair(TestingSample{resource}, Adagio::AudioMetadata{1.0});
-    }
-
-    void unload(TestingSample asset) override { unloaded = true; }
-};
-
-struct TestingStreamLoader
-        : public Adagio::AssetLoader<TestingStream, Adagio::AudioMetadata> {
-    bool unloaded{false};
-
-    std::pair<TestingStream, Adagio::AudioMetadata>
-    load(const char *resource) override {
-        return std::make_pair(TestingStream{resource}, Adagio::AudioMetadata{1.0});
-    }
-
-    void unload(TestingStream asset) override { unloaded = true; }
 };
 
 TEST_CASE("PlayingSound nulls", "[audio]") {
@@ -89,13 +89,11 @@ TEST_CASE("PlayingSound nulls", "[audio]") {
 }
 
 TEST_CASE("AudioService", "[audio]") {
-    TestingAudioDevice audioDevice;
     TestingSampleLoader sampleLoader;
     TestingStreamLoader streamLoader;
-    Adagio::AudioLibrary<TestingSample, TestingStream> audioLibrary(
-            &sampleLoader, &streamLoader);
-    Adagio::AudioService<TestingSample, TestingStream> service(&audioDevice,
-                                                               &audioLibrary);
+    TestingAudioDevice audioDevice(&sampleLoader, &streamLoader);
+    Adagio::AudioService service(&audioDevice);
+    Adagio::AbstractAudioLibrary &audioLibrary = service.getAudioLibrary();
 
     SECTION("AudioLibrary can load in a sample") {
         REQUIRE(audioDevice.playedSamples.empty());

@@ -65,8 +65,8 @@ namespace Adagio {
             }
         }
 
-        InternalAssetType useResource(const ResourceType &asset) const {
-            ResourceWithSecret internalTexture = library[asset.handle - 1];
+        InternalAssetType &useResource(const ResourceType &asset) {
+            ResourceWithSecret &internalTexture = library[asset.handle - 1];
             if (asset.getSecretId() != internalTexture.secret) {
                 throw std::invalid_argument("Unloaded texture used.");
             }

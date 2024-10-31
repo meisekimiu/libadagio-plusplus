@@ -18,7 +18,7 @@ void FontManager<T>::unload(Font font) {
 }
 
 template<typename T>
-T FontManager<T>::useFont(Font font) const {
+T FontManager<T>::useFont(Font font) {
     return library.useResource(font);
 }
 

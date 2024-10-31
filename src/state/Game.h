@@ -14,6 +14,7 @@ namespace Adagio {
         SpriteBatch spriteBatch;
         InputService input;
         StateMachine stateMachine = StateMachine(&spriteBatch, &renderingServices);
+        AudioService audio{nullptr};
 
         explicit Game(SpriteBatch &sb);
 
@@ -48,11 +49,11 @@ namespace Adagio {
 
         RenderingServices renderingServices{
                 &spriteBatch, spriteBatch.getGraphicsDevice()->getTextureManager(), this, &animationLibrary,
-                spriteBatch.getGraphicsDevice()->getFontManager()};
+                spriteBatch.getGraphicsDevice()->getFontManager(), &audio};
 
         GameServices gameServices{
                 &messageDispatchService, this,
-                {spriteBatch.getGraphicsDevice()->getTextureManager(), &animationLibrary}, &input
+                {spriteBatch.getGraphicsDevice()->getTextureManager(), &animationLibrary}, &input, &audio
         };
     };
 } // namespace Adagio

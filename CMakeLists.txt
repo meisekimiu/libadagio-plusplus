@@ -6,7 +6,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp" "${CMAKE_SOURCE_DIR}/src/literals/*.cpp" "${CMAKE_SOURCE_DIR}/src/input/*.cpp" "${CMAKE_SOURCE_DIR}/src/math/*.cpp" "${CMAKE_SOURCE_DIR}/src/event/*.cpp"
         "${CMAKE_SOURCE_DIR}/src/animation/*.cpp"
         "${CMAKE_SOURCE_DIR}/src/audio/*.cpp" "${CMAKE_SOURCE_DIR}/src/graphics/*.cpp"
-        "${CMAKE_SOURCE_DIR}/src/state/*.cpp" "${CMAKE_SOURCE_DIR}/src/game/systems/*.cpp"
+        "${CMAKE_SOURCE_DIR}/src/state/*.cpp" "${CMAKE_SOURCE_DIR}/src/backends/**/*.cpp"
+        "${CMAKE_SOURCE_DIR}/src/game/systems/*.cpp"
         "${CMAKE_SOURCE_DIR}/src/game/components/**/*.cpp"
         "${CMAKE_SOURCE_DIR}/src/game/states/*.cpp" "${CMAKE_SOURCE_DIR}/src/game/*.cpp")
 file(GLOB_RECURSE TESTS
@@ -41,13 +42,26 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
+FetchContent_Declare(
+        SDL2
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+        GIT_TAG release-2.30.3
+        GIT_PROGRESS TRUE
+        OVERRIDE_FIND_PACKAGE
+)
+FetchContent_MakeAvailable(SDL2)
+set(BUILD_SHARED_LIBS FALSE)
+
+include_directories(${SDL2_SOURCE_DIR}/include)
+include_directories(third_party/soloud/include)
+add_subdirectory(third_party/soloud/contrib)
 add_subdirectory(third_party/entt)
 add_subdirectory(third_party/Catch2)
 add_executable(adagio_test ${TESTS})
 target_link_libraries(adagio_test PRIVATE Catch2::Catch2 raylib EnTT::EnTT)
 
 add_executable(adagio ${SOURCES})
-target_link_libraries(adagio raylib EnTT::EnTT)
+target_link_libraries(adagio raylib EnTT::EnTT soloud SDL2)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/third_party/Catch2/contrib)
 include(CTest)

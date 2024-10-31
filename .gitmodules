@@ -7,3 +7,7 @@
     path = third_party/entt
     url = https://github.com/skypjack/entt
     branch = v3.13.x
+
+[submodule "third_party/soloud"]
+    path = third_party/soloud
+    url = https://github.com/jarikomppa/soloud.git

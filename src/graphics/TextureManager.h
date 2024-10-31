@@ -18,7 +18,7 @@ namespace Adagio {
 
         void unload(Texture2D texture) override;
 
-        T useTexture(Texture2D texture) const;
+        T useTexture(Texture2D texture);
 
         [[nodiscard]] Texture2D getTexture(std::uint32_t textureName) const override;
 

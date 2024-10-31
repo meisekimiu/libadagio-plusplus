@@ -16,7 +16,7 @@ namespace Adagio {
 
         void unload(Font font) override;
 
-        T useFont(Font font) const;
+        T useFont(Font font);
 
         [[nodiscard]] Font getFont(std::uint32_t name) const override;
 

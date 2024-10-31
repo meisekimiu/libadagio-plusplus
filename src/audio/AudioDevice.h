@@ -5,19 +5,30 @@
 #include "Sample.h"
 #include "Stream.h"
 #include "SoundModifierDevice.h"
+#include "SoundPlayerDevice.h"
 
 namespace Adagio {
     template<class SampleType, class StreamType>
-    class AudioDevice : public SoundModifierDevice {
+    class AudioDevice : public SoundPlayerDevice {
     public:
-        virtual PlayingSoundHandle
-        playSample(const Sample &sample,
-                   AudioLibrary<SampleType, StreamType> &audioLibrary) = 0;
+        AudioDevice(PointerSafeAssetLoader<SampleType, AudioMetadata> *sampleLoader,
+                    PointerSafeAssetLoader<StreamType, AudioMetadata> *streamLoader);
 
-        virtual PlayingSoundHandle
-        playStream(const Stream &stream,
-                   AudioLibrary<SampleType, StreamType> &audioLibrary) = 0;
+        AbstractAudioLibrary &getAudioLibrary() override;
+
+    protected:
+        AudioLibrary<SampleType, StreamType> audioLibrary;
     };
+
+    template<class SampleType, class StreamType>
+    AudioDevice<SampleType, StreamType>::AudioDevice(PointerSafeAssetLoader<SampleType, AudioMetadata> *sampleLoader,
+                                                     PointerSafeAssetLoader<StreamType, AudioMetadata> *streamLoader)
+            : audioLibrary(*sampleLoader, *streamLoader) {}
+
+    template<class SampleType, class StreamType>
+    AbstractAudioLibrary &AudioDevice<SampleType, StreamType>::getAudioLibrary() {
+        return audioLibrary;
+    }
 } // namespace Adagio
 
 #endif // GL_ADAGIO_AUDIODEVICE_H

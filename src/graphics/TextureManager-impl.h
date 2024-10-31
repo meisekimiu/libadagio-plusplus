@@ -19,7 +19,7 @@ namespace Adagio {
     }
 
     template<typename T>
-    T TextureManager<T>::useTexture(Adagio::Texture2D texture) const {
+    T TextureManager<T>::useTexture(Adagio::Texture2D texture) {
         return library.useResource(texture);
     }
 
