@@ -61,7 +61,14 @@ add_executable(adagio_test ${TESTS})
 target_link_libraries(adagio_test PRIVATE Catch2::Catch2 raylib EnTT::EnTT)
 
 add_executable(adagio ${SOURCES})
-target_link_libraries(adagio raylib EnTT::EnTT soloud SDL2)
+if (EMSCRIPTEN)
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+    target_compile_options(adagio PUBLIC "-fexceptions")
+    set_target_properties(adagio
+            PROPERTIES SUFFIX ".html"
+            LINK_FLAGS " --bind -fexceptions -s STACK_SIZE=4194304 -s WASM=1 -s MIN_WEBGL_VERSION=1 -s ABORT_ON_WASM_EXCEPTIONS=0 -g2 -s USE_GLFW=3 -s ASYNCIFY -s USE_SDL=0 -O3 --embed-file \"${CMAKE_SOURCE_DIR}/assets@assets\"")
+endif()
+target_link_libraries(adagio soloud raylib EnTT::EnTT SDL2::SDL2)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/third_party/Catch2/contrib)
 include(CTest)
