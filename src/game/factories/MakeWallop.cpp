@@ -14,14 +14,14 @@ entt::entity MakeWallop(const Adagio::Vector2d &position, double direction, entt
                         const Adagio::AbstractTextureManager *textureManager) {
     const auto wallop = registry.create();
     registry.emplace<UserProjectile>(wallop);
-    registry.emplace<Velocity>(wallop, direction, 6);
+    registry.emplace<Velocity>(wallop, direction, 6.0);
     registry.emplace<Position>(wallop, position);
     registry.emplace<Sprite>(wallop, textureManager->getTexture("assets/wallop.png"_hs),
                              Adagio::Vector2d{0, 0}, 10);
     registry.emplace<SpriteClip>(wallop);
     registry.emplace<SpriteScale>(wallop, Adagio::Vector2f{0.5, 0.5});
     registry.emplace<MessageInbox>(wallop);
-    registry.emplace<CollisionRadius>(wallop, Adagio::Vector2d{16, 16}, 5);
+    registry.emplace<CollisionRadius>(wallop, Adagio::Vector2d{16, 16}, 5.0);
     auto &animation = registry.emplace<SpriteAnimation>(wallop, "WALLOP"_hs);
     animation.loop = true;
     return wallop;

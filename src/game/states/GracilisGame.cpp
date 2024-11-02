@@ -56,12 +56,12 @@ void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch,
     };
     services.animationLibrary->createAnimation("SPINNY"_hs, 4, spinnyFrames);
     const auto spinny = registry.create();
-    registry.emplace<Enemy>(spinny, 5);
+    registry.emplace<Enemy>(spinny, static_cast<std::uint8_t>(5));
     registry.emplace<MessageInbox>(spinny);
     registry.emplace<Position>(spinny, Adagio::Vector2d{320, 100});
     registry.emplace<Sprite>(spinny, spinnyTex);
     registry.emplace<SpriteClip>(spinny);
-    registry.emplace<CollisionRadius>(spinny, Adagio::Vector2d{59.0 / 2, 58.0 / 2}, 30);
+    registry.emplace<CollisionRadius>(spinny, Adagio::Vector2d{59.0 / 2, 58.0 / 2}, 30.0);
     SpriteAnimation &spinnyAnimation = registry.emplace<SpriteAnimation>(spinny, "SPINNY"_hs);
     spinnyAnimation.loop = true;
 
@@ -85,7 +85,6 @@ void GracilisGame::loadContent(Adagio::SpriteBatch &spriteBatch,
 }
 
 void GracilisGame::unloadContent(Adagio::RenderingServices &services) {
-    std::cout << "GracilisGame quit" << std::endl;
     services.textureManager->unload(shipTex);
     services.textureManager->unload(wallopTex);
     services.fontManager->unload(services.fontManager->getFont("assets/liberation-mono-16.fnt"_hs));
