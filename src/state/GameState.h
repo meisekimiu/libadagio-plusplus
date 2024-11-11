@@ -14,6 +14,7 @@ namespace Adagio {
     class GameState {
     public:
         bool transparent{false};
+        bool memoryManaged{true};
         
         virtual void init();
 
@@ -22,7 +23,7 @@ namespace Adagio {
 
         virtual void pause();
 
-        virtual void resume();
+        virtual void resume(RenderingServices &services);
 
         virtual void update(GameServices &stats, StateMachine *gameStates);
 

@@ -10,6 +10,8 @@ namespace Adagio {
         virtual void setPlayingPan(PlayingSoundHandle handle, float pan) = 0;
 
         virtual void setLooping(PlayingSoundHandle handle, bool loop) = 0;
+
+        virtual void stop(PlayingSoundHandle handle) = 0;
     };
 }
 

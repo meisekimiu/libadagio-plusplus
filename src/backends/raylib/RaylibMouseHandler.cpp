@@ -15,9 +15,9 @@ Adagio::Vector2i RaylibMouseHandler::getMouseCoords() {
 }
 
 bool RaylibMouseHandler::isMouseButtonUp(Adagio::MouseButton button) {
-    return IsMouseButtonDown(button);
+    return IsMouseButtonUp(button);
 }
 
 bool RaylibMouseHandler::isMouseButtonDown(Adagio::MouseButton button) {
-    return IsMouseButtonUp(button);
+    return IsMouseButtonDown(button);
 }

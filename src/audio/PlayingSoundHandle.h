@@ -4,6 +4,6 @@
 #include <cstdint>
 
 namespace Adagio {
-    typedef std::uint16_t PlayingSoundHandle;
+    typedef std::uint32_t PlayingSoundHandle;
 }
 #endif //GL_ADAGIO_PLAYINGSOUNDHANDLE_H

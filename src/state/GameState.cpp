@@ -9,7 +9,7 @@ namespace Adagio {
 
     void GameState::pause() {}
 
-    void GameState::resume() {}
+    void GameState::resume(RenderingServices &services) {}
 
     void GameState::draw(SpriteBatch &spriteBatch, RenderingServices &services) {}
 

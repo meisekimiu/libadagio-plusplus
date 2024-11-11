@@ -38,7 +38,7 @@ namespace Adagio {
     void StateMachine::popState() {
         popFinalState();
         if (!states.empty()) {
-            states.back()->resume();
+            states.back()->resume(*services);
         }
     }
 
@@ -62,6 +62,9 @@ namespace Adagio {
             finalState->unloadContent(*services);
             finalState->cleanup();
             states.pop_back();
+            if (!finalState->memoryManaged) {
+              delete finalState;
+            }
         }
     }
 

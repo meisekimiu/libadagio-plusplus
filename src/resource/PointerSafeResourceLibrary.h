@@ -28,8 +28,12 @@ namespace Adagio {
             try {
                 return getResource(resourceName);
             } catch (...) {
-                auto it = std::find(allocatedSlots.begin(), allocatedSlots.end(), false);
-                unsigned int offset = it - allocatedSlots.begin();
+                unsigned int offset;
+                for (offset = 0; offset < allocatedSlots.capacity(); offset++) {
+                  if (!allocatedSlots[offset]) {
+                    break;
+                  }
+                }
                 auto &asset = assets[offset];
                 asset.secret = nextSecret++;
                 asset.metadata = loader.load(load.c_str(), &asset.asset);
