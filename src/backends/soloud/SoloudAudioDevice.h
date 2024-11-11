@@ -2,33 +2,36 @@
 #define GL_ADAGIO_SOLOUDAUDIODEVICE_H
 
 #include "../../audio/AudioDevice.h"
-#include "SoloudSampleLoader.h"
 #include "SoLoudStreamLoader.h"
+#include "SoloudSampleLoader.h"
 #include <soloud.h>
 #include <soloud_wav.h>
 #include <soloud_wavstream.h>
 
-class SoloudAudioDevice : public Adagio::AudioDevice<SoLoud::Wav, SoLoud::WavStream> {
+class SoloudAudioDevice
+    : public Adagio::AudioDevice<SoLoud::Wav, SoLoud::WavStream> {
 public:
-    explicit SoloudAudioDevice(SoLoud::Soloud &soloud);
-    
-    Adagio::PlayingSoundHandle
-    playSample(const Adagio::Sample &sample) override;
+  explicit SoloudAudioDevice(SoLoud::Soloud &soloud);
 
-    Adagio::PlayingSoundHandle
-    playStream(const Adagio::Stream &stream) override;
+  Adagio::PlayingSoundHandle playSample(const Adagio::Sample &sample) override;
 
-    void setLooping(Adagio::PlayingSoundHandle handle, bool loop) override;
+  Adagio::PlayingSoundHandle playStream(const Adagio::Stream &stream) override;
 
-    void setPlayingPan(Adagio::PlayingSoundHandle handle, float pan) override;
+  void stopAll() override;
 
-    void setPlayingVolume(Adagio::PlayingSoundHandle handle, float volume) override;
+  void setLooping(Adagio::PlayingSoundHandle handle, bool loop) override;
+
+  void setPlayingPan(Adagio::PlayingSoundHandle handle, float pan) override;
+
+  void setPlayingVolume(Adagio::PlayingSoundHandle handle,
+                        float volume) override;
+
+  void stop(Adagio::PlayingSoundHandle handle) override;
 
 private:
-    SoLoud::Soloud &soloud;
-    SoloudSampleLoader sampleLoader;
-    SoloudStreamLoader streamLoader;
+  SoLoud::Soloud &soloud;
+  SoloudSampleLoader sampleLoader;
+  SoloudStreamLoader streamLoader;
 };
 
-
-#endif //GL_ADAGIO_SOLOUDAUDIODEVICE_H
+#endif // GL_ADAGIO_SOLOUDAUDIODEVICE_H

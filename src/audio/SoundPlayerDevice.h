@@ -13,6 +13,8 @@ namespace Adagio {
 
         virtual PlayingSoundHandle playStream(const Stream &stream) = 0;
 
+        virtual void stopAll() = 0;
+
         virtual AbstractAudioLibrary &getAudioLibrary() = 0;
     };
 }

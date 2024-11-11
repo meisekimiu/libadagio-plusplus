@@ -16,6 +16,8 @@ namespace Adagio {
 
         PlayingSound play(Stream stream);
 
+        void stopAll();
+
         AbstractAudioLibrary &getAudioLibrary() const;
 
         void setAudioDevice(SoundPlayerDevice *device);

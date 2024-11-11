@@ -22,4 +22,8 @@ namespace Adagio {
     void AudioService::setAudioDevice(SoundPlayerDevice *device) {
         audioDevice = device;
     }
-}
+
+    void AudioService::stopAll() {
+        audioDevice->stopAll();
+    }
+    }

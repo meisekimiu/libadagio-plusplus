@@ -5,11 +5,13 @@
 #include "../../resource/PointerSafeAssetLoader.h"
 #include <soloud_wav.h>
 
-class SoloudSampleLoader : public Adagio::PointerSafeAssetLoader<SoLoud::Wav, Adagio::AudioMetadata> {
-    Adagio::AudioMetadata load(const char *resource, SoLoud::Wav *sample) override;
+class SoloudSampleLoader
+    : public Adagio::PointerSafeAssetLoader<SoLoud::Wav,
+                                            Adagio::AudioMetadata> {
+  Adagio::AudioMetadata load(const char *resource,
+                             SoLoud::Wav *sample) override;
 
-    void unload(SoLoud::Wav *asset) override;
+  void unload(SoLoud::Wav *asset) override;
 };
 
-
-#endif //GL_ADAGIO_SOLOUDSAMPLELOADER_H
+#endif // GL_ADAGIO_SOLOUDSAMPLELOADER_H

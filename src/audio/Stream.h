@@ -6,6 +6,8 @@
 
 namespace Adagio {
 struct Stream : public Asset<AudioHandle, AudioMetadata> {
+  Stream();
+
   explicit Stream(Asset<AudioHandle, AudioMetadata> &&asset)
       : Asset<AudioHandle, AudioMetadata>(asset.handle, asset.getSecretId(),
                                           asset.getMetadata()) {}

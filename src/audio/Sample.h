@@ -6,6 +6,8 @@
 
 namespace Adagio {
 struct Sample : public Asset<AudioHandle, AudioMetadata> {
+  Sample();
+
   explicit Sample(const Asset<AudioHandle, AudioMetadata> &&asset)
       : Asset(asset.handle, asset.getSecretId(), asset.getMetadata()) {}
 };
