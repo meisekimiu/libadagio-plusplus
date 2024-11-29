@@ -30,13 +30,13 @@ void ShipSystem(entt::registry &registry, Adagio::GameServices &services,
             ship.velocity.y = inputMagnitude.y * speed;
         }
         if (services.input->actions.hasActionStarted("fire"_hs)) {
-            services.audio->play(services.audio->getAudioLibrary().getSample("assets/relax.wav"_hs));
-            MakeWallop(
-                    Adagio::Vector2{pos.position.x + 27 - 16, pos.position.y},
-                    -M_PI_2,
-                    registry,
-                    services.resources.textureManager
-            );
+//            services.audio->play(services.audio->getAudioLibrary().getSample("assets/relax.wav"_hs));
+//            MakeWallop(
+//                    Adagio::Vector2{pos.position.x + 27 - 16, pos.position.y},
+//                    -M_PI_2,
+//                    registry,
+//                    services.resources.textureManager
+//            );
         }
         ship.velocity = normalizeVelocity(ship.velocity, speed);
         pos.position.x += ship.velocity.x;
