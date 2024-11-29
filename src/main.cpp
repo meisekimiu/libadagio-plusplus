@@ -6,14 +6,17 @@
 #include "state/Runner.h"
 #include <iostream>
 
-#include "backends/raylib/RaylibGraphicsDevice.h"
 #include "backends/raylib/RaylibGamepadHandler.h"
+#include "backends/raylib/RaylibGraphicsDevice.h"
 #include "backends/raylib/RaylibKeyboardHandler.h"
 #include "backends/raylib/RaylibMouseHandler.h"
 #include "backends/soloud/SoloudAudioDevice.h"
 
+#include <stdlib.h>
+#include <ctime>
 
 int main() {
+    srand (static_cast <unsigned> (time(0)));
     SoLoud::Soloud soloud;
     RaylibGraphicsDevice graphicsDevice;
     RaylibGamepadHandler gamepadHandler;
@@ -26,7 +29,7 @@ int main() {
     game.input.addHandler(&gamepadHandler);
     game.input.addHandler(&keyboardHandler);
     game.input.addHandler(&mouseHandler);
-    LeonaTestState leona{};
+//    LeonaTestState leona{};
     GracilisGame state;
     Adagio::Runner runner(&game, dynamic_cast<Adagio::GameState *>(&state));
     runner.run();
