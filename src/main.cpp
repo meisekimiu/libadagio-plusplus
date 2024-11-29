@@ -6,14 +6,20 @@
 #include "state/Runner.h"
 #include <iostream>
 
-#include "backends/raylib/RaylibGraphicsDevice.h"
+#include "game/muffins/MuffinsGame.h"
+
 #include "backends/raylib/RaylibGamepadHandler.h"
+#include "backends/raylib/RaylibGraphicsDevice.h"
 #include "backends/raylib/RaylibKeyboardHandler.h"
 #include "backends/raylib/RaylibMouseHandler.h"
 #include "backends/soloud/SoloudAudioDevice.h"
+#include "game/muffins/states/TitleState.h"
 
+#include <stdlib.h>
+#include <ctime>
 
 int main() {
+    srand (static_cast <unsigned> (time(0)));
     SoLoud::Soloud soloud;
     RaylibGraphicsDevice graphicsDevice;
     RaylibGamepadHandler gamepadHandler;
@@ -21,13 +27,15 @@ int main() {
     RaylibMouseHandler mouseHandler;
     Adagio::SpriteBatch spriteBatch(&graphicsDevice);
     SoloudAudioDevice audioDevice{soloud};
-    SandboxGame game(spriteBatch);
+//    SandboxGame game(spriteBatch);
+    Muffins::MuffinsGame game(spriteBatch);
     game.audio.setAudioDevice(&audioDevice);
     game.input.addHandler(&gamepadHandler);
     game.input.addHandler(&keyboardHandler);
     game.input.addHandler(&mouseHandler);
-    LeonaTestState leona{};
-    GracilisGame state;
+//    LeonaTestState leona{};
+//    GracilisGame state;
+    Muffins::TitleState state;
     Adagio::Runner runner(&game, dynamic_cast<Adagio::GameState *>(&state));
     runner.run();
     soloud.deinit();
